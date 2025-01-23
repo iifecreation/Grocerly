@@ -1,4 +1,19 @@
 {
+  "onboarding": {
+    "one": {
+      "header": "Enjoy one-stop shop for fresh groceries",
+      "descriptions": "From juicy fruits and crisp vegetables to premium meats and pantry staples, we've got everything you need."
+    },
+    "two": {
+      "header": "Your Grocery Delivery Superhero",
+      "descriptions": "Tired of lugging heavy bags home from the grocery store? Let us do the heavy lifting!"
+    },
+    "three": {
+      "header": "Fresh groceries, delivered to your door",
+      "descriptions": "Enjoy the convenience of fresh, high-quality groceries delivered right to your doorstep, whenever you need them."
+    }
+  },
+
   "home": {
     "header": "Welcome To Decove Clone"
   },
