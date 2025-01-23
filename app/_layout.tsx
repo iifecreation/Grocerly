@@ -1,7 +1,6 @@
-import { colorScheme } from 'nativewind';
+import '../global.css';
 import { useInitialAndroidBarSync, useColorScheme } from '../lib/useColorScheme';
 import { NAV_THEME } from '../theme';
-import AuthNavigation from './auth/_layout';
 import MainNavigation from './main/_layout';
 import { ThemeProvider as NavThemeProvider } from '@react-navigation/native';
 
@@ -12,7 +11,7 @@ const Layout = () => {
   return (
     <>
       <NavThemeProvider value={NAV_THEME[colorScheme]}>
-        <AuthNavigation />
+        {/* <AuthNavigation /> */}
         <MainNavigation />
       </NavThemeProvider>
     </>

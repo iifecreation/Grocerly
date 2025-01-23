@@ -1,17 +1,3 @@
-import { useTranslation } from 'react-i18next';
-
-// type Props = {};
-// No text should be used directly. Please use the t from translation to access
-// the text save in the locales file.
-// this is to aid translation of the app
-// export default function index({}: Props) {
-//   const { t } = useTranslation();
-//   return (
-//     <View>
-//       <Text>{t('home.header')}</Text>
-//     </View>
-//   );
-// }
 import { useHeaderHeight } from '@react-navigation/elements';
 import { Icon } from '@roninoss/icons';
 import { FlashList } from '@shopify/flash-list';
@@ -19,8 +5,9 @@ import { cssInterop } from 'nativewind';
 import * as React from 'react';
 import { Linking, useWindowDimensions, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useColorScheme } from '../lib/useColorScheme';
+
 import { Text } from '../components/nativewindui/Text';
+import { useColorScheme } from '../lib/useColorScheme';
 
 cssInterop(FlashList, {
   className: 'style',
