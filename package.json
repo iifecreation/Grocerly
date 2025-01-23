@@ -8,8 +8,9 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "lint": "eslint . --fix",
+    "test": "eslint .",
     "format": "prettier --write .",
-    "prepare": "husky"
+    "prepare": "husky && husky install"
   },
   "dependencies": {
     "@expo/metro-runtime": "~4.0.1",
@@ -23,9 +24,15 @@
   "devDependencies": {
     "@babel/core": "^7.25.2",
     "@types/react": "~18.3.12",
+    "eslint": "^8.57.1",
+    "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-prettier": "^5.2.3",
-    "husky": "^9.1.7",
+    "eslint-plugin-react": "^7.37.4",
+    "eslint-plugin-react-native": "^5.0.0",
+    "husky": "^8.0.0",
     "lint-staged": "^15.4.1",
     "prettier": "^3.4.2",
     "typescript": "^5.3.3"
