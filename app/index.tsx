@@ -8,13 +8,14 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Text } from '../components/nativewindui/Text';
 import { useColorScheme } from '../lib/useColorScheme';
+import { useTranslation } from 'react-i18next';
 
 cssInterop(FlashList, {
   className: 'style',
   contentContainerClassName: 'contentContainerStyle',
 });
 
-export default function Screen() {
+export default function index() {
   return (
     <FlashList
       contentInsetAdjustmentBehavior="automatic"
@@ -29,6 +30,7 @@ export default function Screen() {
     />
   );
 }
+//feat/splash-screen
 
 function ListEmptyComponent() {
   const insets = useSafeAreaInsets();
@@ -37,11 +39,12 @@ function ListEmptyComponent() {
   const { colors } = useColorScheme();
   const height = dimensions.height - headerHeight - insets.bottom - insets.top;
 
+  const { t } = useTranslation();
   return (
-    <View style={{ height }} className="flex-1 items-center justify-center gap-1 px-12">
+    <View style={{ height }} className="flex-1 items-center justify-center gap-1 px-12 ">
       <Icon name="file-plus-outline" size={42} color={colors.grey} />
       <Text variant="title3" className="pb-1 text-center font-semibold">
-        No Components Installed
+        {t('onboarding.one.header')}
       </Text>
       <Text color="tertiary" variant="subhead" className="pb-4 text-center">
         You can install any of the free components from the{' '}
