@@ -12,5 +12,48 @@
       "header": "Fresh groceries, delivered to your door",
       "descriptions": "Enjoy the convenience of fresh, high-quality groceries delivered right to your doorstep, whenever you need them."
     }
+  },
+  "buttons": {
+    "login": "Login",
+    "proceed": "Proceed",
+    "otp": "Verify OTP",
+    "confirm": "Confirm New Password",
+    "processLogin": "Proceed to Login"
+  },
+  "auth": {
+    "login": {
+      "header": "Welcome to Decove!",
+      "descriptions": "Connecting routes, delivering trust",
+      "remember": "Remember me",
+      "forget": "Forget Password ",
+      "account": "Don't have an account?",
+      "sign": "Signup"
+    },
+    "signup": {
+      "header": "Welcome to Decove!",
+      "descriptions": "Connecting routes, delivering trust",
+      "remember": "Remember me",
+      "forget": "Forget Password ",
+      "account": "Already have an account?",
+      "sign": "Signup",
+      "or": "or use"
+    },
+    "reset": {
+      "header": "Reset Your Password",
+      "descriptions": "Please verify your email address, a one time password will be generated and sent to the email provided."
+    },
+    "otp": {
+      "header": "OTP Verification",
+      "descriptions": "Please enter the One-Time Password (OTP) sent to your email address to complete the verification process",
+      "receive": "Didnt Receive OTP? Resend"
+    },
+    "newPassword": {
+      "header": "Create New Password",
+      "descriptions": "Please  secure new password. Ensure it's unique and strong for the safety of your account."
+    },
+    "verifyAccount": {
+      "header": "Verify your account",
+      "descriptions": "Please enter the One-Time Password (OTP) sent to your email address to complete the verification process"
+    }
   }
 }

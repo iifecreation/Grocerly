@@ -3,7 +3,7 @@ import axiosInstance from './config';
 import { showMessage } from 'react-native-flash-message';
 import { NOTIFICATIONS_ACTION, NOTIFICATIONS_RESPONSE } from '@/contants';
 
-export const loginAPI = async (data) => {
+export const loginAPI = async (data: any) => {
   try {
     const response = await axiosInstance.post(API_ROUTES.LOGIN, data);
     showMessage({
