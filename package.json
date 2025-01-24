@@ -7,7 +7,7 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
-    "lint": "eslint . --fix",
+    "lint": "expo lint",
     "test": "eslint .",
     "format": "prettier --write .",
     "prepare": "husky && husky install"
@@ -68,11 +68,22 @@
     "typescript": "^5.3.3"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
+    "*/**/*.{js,jsx,ts,tsx}": [
       "node remove_console.js",
       "prettier --write",
-      "eslint --fix"
-    ]
+      "eslint --fix",
+      "eslint",
+      "eslint --max-warnings 0 ."
+    ],
+    "*/**/*.{json,css,md}": [
+      "prettier --write"
+    ],
+    "*.js": "eslint --cache --fix"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "private": true
 }
