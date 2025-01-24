@@ -1,3 +1,3 @@
 export enum API_ROUTES {
-  LOGIN = '/login',
+  LOGIN = '/auth/user/login',
 }

@@ -1,6 +1,5 @@
+import { APP_ROUTES } from '@/contants/app-routes';
 import { Stack } from 'expo-router';
-import { APP_ROUTES } from '../../contants/app-routes';
-import { Text } from '../../components/nativewindui/Text';
 
 /**
  * note: All route must declared in the app-routes and reference here.
