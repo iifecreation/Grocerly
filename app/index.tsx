@@ -1,6 +1,6 @@
 import ScreenWrapper from '@/components/ScreenWrapper';
-import { COLORS } from '@/theme/colors';
-import { TextInput, View } from 'react-native';
+import {COLORS} from '@/theme/colors';
+import {TextInput, View} from 'react-native';
 
 export default function index() {
   return (
