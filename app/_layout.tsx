@@ -12,13 +12,12 @@ import i18n from '@/i18n';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useReactQueryDevTools } from '@dev-plugins/react-query';
 import FlashMessage from 'react-native-flash-message';
-import { MMKV } from 'react-native-mmkv';
 
 LogBox.ignoreAllLogs(true);
 const queryClient = new QueryClient();
-export const storage = new MMKV({
-  id: `grocerly-storage`,
-});
+// export const storage = new MMKV({
+//   id: `grocerly-storage`,
+// });
 
 const Layout = () => {
   useInitialAndroidBarSync();
