@@ -1,3 +1,4 @@
+import React from 'react';
 import { APP_ROUTES } from '@/contants/app-routes';
 import { Stack } from 'expo-router';
 

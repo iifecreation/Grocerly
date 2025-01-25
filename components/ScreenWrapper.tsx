@@ -7,7 +7,7 @@ export default function ScreenWrapper({
   background = 'white',
 }: {
   children: ReactNode;
-  background: string;
+  background?: string;
 }) {
   return (
     <View className="flex-1">

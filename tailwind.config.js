@@ -1,5 +1,19 @@
-const { hairlineWidth, platformSelect } = require('nativewind/theme');
+const {hairlineWidth, platformSelect} = require('nativewind/theme');
 
+function withOpacity(variableName) {
+  return ({opacityValue}) => {
+    if (opacityValue !== undefined) {
+      return platformSelect({
+        ios: `rgb(var(--${variableName}) / ${opacityValue})`,
+        android: `rgb(var(--android-${variableName}) / ${opacityValue})`,
+      });
+    }
+    return platformSelect({
+      ios: `rgb(var(--${variableName}))`,
+      android: `rgb(var(--android-${variableName}))`,
+    });
+  };
+}
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   // NOTE: Update this to include the paths to all of your component files.
@@ -50,17 +64,4 @@ module.exports = {
   plugins: [],
 };
 
-function withOpacity(variableName) {
-  return ({ opacityValue }) => {
-    if (opacityValue !== undefined) {
-      return platformSelect({
-        ios: `rgb(var(--${variableName}) / ${opacityValue})`,
-        android: `rgb(var(--android-${variableName}) / ${opacityValue})`,
-      });
-    }
-    return platformSelect({
-      ios: `rgb(var(--${variableName}))`,
-      android: `rgb(var(--android-${variableName}))`,
-    });
-  };
-}
+
