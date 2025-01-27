@@ -10,9 +10,9 @@
     "scheme": "your-app-scheme",
     "plugins": ["expo-localization"],
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./assets/logo.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#F15A22"
     },
     "ios": {
       "supportsTablet": true,

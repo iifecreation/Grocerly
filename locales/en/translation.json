@@ -4,6 +4,7 @@
       "header": "Enjoy one-stop shop for fresh groceries",
       "descriptions": "From juicy fruits and crisp vegetables to premium meats and pantry staples, we've got everything you need."
     },
+
     "two": {
       "header": "Your Grocery Delivery Superhero",
       "descriptions": "Tired of lugging heavy bags home from the grocery store? Let us do the heavy lifting!"
@@ -13,24 +14,35 @@
       "descriptions": "Enjoy the convenience of fresh, high-quality groceries delivered right to your doorstep, whenever you need them."
     }
   },
+  "form": {
+    "errors": {
+      "email": "Email is required",
+      "password": "Password is required",
+      "passwordLength": "Password should be more than 6",
+      "confirmPassword": "Confirm password must match password"
+    }
+  },
   "buttons": {
     "login": "Login",
     "proceed": "Proceed",
     "otp": "Verify OTP",
     "confirm": "Confirm New Password",
-    "processLogin": "Proceed to Login"
+    "processLogin": "Proceed to Login",
+    "resend": "Resend"
   },
   "auth": {
     "login": {
-      "header": "Welcome to Decove!",
+      "header": "Welcome to Grocerly!",
       "descriptions": "Connecting routes, delivering trust",
       "remember": "Remember me",
-      "forget": "Forget Password ",
+      "forget": "Forget Password?",
       "account": "Don't have an account?",
-      "sign": "Signup"
+      "sign": "Signup",
+      "email": "Enter Email Address",
+      "password": "Password"
     },
     "signup": {
-      "header": "Welcome to Decove!",
+      "header": "Welcome to Grocerly!",
       "descriptions": "Connecting routes, delivering trust",
       "remember": "Remember me",
       "forget": "Forget Password ",
@@ -55,5 +67,32 @@
       "header": "Verify your account",
       "descriptions": "Please enter the One-Time Password (OTP) sent to your email address to complete the verification process"
     }
+  },
+  "forgetPassword": {
+    "header": "Reset Your Password",
+    "descriptions": "Please verify your email address, a one time password will be generated and sent to the email provided.",
+    "passwordChangeSucess": "OTP sent successfully",
+    "message": "Check your email for the OTP"
+  },
+  "otp": {
+    "header": "OTP Verification",
+    "descriptions": "Please enter the One-Time Password (OTP) sent to your email address to complete the verification process",
+    "dont": "Didnt Receive OTP?",
+    "message": "OTP verified"
+  },
+  "createPassword": {
+    "header": "Create New Password",
+    "descriptions": "Please  secure new password. Ensure it's unique and strong for the safety of your account.",
+    "placeholder1": "Enter New Password",
+    "placeholder2": "Confirm Password",
+    "success": "Password Reset Successfully!"
+  },
+
+  "networkRequest": {
+    "400": "Oops!, invalid email or password",
+    "408": "Request timeout. Please try again.",
+    "404": "An unexpected error occurred.",
+    "network": "Network Error",
+    "success": "Successful"
   }
 }
