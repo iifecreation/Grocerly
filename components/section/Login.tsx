@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import axiosInstance from '@/api/config';
 import {
   NOTIFICATIONS_RESPONSE,
@@ -69,7 +69,6 @@ const Login = () => {
     email: '',
     otp: '',
   });
-  console.log('🚀 ~ Login ~ ActivePage:', ActivePage);
 
   function updateActivePage({page, email, otp}: ResetPassagesType) {
     setActivePage(() => ({page, email, otp}));
@@ -110,6 +109,14 @@ const Login = () => {
       page: RESET_PASSWORD_PAGES.FORGOT_PASSWORD,
     });
   }
+
+  const handleSheetClose = useCallback(() => {
+    setActivePage(() => ({
+      page: RESET_PASSWORD_PAGES.LOGIN,
+      email: '',
+      otp: '',
+    }));
+  }, []);
 
   return (
     <ScreenWrapper>
@@ -218,7 +225,7 @@ const Login = () => {
         </View>
       </ScrollView>
       {ActivePage.page != RESET_PASSWORD_PAGES.LOGIN ? (
-        <BottomSheetWrapper>
+        <BottomSheetWrapper activePage={ActivePage} onClose={handleSheetClose}>
           <ResetPasswordPageHandler
             ActivePage={ActivePage}
             updateActivePage={updateActivePage}

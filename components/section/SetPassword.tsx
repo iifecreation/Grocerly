@@ -1,5 +1,10 @@
-import {View} from 'react-native';
-import React from 'react';
+import {
+  Keyboard,
+  NativeSyntheticEvent,
+  TextInputFocusEventData,
+  View,
+} from 'react-native';
+import React, {useCallback} from 'react';
 import useYupValidationResolver from '@/hooks/useYupValidationResolver';
 import {Controller, useForm} from 'react-hook-form';
 import {useMutation} from '@tanstack/react-query';
@@ -17,6 +22,7 @@ import * as yup from 'yup';
 import i18n from '@/i18n';
 import {useTranslation} from 'react-i18next';
 import AuthBottomWrapper from '../AuthBottomWrapper';
+import BottomSheetInput from '../nativewindui/BottomSheetInput';
 
 type setPasswordFormProps = {
   [x: string]: string;
@@ -51,7 +57,6 @@ const Validation = yup.object().shape({
 });
 
 const SetPassword = ({handleUpdateActivePage, data}: SetPasswordProps) => {
-  console.log('🚀 ~ SetPassword ~ data:', data);
   const yupResolver = useYupValidationResolver(Validation);
   const {t} = useTranslation();
   const {
@@ -99,34 +104,30 @@ const SetPassword = ({handleUpdateActivePage, data}: SetPasswordProps) => {
       isDirty={isDirty}
       isPending={setNewPassword.isPending}
       onPress={handleSubmit(onSubmit)}>
-      <View className="w-full mt-10">
+      <View className="w-full mt-10 gap-y-1">
         <Controller
           control={control}
           name="password"
-          render={({field: {onChange, onBlur, value}}) => (
-            <TextInputComp
+          render={({field: {onChange, value}}) => (
+            <BottomSheetInput
               placeholder={t('createPassword.placeholder1')}
+              onChange={onChange}
               value={value}
-              handleBlur={onBlur}
-              onChangeText={onChange}
-              errorMessage={errors?.email?.message}
-              id="email"
-              readOnly={setNewPassword.isPaused}
+              isPending={setNewPassword.isPending}
+              errors={errors?.password?.message}
             />
           )}
         />
         <Controller
           control={control}
           name="confirmPassword"
-          render={({field: {onChange, onBlur, value}}) => (
-            <TextInputComp
+          render={({field: {onChange, value}}) => (
+            <BottomSheetInput
               placeholder={t('createPassword.placeholder2')}
+              onChange={onChange}
               value={value}
-              handleBlur={onBlur}
-              onChangeText={onChange}
-              errorMessage={errors?.email?.message}
-              id="email"
-              readOnly={setNewPassword.isPaused}
+              isPending={setNewPassword.isPending}
+              errors={errors?.confirmPassword?.message}
             />
           )}
         />

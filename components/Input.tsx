@@ -3,6 +3,7 @@
 import {cn} from '@/lib/cn';
 import React, {useState} from 'react';
 import {TextInput, Text, View} from 'react-native';
+import ErrorMessage from './nativewindui/ErrorMessage';
 
 type TextInputTypes = {
   handleBlur: (arg: any) => void;
@@ -69,7 +70,7 @@ export default function TextInputComp({
         keyboardType={keyboardType}
         maxLength={maxLength || null}
       />
-      <Text className="text-sm font-bold text-rose-500">{errorMessage}</Text>
+      <ErrorMessage errorMessage={errorMessage} />
     </View>
   );
 }
