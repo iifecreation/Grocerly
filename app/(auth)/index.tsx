@@ -25,17 +25,19 @@ import {
   Text,
 } from 'react-native';
 import {showMessage} from 'react-native-flash-message';
-import FullPageLoader from '../FullPageLoader';
-import TextInputComp from '../Input';
-import ScreenWrapper from '../ScreenWrapper';
+
 import * as yup from 'yup';
-import BottomSheetWrapper from '../BottomSheetWrapper';
-import ForgotPassword from './ForgotPassword';
-import OTPVerification from './OTPVerification';
-import SetPassword from './SetPassword';
-import ProceedToLogin from './ProceedToLogin';
+
 import useAuthToken from '@/hooks/useAuthToken';
 import {useAuthStore} from '@/store/store';
+import BottomSheetWrapper from '@/components/BottomSheetWrapper';
+import FullPageLoader from '@/components/FullPageLoader';
+import TextInputComp from '@/components/Input';
+import ScreenWrapper from '@/components/ScreenWrapper';
+import ForgotPassword from '@/components/section/ForgotPassword';
+import OTPVerification from '@/components/section/OTPVerification';
+import ProceedToLogin from '@/components/section/ProceedToLogin';
+import SetPassword from '@/components/section/SetPassword';
 
 type LoginFormProps = {
   email: string;
@@ -90,7 +92,7 @@ const Login = () => {
     },
   });
   const loginResponse = useMutation({
-    mutationFn: async data => {
+    mutationFn: async (data: {password: string; email: string}) => {
       try {
         const response = await axiosInstance.post(API_ROUTES.TEST_LOGIN, {
           password: data?.password,
@@ -259,7 +261,6 @@ function ResetPasswordPageHandler({
   if (ActivePage.page === RESET_PASSWORD_PAGES.LOGIN) {
     return <></>;
   }
-  console.log(ActivePage);
   switch (ActivePage.page) {
     case RESET_PASSWORD_PAGES.FORGOT_PASSWORD:
       return <ForgotPassword handleUpdateActivePage={updateActivePage} />;
