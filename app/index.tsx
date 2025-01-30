@@ -9,7 +9,6 @@ export default function index() {
   return (
     <ScreenWrapper>
       <View style={styles.container}>
-        {/* <Onboarding /> */}
         <Login />
       </View>
     </ScreenWrapper>

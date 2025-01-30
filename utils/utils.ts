@@ -17,6 +17,6 @@ export const SAFE_AREA_PADDING = {
 
 export const SCREEN_WIDTH = Dimensions.get('window').width;
 export const SCREEN_HEIGHT = Platform.select<number>({
-  android: Dimensions.get('screen').height - StaticSafeAreaInsets?.safeAreaInsetsBottom,
+  android: Dimensions.get('screen').height - StaticSafeAreaInsets?.safeAreaInsetsBottom ?? 10,
   ios: Dimensions.get('window').height,
 }) as number;
