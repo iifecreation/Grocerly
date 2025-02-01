@@ -25,17 +25,21 @@ import {
   Text,
 } from 'react-native';
 import {showMessage} from 'react-native-flash-message';
-import FullPageLoader from '../FullPageLoader';
-import TextInputComp from '../Input';
-import ScreenWrapper from '../ScreenWrapper';
+
 import * as yup from 'yup';
-import BottomSheetWrapper from '../BottomSheetWrapper';
-import ForgotPassword from './ForgotPassword';
-import OTPVerification from './OTPVerification';
-import SetPassword from './SetPassword';
-import ProceedToLogin from './ProceedToLogin';
+
 import useAuthToken from '@/hooks/useAuthToken';
 import {useAuthStore} from '@/store/store';
+import BottomSheetWrapper from '@/components/BottomSheetWrapper';
+import FullPageLoader from '@/components/FullPageLoader';
+import TextInputComp from '@/components/Input';
+import ScreenWrapper from '@/components/ScreenWrapper';
+import ForgotPassword from '@/components/section/ForgotPassword';
+import OTPVerification from '@/components/section/OTPVerification';
+import ProceedToLogin from '@/components/section/ProceedToLogin';
+import SetPassword from '@/components/section/SetPassword';
+import { Link } from 'expo-router';
+import { APP_ROUTES } from '@/contants/app-routes';
 
 type LoginFormProps = {
   email: string;
@@ -90,7 +94,7 @@ const Login = () => {
     },
   });
   const loginResponse = useMutation({
-    mutationFn: async data => {
+    mutationFn: async (data: {password: string; email: string}) => {
       try {
         const response = await axiosInstance.post(API_ROUTES.TEST_LOGIN, {
           password: data?.password,
@@ -128,6 +132,9 @@ const Login = () => {
     }));
   }, []);
 
+
+
+
   return (
     <ScreenWrapper>
       {loginResponse.isPending ? <FullPageLoader /> : null}
@@ -143,11 +150,11 @@ const Login = () => {
             paddingHorizontal: SAFE_AREA_PADDING.paddingRight,
             paddingBottom: SAFE_AREA_PADDING.paddingBottom,
           }}>
-          <View className="flex items-center justify-center">
+          <View>
             <Image
               source={require('@/assets/svg/logo.png')}
               resizeMode="contain"
-              className="w-32 flex items-center justify-center "
+              className="w-42 h-36 "
             />
             <Text className="text-center font-medium text-2xl leading-[40px] text-black">
               {t('auth.login.header')}
@@ -223,13 +230,16 @@ const Login = () => {
               <Text className="font-normal text-black text-base leading-[25px]">
                 {t('auth.login.account')} {''}
               </Text>
-              <TouchableOpacity>
-                <Text
+              {/* <TouchableOpacity > */}
+                <Link href={APP_ROUTES.CREATE_ACCOUNT}>
+                 <Text
                   className="font-bold text-base leading-[25px]"
                   style={{color: COLORS.light.primary}}>
                   {t('auth.login.sign')}
                 </Text>
-              </TouchableOpacity>
+                  </Link>
+               
+              {/* </TouchableOpacity> */}
             </View>
           </View>
         </View>
@@ -259,7 +269,6 @@ function ResetPasswordPageHandler({
   if (ActivePage.page === RESET_PASSWORD_PAGES.LOGIN) {
     return <></>;
   }
-  console.log(ActivePage);
   switch (ActivePage.page) {
     case RESET_PASSWORD_PAGES.FORGOT_PASSWORD:
       return <ForgotPassword handleUpdateActivePage={updateActivePage} />;

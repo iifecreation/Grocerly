@@ -17,6 +17,9 @@ import * as yup from 'yup';
 import i18n from '@/i18n';
 import {useTranslation} from 'react-i18next';
 import AuthBottomWrapper from '../AuthBottomWrapper';
+import {BottomSheetTextInput} from '@gorhom/bottom-sheet';
+import ErrorMessage from '../nativewindui/ErrorMessage';
+import BottomSheetInput from '../nativewindui/BottomSheetInput';
 
 const Validation = yup.object().shape({
   email: yup
@@ -83,16 +86,16 @@ const ForgotPassword = ({
         <Controller
           control={control}
           name="email"
-          render={({field: {onChange, onBlur, value}}) => (
-            <TextInputComp
-              placeholder={t('auth.login.email')}
-              value={value}
-              handleBlur={onBlur}
-              onChangeText={onChange}
-              errorMessage={errors?.email?.message}
-              id="email"
-              readOnly={forgetPasswordMutation.isPaused}
-            />
+          render={({field: {onChange, value}}) => (
+            <>
+              <BottomSheetInput
+                placeholder={t('auth.login.email')}
+                onChange={onChange}
+                value={value}
+                isPending={forgetPasswordMutation.isPending}
+                errors={errors.email?.message}
+              />
+            </>
           )}
         />
       </View>

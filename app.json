@@ -12,7 +12,7 @@
       "expo-localization"
     ],
     "splash": {
-      "image": "./assets/logo.png",
+      "image": "./assets/svg/Splashscreen-logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#F15A22"
     },
