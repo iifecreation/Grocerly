@@ -14,7 +14,7 @@ const AuthLayout = () => {
       screenOptions={{
         headerShown: false,
       }}>
-      <Stack.Screen name={APP_ROUTES.LOGIN} />
+      <Stack.Screen name={APP_ROUTES.CREATE_ACCOUNT} />
     </Stack>
   );
 };

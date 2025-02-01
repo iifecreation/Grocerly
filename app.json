@@ -8,9 +8,11 @@
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "scheme": "your-app-scheme",
-    "plugins": ["expo-localization"],
+    "plugins": [
+      "expo-localization"
+    ],
     "splash": {
-      "image": "./assets/logo.png",
+      "image": "./assets/svg/Splashscreen-logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#F15A22"
     },
@@ -27,6 +29,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "19b4f648-d199-4b7b-9739-13e6a12617fb"
+      }
     }
   }
 }

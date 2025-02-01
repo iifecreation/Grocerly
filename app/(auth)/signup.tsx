@@ -25,21 +25,12 @@ import {
   Text,
 } from 'react-native';
 import {showMessage} from 'react-native-flash-message';
-
-import * as yup from 'yup';
-
 import useAuthToken from '@/hooks/useAuthToken';
 import {useAuthStore} from '@/store/store';
-import BottomSheetWrapper from '@/components/BottomSheetWrapper';
 import FullPageLoader from '@/components/FullPageLoader';
 import TextInputComp from '@/components/Input';
 import ScreenWrapper from '@/components/ScreenWrapper';
-import ForgotPassword from '@/components/section/ForgotPassword';
-import OTPVerification from '@/components/section/OTPVerification';
-import ProceedToLogin from '@/components/section/ProceedToLogin';
-import SetPassword from '@/components/section/SetPassword';
-import { Link } from 'expo-router';
-import { APP_ROUTES } from '@/contants/app-routes';
+import * as yup from 'yup';
 
 type LoginFormProps = {
   email: string;
@@ -67,20 +58,12 @@ const Validation = yup.object().shape({
     )
     .required(i18n.t('form.errors.password')),
 });
-const Login = () => {
+const Signup = () => {
   const {t} = useTranslation();
   const {updateToken} = useAuthToken();
 
   const [rememberMe, setRemember] = useState(false);
-  const [ActivePage, setActivePage] = useState<ResetPassagesType>({
-    page: RESET_PASSWORD_PAGES.LOGIN,
-    email: '',
-    otp: '',
-  });
 
-  function updateActivePage({page, email, otp}: ResetPassagesType) {
-    setActivePage(() => ({page, email, otp}));
-  }
   const yupResolver = useYupValidationResolver(Validation);
   const {
     handleSubmit,
@@ -94,7 +77,7 @@ const Login = () => {
     },
   });
   const loginResponse = useMutation({
-    mutationFn: async (data: {password: string; email: string}) => {
+    mutationFn: async data => {
       try {
         const response = await axiosInstance.post(API_ROUTES.TEST_LOGIN, {
           password: data?.password,
@@ -118,23 +101,6 @@ const Login = () => {
     setRemember(prevState => !prevState);
   }
 
-  function onForgetPassword() {
-    updateActivePage({
-      page: RESET_PASSWORD_PAGES.FORGOT_PASSWORD,
-    });
-  }
-
-  const handleSheetClose = useCallback(() => {
-    setActivePage(() => ({
-      page: RESET_PASSWORD_PAGES.LOGIN,
-      email: '',
-      otp: '',
-    }));
-  }, []);
-
-
-
-
   return (
     <ScreenWrapper>
       {loginResponse.isPending ? <FullPageLoader /> : null}
@@ -150,11 +116,11 @@ const Login = () => {
             paddingHorizontal: SAFE_AREA_PADDING.paddingRight,
             paddingBottom: SAFE_AREA_PADDING.paddingBottom,
           }}>
-          <View>
+          <View className="flex items-center justify-center">
             <Image
               source={require('@/assets/svg/logo.png')}
               resizeMode="contain"
-              className="w-42 h-36 "
+              className="w-32 flex items-center justify-center "
             />
             <Text className="text-center font-medium text-2xl leading-[40px] text-black">
               {t('auth.login.header')}
@@ -195,7 +161,8 @@ const Login = () => {
               )}
             />
           </View>
-          {/* Remember Me and Forgot Password */}
+
+          {/* Terms and conditions */}
           <View className="w-full flex flex-row justify-between items-center mt-2">
             <View className="flex-row items-center">
               <Checkbox
@@ -204,16 +171,17 @@ const Login = () => {
                 className="mr-2 "
               />
               <Text className="text-gray-600 text-sm leading-6 font-normal">
-                {t('auth.login.remember')}
+                {t('auth.terms.header')}
+                <Text className="text-blue-600 text-sm leading-6 font-normal">
+                  {' '}
+                  {t('auth.terms.descriptions')}
+                </Text>
+                <Text className="text-gray-600 text-sm leading-6 font-normal">
+                  {' '}
+                  {t('auth.terms.name')}
+                </Text>
               </Text>
             </View>
-            <TouchableOpacity onPress={onForgetPassword}>
-              <Text
-                className="font-bold text-xs leading-4"
-                style={{color: COLORS.light.primary}}>
-                {t('auth.login.forget')}
-              </Text>
-            </TouchableOpacity>
           </View>
 
           {/* Login Button */}
@@ -223,73 +191,26 @@ const Login = () => {
               className="h-11 py-0.5 w-full  rounded-[28px] items-center justify-center mt-4 "
               style={{backgroundColor: COLORS.light.primary}}>
               <Text className="leading-4 text-xs  text-white font-semibold">
-                {t('buttons.login')}
+                {t('buttons.signup')}
               </Text>
             </Pressable>
             <View className="flex-row justify-center mt-4">
               <Text className="font-normal text-black text-base leading-[25px]">
-                {t('auth.login.account')} {''}
+                {t('auth.signup.account')} {''}
               </Text>
-              {/* <TouchableOpacity > */}
-                <Link href={APP_ROUTES.CREATE_ACCOUNT}>
-                 <Text
+              <TouchableOpacity>
+                <Text
                   className="font-bold text-base leading-[25px]"
                   style={{color: COLORS.light.primary}}>
-                  {t('auth.login.sign')}
+                  {t('auth.signup.sign')}
                 </Text>
-                  </Link>
-               
-              {/* </TouchableOpacity> */}
+              </TouchableOpacity>
             </View>
           </View>
         </View>
       </ScrollView>
-      {ActivePage.page != RESET_PASSWORD_PAGES.LOGIN ? (
-        <BottomSheetWrapper activePage={ActivePage} onClose={handleSheetClose}>
-          <ResetPasswordPageHandler
-            ActivePage={ActivePage}
-            updateActivePage={updateActivePage}
-          />
-        </BottomSheetWrapper>
-      ) : null}
     </ScreenWrapper>
   );
 };
 
-export default Login;
-
-type ResetPasswordPageHandlerProps = {
-  ActivePage: ResetPassagesType;
-  updateActivePage: (arg: ResetPassagesType) => void;
-};
-function ResetPasswordPageHandler({
-  ActivePage,
-  updateActivePage,
-}: ResetPasswordPageHandlerProps) {
-  if (ActivePage.page === RESET_PASSWORD_PAGES.LOGIN) {
-    return <></>;
-  }
-  switch (ActivePage.page) {
-    case RESET_PASSWORD_PAGES.FORGOT_PASSWORD:
-      return <ForgotPassword handleUpdateActivePage={updateActivePage} />;
-    case RESET_PASSWORD_PAGES.RESET_PASSWORD:
-      return (
-        <OTPVerification
-          handleUpdateActivePage={updateActivePage}
-          email={ActivePage.email as string}
-        />
-      );
-    case RESET_PASSWORD_PAGES.SET_PASSWORD:
-      return (
-        <SetPassword
-          handleUpdateActivePage={updateActivePage}
-          data={ActivePage}
-        />
-      );
-    case RESET_PASSWORD_PAGES.RESET_SUCCESSFULLY:
-      return <ProceedToLogin handleUpdateActivePage={updateActivePage} />;
-
-    default:
-      break;
-  }
-}
+export default Signup;

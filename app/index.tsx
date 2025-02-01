@@ -6,5 +6,8 @@ import React from 'react';
 hydrate();
 export default function index() {
   const token = useAuthToken();
-  return token ? <Redirect href="(main)" /> : <Redirect href="(auth)" />;
+  // console.log('token', token);
+  // return token ? <Redirect href="(main)" /> : <Redirect href="(auth)" />;
+  // return <Redirect href="(auth)" />;
+  return <Redirect href="(auth)/VerifyAccount" />;
 }
