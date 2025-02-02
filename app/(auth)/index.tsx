@@ -10,7 +10,6 @@ import useYupValidationResolver from '@/hooks/useYupValidationResolver';
 import i18n from '@/i18n';
 import {COLORS} from '@/theme/colors';
 import getErrorMessage from '@/utils/error-formatter';
-import {SAFE_AREA_PADDING} from '@/utils/utils';
 import {useMutation} from '@tanstack/react-query';
 import Checkbox from 'expo-checkbox';
 import {useState} from 'react';
@@ -21,15 +20,11 @@ import {
   View,
   TouchableOpacity,
   Pressable,
-  Image,
   Text,
 } from 'react-native';
 import {showMessage} from 'react-native-flash-message';
-
 import * as yup from 'yup';
-
 import useAuthToken from '@/hooks/useAuthToken';
-import {useAuthStore} from '@/store/store';
 import BottomSheetWrapper from '@/components/BottomSheetWrapper';
 import FullPageLoader from '@/components/FullPageLoader';
 import TextInputComp from '@/components/Input';
@@ -38,6 +33,9 @@ import ForgotPassword from '@/components/section/ForgotPassword';
 import OTPVerification from '@/components/section/OTPVerification';
 import ProceedToLogin from '@/components/section/ProceedToLogin';
 import SetPassword from '@/components/section/SetPassword';
+import {Link} from 'expo-router';
+import {APP_ROUTES} from '@/contants/app-routes';
+import AuthWrapper from '@/components/AuthWrapper';
 
 type LoginFormProps = {
   email: string;
@@ -101,7 +99,6 @@ const Login = () => {
         const token = response?.data?.token;
         updateToken(token);
       } catch (error: any) {
-        console.log('🚀 ~ Login ~ error:', error);
         showMessage({
           message: NOTIFICATIONS_RESPONSE.ERROR,
           description: getErrorMessage(error?.error?.statusCode),
@@ -139,25 +136,7 @@ const Login = () => {
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        <View
-          className="h-full w-full justify-center items-center"
-          style={{
-            paddingHorizontal: SAFE_AREA_PADDING.paddingRight,
-            paddingBottom: SAFE_AREA_PADDING.paddingBottom,
-          }}>
-          <View>
-            <Image
-              source={require('@/assets/svg/logo.png')}
-              resizeMode="contain"
-              className="w-42 h-36 "
-            />
-            <Text className="text-center font-medium text-2xl leading-[40px] text-black">
-              {t('auth.login.header')}
-            </Text>
-            <Text className="text-center text-xs font-medium leading-4 text-black">
-              {t('auth.login.descriptions')}
-            </Text>
-          </View>
+        <AuthWrapper>
           <View className="w-full gap-y-3 mt-14">
             <Controller
               control={control}
@@ -212,7 +191,7 @@ const Login = () => {
           </View>
 
           {/* Login Button */}
-          <View className="w-full mt-10">
+          <View className="w-full mt-16">
             <Pressable
               onPress={handleSubmit(onSubmit)}
               className="h-11 py-0.5 w-full  rounded-[28px] items-center justify-center mt-4 "
@@ -225,25 +204,28 @@ const Login = () => {
               <Text className="font-normal text-black text-base leading-[25px]">
                 {t('auth.login.account')} {''}
               </Text>
-              <TouchableOpacity>
+              <Link push href={APP_ROUTES.CREATE_ACCOUNT}>
                 <Text
                   className="font-bold text-base leading-[25px]"
                   style={{color: COLORS.light.primary}}>
                   {t('auth.login.sign')}
                 </Text>
-              </TouchableOpacity>
+              </Link>
             </View>
           </View>
-        </View>
+
+          {ActivePage.page != RESET_PASSWORD_PAGES.LOGIN ? (
+            <BottomSheetWrapper
+              activePage={ActivePage}
+              onClose={handleSheetClose}>
+              <ResetPasswordPageHandler
+                ActivePage={ActivePage}
+                updateActivePage={updateActivePage}
+              />
+            </BottomSheetWrapper>
+          ) : null}
+        </AuthWrapper>
       </ScrollView>
-      {ActivePage.page != RESET_PASSWORD_PAGES.LOGIN ? (
-        <BottomSheetWrapper activePage={ActivePage} onClose={handleSheetClose}>
-          <ResetPasswordPageHandler
-            ActivePage={ActivePage}
-            updateActivePage={updateActivePage}
-          />
-        </BottomSheetWrapper>
-      ) : null}
     </ScreenWrapper>
   );
 };

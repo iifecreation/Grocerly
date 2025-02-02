@@ -24,6 +24,7 @@
   },
   "buttons": {
     "login": "Login",
+    "signup": "Signup",
     "proceed": "Proceed",
     "otp": "Verify OTP",
     "confirm": "Confirm New Password",
@@ -32,7 +33,7 @@
   },
   "auth": {
     "login": {
-      "header": "Welcome to Grocerly!",
+      "header": "Welcome To Grocerly!",
       "descriptions": "Connecting routes, delivering trust",
       "remember": "Remember me",
       "forget": "Forget Password?",
@@ -42,13 +43,18 @@
       "password": "Password"
     },
     "signup": {
-      "header": "Welcome to Grocerly!",
+      "header": "Welcome To Grocerly!",
       "descriptions": "Connecting routes, delivering trust",
       "remember": "Remember me",
       "forget": "Forget Password ",
       "account": "Already have an account?",
-      "sign": "Signup",
+      "sign": "Login",
       "or": "or use"
+    },
+    "terms": {
+      "header": "By checking this box, you have agreed to the",
+      "descriptions": "Terms and Conditions of",
+      "name": "Grocerly,"
     },
     "reset": {
       "header": "Reset Your Password",
@@ -57,7 +63,9 @@
     "otp": {
       "header": "OTP Verification",
       "descriptions": "Please enter the One-Time Password (OTP) sent to your email address to complete the verification process",
-      "receive": "Didnt Receive OTP? Resend"
+      "receive": "Didnt Receive OTP?",
+      "resend": "Resend",
+      "verify": "Verify OTP"
     },
     "newPassword": {
       "header": "Create New Password",

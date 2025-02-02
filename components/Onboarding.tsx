@@ -7,10 +7,14 @@ import {useSharedValue} from 'react-native-reanimated';
 import {SAFE_AREA_PADDING} from '@/utils/utils';
 import {COLORS} from '@/theme/colors';
 import {ImageSlider} from '@/lib/data';
+import {useAuthStore} from '@/store/store';
 
 const Onboarding = () => {
   const scrollX = useSharedValue(0);
-
+  const {handleSkipOnboarding} = useAuthStore();
+  function skipOnBoarding() {
+    handleSkipOnboarding();
+  }
   return (
     <View
       style={{
@@ -30,7 +34,9 @@ const Onboarding = () => {
       />
       <Pagination length={ImageSlider.length} x={scrollX} color={'white'} />
       <View style={{paddingRight: SAFE_AREA_PADDING.paddingLeft}}>
-        <Text style={styles.textSkip}>Skip</Text>
+        <Text style={styles.textSkip} onPress={skipOnBoarding}>
+          Skip
+        </Text>
       </View>
     </View>
   );

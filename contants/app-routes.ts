@@ -1,7 +1,7 @@
-import { Link } from 'expo-router';
-
 export enum APP_ROUTES {
   HOME = 'home',
-  LOGIN = 'login',
-  CREATE_ACCOUNT = 'create account',
+  LOGIN = '/(auth)',
+  CREATE_ACCOUNT = '/(auth)/signup',
+  SET_PASSWORD = '/(auth)/password',
+  VERIFY_OTP = '/(auth)/verify',
 }

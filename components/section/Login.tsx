@@ -143,11 +143,11 @@ const Login = () => {
             paddingHorizontal: SAFE_AREA_PADDING.paddingRight,
             paddingBottom: SAFE_AREA_PADDING.paddingBottom,
           }}>
-          <View>
+          <View className="flex items-center justify-center">
             <Image
               source={require('@/assets/svg/logo.png')}
               resizeMode="contain"
-              className="w-42 h-36 "
+              className="w-32 flex items-center justify-center "
             />
             <Text className="text-center font-medium text-2xl leading-[40px] text-black">
               {t('auth.login.header')}

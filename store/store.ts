@@ -16,35 +16,38 @@ type Action = {
   userSetData: (userData: Tokentypes['userData']) => void;
 };
 
-export const useAuthStore = create(
-  persist(
-    (set, get) => ({
-      token: '',
-      userData: null,
-      setToken: (data: any) => set({token: data}),
-      userSetData: () => set({}),
-      logOut: () => set({token: '', userData: null}),
-      hydrate: () => {
-        const activeToken = activeUserToken();
-        if (!activeToken) {
-          // sign out
-          removeToken();
-        } else {
-          // update login
-          get().setToken(activeToken);
-        }
-        try {
-        } catch (error) {
-          get().logOut();
-        }
-      },
-    }),
+  export const useAuthStore = create(
+    persist(
+      (set, get) => ({
+        token: null,
+        userData: null,
+        setToken: (data: any) => set({token: data}),
+        userSetData: () => set({}),
+        logOut: () => set({token: '', userData: null}),
+        isOnboarded: false,
+        handleSkipOnboarding: () => set({isOnboarded: true}),
 
-    {
-      name: STORAGE_NAME,
-      storage: createJSONStorage(() => zustandStorage),
-    },
-  ),
-) as any;
+        hydrate: async () => {
+          const activeToken = await activeUserToken();
+          if (!activeToken) {
+            // sign out
+            removeToken();
+          } else {
+            // update login
+            get().setToken(activeToken);
+          }
+          try {
+          } catch (error) {
+            get().logOut();
+          }
+        },
+      }),
+
+      {
+        name: STORAGE_NAME,
+        storage: createJSONStorage(() => zustandStorage),
+      },
+    ),
+  ) as any;
 
 export const hydrate = useAuthStore.getState().hydrate;
