@@ -1,14 +1,20 @@
 import {cn} from '@/lib/cn';
 import {COLORS} from '@/theme/colors';
 import React, {ReactNode} from 'react';
-import {Pressable, Text} from 'react-native';
+import {ActivityIndicator, Pressable, Text} from 'react-native';
 
 type ButtonProps = {
   onPress: () => void;
   children: ReactNode;
   disabled?: boolean;
+  isLoading?: boolean;
 };
-const Button = ({onPress, disabled = false, children}: ButtonProps) => {
+const Button = ({
+  onPress,
+  disabled = false,
+  children,
+  isLoading = false,
+}: ButtonProps) => {
   return (
     <Pressable
       disabled={disabled}
@@ -19,7 +25,11 @@ const Button = ({onPress, disabled = false, children}: ButtonProps) => {
       style={{
         backgroundColor: !disabled ? COLORS.light.primary : COLORS.light.grey,
       }}>
-      {children}
+      {isLoading ? (
+        <ActivityIndicator size="small" color={'white'} />
+      ) : (
+        children
+      )}
     </Pressable>
   );
 };

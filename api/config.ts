@@ -2,7 +2,7 @@ import axios from 'axios';
 // axios configuration
 const axiosInstance = axios.create({
   baseURL: process.env.EXPO_PUBLIC_API_URL,
-  // timeout: 1500,
+  timeout: 15000,
   headers: {},
 });
 

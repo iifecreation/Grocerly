@@ -1,31 +1,16 @@
+import Onboarding from '@/components/Onboarding';
+import useAuthToken from '@/hooks/useAuthToken';
+import {hydrate, useAuthStore} from '@/store/store';
+import {Redirect} from 'expo-router';
 import React from 'react';
-import ScreenWrapper from '@/components/ScreenWrapper';
-import {COLORS} from '@/theme/colors';
-import {StyleSheet, View} from 'react-native';
 
-import Login from '@/components/section/Login';
-
+hydrate();
 export default function index() {
-  return (
-    <ScreenWrapper>
-      <View style={styles.container}>
-        {/* <Onboarding /> */}
-        <Login />
-      </View>
-    </ScreenWrapper>
-  );
+  const {token} = useAuthToken();
+  const {isOnboarded} = useAuthStore();
+  if (!isOnboarded) {
+    return <Onboarding/>
+    
+  }
+  return token ? <Redirect href="(main)" /> : <Redirect href="(auth)" />;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: COLORS.white,
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-  },
-  textSkip: {
-    color: '#F15A22',
-    marginLeft: 300,
-    textDecorationLine: 'underline',
-  },
-});

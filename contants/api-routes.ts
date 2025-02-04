@@ -4,4 +4,6 @@ export enum API_ROUTES {
   PASSWORD_RESET_TOKEN = '/auth/user/verify-reset-token',
   RESEND_TOKEN = '/auth/user/resend-token',
   NEW_PASSWORD_RESET = 'auth/user/reset-password/new',
+  TEST_LOGIN = 'auth/admin/login',
+  CREATE_ACCOUNT = '/auth/user/create',
 }

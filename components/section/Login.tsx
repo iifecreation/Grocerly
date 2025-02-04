@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import axiosInstance from '@/api/config';
 import {
   NOTIFICATIONS_RESPONSE,
@@ -34,6 +34,8 @@ import ForgotPassword from './ForgotPassword';
 import OTPVerification from './OTPVerification';
 import SetPassword from './SetPassword';
 import ProceedToLogin from './ProceedToLogin';
+import useAuthToken from '@/hooks/useAuthToken';
+import {useAuthStore} from '@/store/store';
 
 type LoginFormProps = {
   email: string;
@@ -63,13 +65,14 @@ const Validation = yup.object().shape({
 });
 const Login = () => {
   const {t} = useTranslation();
+  const {updateToken} = useAuthToken();
+
   const [rememberMe, setRemember] = useState(false);
   const [ActivePage, setActivePage] = useState<ResetPassagesType>({
     page: RESET_PASSWORD_PAGES.LOGIN,
     email: '',
     otp: '',
   });
-  console.log('🚀 ~ Login ~ ActivePage:', ActivePage);
 
   function updateActivePage({page, email, otp}: ResetPassagesType) {
     setActivePage(() => ({page, email, otp}));
@@ -78,19 +81,25 @@ const Login = () => {
   const {
     handleSubmit,
     control,
-    formState: {errors, isDirty},
+    formState: {errors},
   } = useForm<LoginFormProps>({
     resolver: yupResolver,
     defaultValues: {
-      email: '',
-      password: '',
+      email: 'thomas@skyventures.vc',
+      password: 'Test@1234',
     },
   });
   const loginResponse = useMutation({
     mutationFn: async data => {
       try {
-        const response = await axiosInstance.post(API_ROUTES.LOGIN, data);
+        const response = await axiosInstance.post(API_ROUTES.TEST_LOGIN, {
+          password: data?.password,
+          username: data?.email,
+        });
+        const token = response?.data?.token;
+        updateToken(token);
       } catch (error: any) {
+        console.log('🚀 ~ Login ~ error:', error);
         showMessage({
           message: NOTIFICATIONS_RESPONSE.ERROR,
           description: getErrorMessage(error?.error?.statusCode),
@@ -111,6 +120,14 @@ const Login = () => {
     });
   }
 
+  const handleSheetClose = useCallback(() => {
+    setActivePage(() => ({
+      page: RESET_PASSWORD_PAGES.LOGIN,
+      email: '',
+      otp: '',
+    }));
+  }, []);
+
   return (
     <ScreenWrapper>
       {loginResponse.isPending ? <FullPageLoader /> : null}
@@ -126,11 +143,11 @@ const Login = () => {
             paddingHorizontal: SAFE_AREA_PADDING.paddingRight,
             paddingBottom: SAFE_AREA_PADDING.paddingBottom,
           }}>
-          <View>
+          <View className="flex items-center justify-center">
             <Image
               source={require('@/assets/svg/logo.png')}
               resizeMode="contain"
-              className="w-42 h-36 "
+              className="w-32 flex items-center justify-center "
             />
             <Text className="text-center font-medium text-2xl leading-[40px] text-black">
               {t('auth.login.header')}
@@ -218,7 +235,7 @@ const Login = () => {
         </View>
       </ScrollView>
       {ActivePage.page != RESET_PASSWORD_PAGES.LOGIN ? (
-        <BottomSheetWrapper>
+        <BottomSheetWrapper activePage={ActivePage} onClose={handleSheetClose}>
           <ResetPasswordPageHandler
             ActivePage={ActivePage}
             updateActivePage={updateActivePage}

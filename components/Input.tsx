@@ -3,6 +3,9 @@
 import {cn} from '@/lib/cn';
 import React, {useState} from 'react';
 import {TextInput, Text, View} from 'react-native';
+import ErrorMessage from './nativewindui/ErrorMessage';
+import {Icon} from '@roninoss/icons';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 type TextInputTypes = {
   handleBlur: (arg: any) => void;
@@ -40,14 +43,17 @@ export default function TextInputComp({
   className,
 }: TextInputTypes) {
   const [isFocused, setFocused] = useState(false);
+  const [hidePassword, setHidePassword] = useState(false);
 
+  function toggleShowPassword() {
+    setHidePassword(prevState => !prevState);
+  }
   return (
-    <View>
+    <View className="relative">
       <TextInput
         {...(label ? {label} : {})}
         onFocus={() => {
           setFocused(prevState => !prevState);
-          // handleBlur(e);
           handleBlur(id);
         }}
         className={cn(
@@ -58,9 +64,7 @@ export default function TextInputComp({
           setFocused(prevState => !prevState);
           handleBlur(id);
         }}
-        //   rightIcon={rightIcon}
-        // label={label}
-        secureTextEntry={secureTextEntry}
+        secureTextEntry={hidePassword}
         placeholder={placeholder}
         value={value}
         readOnly={readOnly}
@@ -69,7 +73,16 @@ export default function TextInputComp({
         keyboardType={keyboardType}
         maxLength={maxLength || null}
       />
-      <Text className="text-sm font-bold text-rose-500">{errorMessage}</Text>
+      {/* <Icon /> */}
+      {id === 'password' ? (
+        <Ionicons
+          onPress={toggleShowPassword}
+          name={hidePassword ? 'eye-outline' : 'eye-off-outline'}
+          className="absolute top-3 right-2"
+          size={24}
+        />
+      ) : null}
+      <ErrorMessage errorMessage={errorMessage} />
     </View>
   );
 }
