@@ -57,10 +57,7 @@ const Validation = yup.object().shape({
   password: yup
     .string()
     .trim()
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,})/,
-      i18n.t('form.errors.passwordLength'),
-    )
+    .matches(/^(?=.{6,})/, i18n.t('form.errors.passwordLength'))
     .required(i18n.t('form.errors.password')),
 });
 const Login = () => {
@@ -85,20 +82,22 @@ const Login = () => {
   } = useForm<LoginFormProps>({
     resolver: yupResolver,
     defaultValues: {
-      email: 'thomas@skyventures.vc',
-      password: 'Test@1234',
+      email: 'decove@mailinator.com',
+      password: 'Password!',
     },
   });
   const loginResponse = useMutation({
     mutationFn: async (data: {password: string; email: string}) => {
       try {
-        const response = await axiosInstance.post(API_ROUTES.TEST_LOGIN, {
+        const response = await axiosInstance.post(API_ROUTES.LOGIN, {
           password: data?.password,
-          username: data?.email,
+          email: data?.email,
         });
+        console.log(response?.data);
         const token = response?.data?.token;
         updateToken(token);
       } catch (error: any) {
+        console.log('🚀 ~ mutationFn: ~ error:', error);
         showMessage({
           message: NOTIFICATIONS_RESPONSE.ERROR,
           description: getErrorMessage(error?.error?.statusCode),
