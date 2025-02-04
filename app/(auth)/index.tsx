@@ -21,6 +21,8 @@ import {
   TouchableOpacity,
   Pressable,
   Text,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import {showMessage} from 'react-native-flash-message';
 import * as yup from 'yup';
@@ -130,102 +132,107 @@ const Login = () => {
   return (
     <ScreenWrapper>
       {loginResponse.isPending ? <FullPageLoader /> : null}
-      <ScrollView
-        contentContainerStyle={{
-          flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        <AuthWrapper>
-          <View className="w-full gap-y-3 mt-14">
-            <Controller
-              control={control}
-              name="email"
-              render={({field: {onChange, onBlur, value}}) => (
-                <TextInputComp
-                  placeholder={t('auth.login.email')}
-                  value={value}
-                  handleBlur={onBlur}
-                  onChangeText={onChange}
-                  errorMessage={errors?.email?.message}
-                  id="email"
-                />
-              )}
-            />
-
-            <Controller
-              control={control}
-              name="password"
-              render={({field: {onChange, onBlur, value}}) => (
-                <TextInputComp
-                  placeholder={t('auth.login.password')}
-                  value={value}
-                  handleBlur={onBlur}
-                  onChangeText={onChange}
-                  secureTextEntry={true}
-                  errorMessage={errors?.password?.message}
-                  id="password"
-                />
-              )}
-            />
-          </View>
-          {/* Remember Me and Forgot Password */}
-          <View className="w-full flex flex-row justify-between items-center mt-2">
-            <View className="flex-row items-center">
-              <Checkbox
-                value={rememberMe}
-                onValueChange={onRememberMe}
-                className="mr-2 "
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{flex: 1}}
+      >
+        <ScrollView
+          contentContainerStyle={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <AuthWrapper>
+            <View className="w-full gap-y-3 mt-14">
+              <Controller
+                control={control}
+                name="email"
+                render={({field: {onChange, onBlur, value}}) => (
+                  <TextInputComp
+                    placeholder={t('auth.login.email')}
+                    value={value}
+                    handleBlur={onBlur}
+                    onChangeText={onChange}
+                    errorMessage={errors?.email?.message}
+                    id="email"
+                  />
+                )}
               />
-              <Text className="text-gray-600 text-sm leading-6 font-normal">
-                {t('auth.login.remember')}
-              </Text>
-            </View>
-            <TouchableOpacity onPress={onForgetPassword}>
-              <Text
-                className="font-bold text-xs leading-4"
-                style={{color: COLORS.light.primary}}>
-                {t('auth.login.forget')}
-              </Text>
-            </TouchableOpacity>
-          </View>
 
-          {/* Login Button */}
-          <View className="w-full mt-16">
-            <Pressable
-              onPress={handleSubmit(onSubmit)}
-              className="h-11 py-0.5 w-full  rounded-[28px] items-center justify-center mt-4 "
-              style={{backgroundColor: COLORS.light.primary}}>
-              <Text className="leading-4 text-xs  text-white font-semibold">
-                {t('buttons.login')}
-              </Text>
-            </Pressable>
-            <View className="flex-row justify-center mt-4">
-              <Text className="font-normal text-black text-base leading-[25px]">
-                {t('auth.login.account')} {''}
-              </Text>
-              <Link push href={APP_ROUTES.CREATE_ACCOUNT}>
-                <Text
-                  className="font-bold text-base leading-[25px]"
-                  style={{color: COLORS.light.primary}}>
-                  {t('auth.login.sign')}
+              <Controller
+                control={control}
+                name="password"
+                render={({field: {onChange, onBlur, value}}) => (
+                  <TextInputComp
+                    placeholder={t('auth.login.password')}
+                    value={value}
+                    handleBlur={onBlur}
+                    onChangeText={onChange}
+                    secureTextEntry={true}
+                    errorMessage={errors?.password?.message}
+                    id="password"
+                  />
+                )}
+              />
+            </View>
+            {/* Remember Me and Forgot Password */}
+            <View className="w-full flex flex-row justify-between items-center mt-2">
+              <View className="flex-row items-center">
+                <Checkbox
+                  value={rememberMe}
+                  onValueChange={onRememberMe}
+                  className="mr-2 "
+                />
+                <Text className="text-gray-600 text-sm leading-6 font-normal">
+                  {t('auth.login.remember')}
                 </Text>
-              </Link>
+              </View>
+              <TouchableOpacity onPress={onForgetPassword}>
+                <Text
+                  className="font-bold text-xs leading-4"
+                  style={{color: COLORS.light.primary}}>
+                  {t('auth.login.forget')}
+                </Text>
+              </TouchableOpacity>
             </View>
-          </View>
 
-          {ActivePage.page != RESET_PASSWORD_PAGES.LOGIN ? (
-            <BottomSheetWrapper
-              activePage={ActivePage}
-              onClose={handleSheetClose}>
-              <ResetPasswordPageHandler
-                ActivePage={ActivePage}
-                updateActivePage={updateActivePage}
-              />
-            </BottomSheetWrapper>
-          ) : null}
-        </AuthWrapper>
-      </ScrollView>
+            {/* Login Button */}
+            <View className="w-full mt-16">
+              <Pressable
+                onPress={handleSubmit(onSubmit)}
+                className="h-11 py-0.5 w-full  rounded-[28px] items-center justify-center mt-4 "
+                style={{backgroundColor: COLORS.light.primary}}>
+                <Text className="leading-4 text-xs  text-white font-semibold">
+                  {t('buttons.login')}
+                </Text>
+              </Pressable>
+              <View className="flex-row justify-center mt-4">
+                <Text className="font-normal text-black text-base leading-[25px]">
+                  {t('auth.login.account')} {''}
+                </Text>
+                <Link push href={APP_ROUTES.CREATE_ACCOUNT}>
+                  <Text
+                    className="font-bold text-base leading-[25px]"
+                    style={{color: COLORS.light.primary}}>
+                    {t('auth.login.sign')}
+                  </Text>
+                </Link>
+              </View>
+            </View>
+
+            {ActivePage.page != RESET_PASSWORD_PAGES.LOGIN ? (
+              <BottomSheetWrapper
+                activePage={ActivePage}
+                onClose={handleSheetClose}>
+                <ResetPasswordPageHandler
+                  ActivePage={ActivePage}
+                  updateActivePage={updateActivePage}
+                />
+              </BottomSheetWrapper>
+            ) : null}
+          </AuthWrapper>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </ScreenWrapper>
   );
 };
