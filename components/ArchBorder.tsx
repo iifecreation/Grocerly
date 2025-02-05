@@ -17,7 +17,7 @@ const ArchBorder = ({children}: {children: ReactNode}) => {
       <ImageBackground
         source={require('@/assets/arch.png')}
         className="absolute bottom-0  -z-1"
-        style={{height: 75, width: SCREEN_WIDTH}}
+        style={{height: 73, width: SCREEN_WIDTH}}
       />
     </View>
   );

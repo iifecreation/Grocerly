@@ -6,7 +6,7 @@ import axiosInstance from '@/api/config';
 import {
   NOTIFICATIONS_RESPONSE,
   NOTIFICATIONS_ACTION,
-  RESET_PASSWORD_PAGES,
+  BOTTOM_WRAPPER_PAGES,
 } from '@/contants';
 import {API_ROUTES} from '@/contants/api-routes';
 import getErrorMessage from '@/utils/error-formatter';
@@ -21,7 +21,7 @@ const OTPVerification = ({
   email,
 }: {
   handleUpdateActivePage: (arg: {
-    page: RESET_PASSWORD_PAGES;
+    page: BOTTOM_WRAPPER_PAGES;
     email: string;
     otp: string;
   }) => void;
@@ -49,7 +49,7 @@ const OTPVerification = ({
           type: NOTIFICATIONS_ACTION.SUCCESS,
         });
         handleUpdateActivePage({
-          page: RESET_PASSWORD_PAGES.SET_PASSWORD,
+          page: BOTTOM_WRAPPER_PAGES.SET_PASSWORD,
           email: getValues().email,
           otp: getValues().otp,
         });

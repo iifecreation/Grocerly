@@ -7,7 +7,6 @@ import React from 'react';
 hydrate();
 export default function index() {
   const {token} = useAuthToken();
-  console.log('🚀 ~ index ~ token:', token);
   const {isOnboarded} = useAuthStore();
   if (!isOnboarded) {
     return <Onboarding/>

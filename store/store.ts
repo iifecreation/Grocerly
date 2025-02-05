@@ -16,6 +16,7 @@ type Action = {
   userSetData: (userData: Tokentypes['userData']) => void;
 };
 
+// removeToken();
 
   export const useAuthStore = create(
     persist(
@@ -52,3 +53,4 @@ type Action = {
   ) as any;
 
 export const hydrate = useAuthStore.getState().hydrate;
+export const appState = useAuthStore.getState().token;

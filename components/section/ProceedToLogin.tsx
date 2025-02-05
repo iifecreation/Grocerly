@@ -1,12 +1,12 @@
 import {View, Text, Image} from 'react-native';
 import React from 'react';
-import {RESET_PASSWORD_PAGES} from '@/contants';
+import {BOTTOM_WRAPPER_PAGES} from '@/contants';
 import Button from '../nativewindui/Button';
 import {useTranslation} from 'react-i18next';
 
 type SetPasswordProps = {
   handleUpdateActivePage: (arg: {
-    page: RESET_PASSWORD_PAGES;
+    page: BOTTOM_WRAPPER_PAGES;
     email: string;
   }) => void;
 };
@@ -15,7 +15,7 @@ const ProceedToLogin = ({handleUpdateActivePage}: SetPasswordProps) => {
   const {t} = useTranslation();
   function onPress() {
     handleUpdateActivePage({
-      page: RESET_PASSWORD_PAGES.LOGIN,
+      page: BOTTOM_WRAPPER_PAGES.LOGIN,
       email: '',
     });
   }

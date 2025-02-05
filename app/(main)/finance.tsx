@@ -3,10 +3,10 @@ import React from 'react'
 
 const Finance = () => {
   return (
-    <View>
+    <View style={{flex: 1, backgroundColor: 'red'}}>
       <Text>Finance</Text>
     </View>
-  )
+  );
 }
 
 export default Finance

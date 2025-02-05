@@ -1,8 +1,6 @@
 import React from 'react';
 import {APP_ROUTES} from '@/contants/app-routes';
-import {Slot, Stack, Tabs} from 'expo-router';
-import ScreenWrapper from '@/components/ScreenWrapper';
-import ArchBorder from '@/components/ArchBorder';
+import {Tabs} from 'expo-router';
 import Octicons from '@expo/vector-icons/Octicons';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';

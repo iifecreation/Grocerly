@@ -102,5 +102,24 @@
     "404": "An unexpected error occurred.",
     "network": "Network Error",
     "success": "Successful"
+  },
+
+  "order": {
+    "header": "My Order",
+    "pageHeader": "Delivery History",
+    "orderID": "Order ID",
+    "date": "Date of Purchase",
+    "item": "Total Item",
+    "details": "View details",
+    "status": {
+      "pending": "Pending"
+    },
+    "order.details": {
+      "pageHeader": "Track Order",
+      "order": "Order",
+      "items": "Items",
+      "amount": "Amount",
+      "date": "Placed on"
+    }
   }
 }
