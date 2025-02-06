@@ -1,321 +1,342 @@
-// import {View, Text} from 'react-native';
-// import React from 'react';
-
-// const Finance = () => {
-//   return (
-//     <View style={{flex: 1, backgroundColor: 'red'}}>
-//       <Text>Finance</Text>
-//     </View>
-//   );
-// };
-
-// export default Finance;
-
-import React, {useState} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   View,
-  TextInput,
-  Button,
-  ActivityIndicator,
   Text,
-  ScrollView,
+  TextInput,
+  TouchableOpacity,
+  FlatList,
   StyleSheet,
+  SafeAreaView,
+  ActivityIndicator,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
+import {MMKV} from 'react-native-mmkv';
 import axios from 'axios';
-import JSON5 from 'json5';
 
-// import AsyncStorage from '@react-native-async-storage/async-storage';
+const MODEL_NAME = process.env.EXPO_MODEL_NAME;
+
+const getAIResponse = async (query: string, language: string) => {
+  const SPLIT_STRING = `[/INST]`;
+  const response = await axios.post(
+    `https://api-inference.huggingface.co/models/mistralai/Mixtral-8x7B-Instruct-v0.1`,
+    {inputs: prompt(query, language)},
+    {
+      headers: {Authorization: `Bearer ${HF_API_KEY}`},
+      timeout: 30000, // 30s timeout
+    },
+  );
+  const rawText = response.data?.[0]?.generated_text || '';
+  const splitedResponse = rawText.split(SPLIT_STRING)?.[1]?.trim() || '';
+
+  const parsedResponse = (() => {
+    try {
+      // First, try direct parsing
+      return JSON.parse(splitedResponse);
+    } catch (directParseError) {
+      // Try removing any leading/trailing non-JSON characters
+      const jsonExtractRegex = /\{[\s\S]*\}/;
+      const jsonMatch = splitedResponse.match(jsonExtractRegex);
+
+      if (jsonMatch) {
+        try {
+          return JSON.parse(jsonMatch[0]);
+        } catch (extractError) {
+          console.error('JSON extraction parse failed', extractError);
+        }
+      }
+
+      // Additional fallback: try cleaning the string
+      try {
+        const cleanedResponse = splitedResponse
+          .replace(/^[^{]*/, '') // Remove anything before first '{'
+          .replace(/[^}]*$/, ''); // Remove anything after last '}'
+
+        return JSON.parse(cleanedResponse);
+      } catch (cleanError) {
+        console.error('Cleaned parse failed', cleanError);
+      }
+
+      // If all parsing attempts fail
+      throw new Error('Unable to parse AI response');
+    }
+  })();
+
+  console.log('Parsed Response:', parsedResponse);
+  return parsedResponse;
+};
+
+// Use previous parsing logic
+// Initialize MMKV
+const storage = new MMKV();
+
+interface Message {
+  id: string;
+  content: string;
+  isUser: boolean;
+  timestamp: number;
+}
 
 const Finance = () => {
-  const [query, setQuery] = useState('');
-  const [result, setResult] = useState(null);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [inputText, setInputText] = useState('');
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-
-  // Get your free token from https://huggingface.co/settings/tokens
-  const HF_API_KEY = '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';
-  const MODEL_NAME = 'mistralai/Mixtral-8x7B-Instruct-v0.1';
-
-  const handleSearch = async () => {
-    if (!query.trim()) {
-      setError('Please enter a food item');
-      return;
+  const flatListRef = useRef<FlatList>(null);
+  const [language, setLanguage] = useState('Select');
+  const [selectedLang, setSelectedLang] = useState('CH');
+  // Load messages from MMKV
+  useEffect(() => {
+    const savedMessages = storage.getString('messages');
+    if (savedMessages) {
+      setMessages(JSON.parse(savedMessages));
     }
+  }, []);
 
+  // Save messages to MMKV
+  const saveMessages = (newMessages: Message[]) => {
+    storage.set('messages', JSON.stringify(newMessages));
+  };
+
+  const handleSend = async () => {
+    if (!inputText.trim()) return;
+
+    const userMessage: Message = {
+      id: Date.now().toString(),
+      content: inputText,
+      isUser: true,
+      timestamp: Date.now(),
+    };
+
+    // Update UI immediately
+    const newMessages = [...messages, userMessage];
+    setMessages(newMessages);
+    saveMessages(newMessages);
+    setInputText('');
     setLoading(true);
-    setError('');
-    setResult(null); // Reset previous result
 
     try {
-      // Optimized prompt for Mixtral-8x7B
-      const prompt = `
-      [INST] You are a nutrition assistant. 
+      const aiResponse = await getAIResponse(inputText, selectedLang);
+      console.log('🚀 ~ handleSend ~ aiResponse:', aiResponse);
 
-      Return only a valid JSON object containing the nutritional benefits of "${query}" with the following structure:
+      const aiMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        content: formatNutritionResponse(aiResponse),
+        isUser: false,
+        timestamp: Date.now(),
+      };
 
-      {
-        "food": string,
-        "calories": number,
-        "macros": { "protein": number, "carbs": number, "fats": number },
-        "vitamins": string[],
-        "minerals": string[],
-        "health_benefits": string[],
-        "summary": string
-      }
+      setMessages(prev => {
+        const updated = [...prev, aiMessage];
+        saveMessages(updated);
+        return updated;
+      });
+    } catch (error) {
+      console.log('🚀 ~ handleSend ~ error:', error);
+      const errorMessage: Message = {
+        id: `error-${Date.now()}`,
+        content: 'Failed to get nutrition information. Please try again.',
+        isUser: false,
+        timestamp: Date.now(),
+      };
 
-      - Do not include explanations or any text outside the JSON.
-      - Use metric units.
-      - Be concise and structured correctly.
-
-      Only return the JSON object. [/INST]
-    `;
-
-      // API Call
-      const response = await axios.post(
-        `https://api-inference.huggingface.co/models/mistralai/Mixtral-8x7B-Instruct-v0.1`,
-        {inputs: prompt},
-        {
-          headers: {Authorization: `Bearer ${HF_API_KEY}`},
-          timeout: 30000, // 30s timeout
-        },
-      );
-
-      // Extract AI-generated response
-      const rawText = response.data?.[0]?.generated_text || '';
-      console.log('🚀 Raw Response:', parseAIResponse(rawText));
-
-      // ✅ Step 1: Extract JSON using regex (in case extra text appears)
-      const jsonMatch = rawText.match(/{[\s\S]*}/);
-
-      if (!jsonMatch) {
-        throw new Error('No valid JSON found in AI response');
-      }
-
-      // ✅ Step 2: Convert JSON string to object
-      const nutritionData = JSON.parse(jsonMatch[0]);
-      // console.log('🚀 Parsed Nutrition Data:', nutritionData);
-
-      // ✅ Step 3: Validate response structure
-      if (
-        !nutritionData.food ||
-        !nutritionData.calories ||
-        !nutritionData.macros
-      ) {
-        throw new Error('Incomplete data received from AI');
-      }
-
-      // ✅ Step 4: Save to state
-      setResult(nutritionData);
-    } catch (err) {
-      console.error('🚀 API Error:', err);
-      setError('Failed to fetch data. Please try again.');
+      setMessages(prev => {
+        const updated = [...prev, errorMessage];
+        saveMessages(updated);
+        return updated;
+      });
     } finally {
       setLoading(false);
     }
   };
 
+  const formatNutritionResponse = (data: any) => {
+    return `🍏 ${data.food} Nutrition:
+Calories: ${data.calories}kcal
+Protein: ${data.macros.protein}g | Carbs: ${data.macros.carbs}g | Fats: ${data.macros.fats}g
+Vitamins: ${data.vitamins.join(', ')}
+Benefits: ${data.health_benefits.slice(0, 3).join(' • ')}`;
+  };
+
+  function onSelect(index: number, value: string) {
+    if (index === 0) {
+      setSelectedLang('EN');
+    } else {
+      setSelectedLang('CH');
+    }
+    setLanguage(value);
+  }
+
   return (
-    <View style={styles.container}>
-      <TextInput
-        style={styles.input}
-        placeholder="Enter food item (e.g., avocado, salmon)"
-        value={query}
-        onChangeText={setQuery}
-        onSubmitEditing={handleSearch}
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        ref={flatListRef}
+        data={messages}
+        keyExtractor={item => item.id}
+        renderItem={({item}) => <MessageBubble message={item} />}
+        contentContainerStyle={styles.listContent}
+        onContentSizeChange={() => flatListRef.current?.scrollToEnd()}
       />
 
-      <Button
-        title={loading ? 'Analyzing...' : 'Get Nutrition'}
-        onPress={handleSearch}
-        disabled={loading}
-        color="#4CAF50"
-      />
+      <View style={styles.inputContainer}>
+        {loading && (
+          <ActivityIndicator style={styles.loading} color="#4CAF50" />
+        )}
 
-      {loading && <ActivityIndicator size="large" style={styles.loader} />}
+        <TextInput
+          style={styles.input}
+          value={inputText}
+          onChangeText={setInputText}
+          placeholder="Ask about any food..."
+          placeholderTextColor="#888"
+          multiline
+        />
 
-      {error ? <Text style={styles.error}>{error}</Text> : null}
-
-      {result && (
-        <ScrollView style={styles.resultContainer}>
-          <Text style={styles.title}>{result.food}</Text>
-
-          <Text style={styles.sectionTitle}>
-            Calories: {result.calories}kcal
-          </Text>
-
-          <Text style={styles.sectionTitle}>Macronutrients (per 100g):</Text>
-          <Text>Protein: {result.macros.protein}g</Text>
-          <Text>Carbs: {result.macros.carbs}g</Text>
-          <Text>Fats: {result.macros.fats}g</Text>
-
-          <Text style={styles.sectionTitle}>Vitamins:</Text>
-          {result.vitamins.map((v, i) => (
-            <Text key={i}>• {v}</Text>
-          ))}
-
-          <Text style={styles.sectionTitle}>Minerals:</Text>
-          {result.minerals.map((m, i) => (
-            <Text key={i}>• {m}</Text>
-          ))}
-
-          <Text style={styles.sectionTitle}>Health Benefits:</Text>
-          {result.health_benefits.map((b, i) => (
-            <Text key={i}>• {b}</Text>
-          ))}
-
-          <Text style={styles.summary}>{result.summary}</Text>
-        </ScrollView>
-      )}
-    </View>
+        <TouchableOpacity
+          style={styles.sendButton}
+          onPress={handleSend}
+          disabled={loading}>
+          <Text style={styles.sendText}>➤</Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   );
 };
+
+const MessageBubble = ({message}: {message: Message}) => (
+  <View
+    style={[
+      styles.bubble,
+      message.isUser ? styles.userBubble : styles.aiBubble,
+    ]}>
+    <Text style={message.isUser ? styles.userText : styles.aiText}>
+      {message.content}
+    </Text>
+    <Text style={styles.timestamp}>
+      {new Date(message.timestamp).toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit',
+      })}
+    </Text>
+  </View>
+);
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
     backgroundColor: '#f5f5f5',
   },
-  input: {
-    height: 50,
-    borderColor: '#ccc',
-    borderWidth: 1,
-    borderRadius: 8,
-    padding: 10,
-    marginBottom: 15,
-    backgroundColor: 'white',
+  listContent: {
+    padding: 16,
   },
-  loader: {
-    marginVertical: 20,
+  bubble: {
+    maxWidth: '80%',
+    padding: 14,
+    borderRadius: 18,
+    marginBottom: 12,
   },
-  error: {
-    color: 'red',
-    marginVertical: 10,
+  userBubble: {
+    backgroundColor: '#4CAF50',
+    alignSelf: 'flex-end',
+    borderBottomRightRadius: 4,
   },
-  resultContainer: {
-    marginTop: 20,
-    backgroundColor: 'white',
-    borderRadius: 10,
-    padding: 15,
+  aiBubble: {
+    backgroundColor: '#fff',
+    alignSelf: 'flex-start',
+    borderBottomLeftRadius: 4,
+    elevation: 2,
   },
-  title: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    marginBottom: 15,
-    color: '#2c3e50',
-  },
-  sectionTitle: {
+  userText: {
+    color: 'white',
     fontSize: 16,
-    fontWeight: '600',
-    marginTop: 10,
-    marginBottom: 5,
-    color: '#34495e',
+    lineHeight: 22,
   },
-  summary: {
-    marginTop: 15,
-    fontStyle: 'italic',
-    color: '#7f8c8d',
+  aiText: {
+    color: '#333',
+    fontSize: 16,
+    lineHeight: 22,
+  },
+  timestamp: {
+    fontSize: 12,
+    color: '#666',
+    marginTop: 6,
+    alignSelf: 'flex-end',
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 12,
+    backgroundColor: '#fff',
+    borderTopWidth: 1,
+    borderTopColor: '#eee',
+  },
+  picker: {
+    flex: 1,
+    height: 50,
+    marginRight: 12,
+  },
+  input: {
+    flex: 2,
+    minHeight: 48,
+    maxHeight: 100,
+    padding: 12,
+    backgroundColor: '#f0f0f0',
+    borderRadius: 24,
+    fontSize: 16,
+    color: '#333',
+    marginRight: 12,
+  },
+  sendButton: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#4CAF50',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  sendText: {
+    color: 'white',
+    fontSize: 18,
+    marginLeft: 4,
+  },
+  loading: {
+    marginRight: 12,
+  },
+  dropdown: {
+    flex: 1,
+    marginRight: 12,
+  },
+  dropdownText: {
+    fontSize: 16,
+    color: '#333',
+  },
+  dropdownMenu: {
+    width: 150,
   },
 });
 
 export default Finance;
 
-const parseAIResponse = rawText => {
-  const data = JSON.parse(
-    rawText.split('Only return the JSON object. [/INST]')[1],
-  );
-  console.log('🚀 ~ rawText:', data['calories']);
-  try {
-    // Extract JSON block using more precise matching
-    const jsonMatch = rawText.match(/{(?:[^{}]|{(?:[^{}]|{[^{}]*})*})*}/s);
+const prompt = (query: string, language = 'CH') => `
+      Return a valid JSON object containing the nutritional benefits of "${query}" with the following structure:
 
-    if (!jsonMatch) throw new Error('No JSON found in response');
+{
+  "food": string,
+  "calories": number,
+  "macros": { "protein": number, "carbs": number, "fats": number },
+  "vitamins": string[],
+  "minerals": string[],
+  "health_benefits": string[],
+  "summary": string,
+  "language": "EN" | "CH"
+}
 
-    console.log('🚀 ~ jsonMatch:', jsonMatch);
-    let jsonString = jsonMatch[0]
-      .replace(/(\w)\s*:/g, '$1:') // Remove spaces before colons
-      .replace(/'/g, '"') // Replace single quotes
-      .replace(/(\d),(\d)/g, '$1$2') // Fix number formatting
-      .replace(/,\s*}/g, '}') // Remove trailing commas
-      .replace(/None/g, 'null'); // Handle null values
+Instructions:
+- Return the response in the specified language (EN for English, CH for Chinese Simplified)
+- Do not include explanations or any text outside the JSON
+- Use metric units
+- Be concise and structured correctly
+- translate entire response to Chinese Simplified
 
-    // console.log('🚀 ~ jsonString:', jsonString);
-    // Parse with validation
-    const result = JSON.parse(jsonString);
-
-    // Validate required fields
-    const requiredFields = ['food', 'calories', 'macros', 'vitamins'];
-    if (!requiredFields.every(field => field in result)) {
-      throw new Error('Missing required fields in JSON');
-    }
-
-    return result;
-  } catch (error) {
-    console.error('Parse error:', error.message);
-    console.debug('Original text:', rawText);
-    throw new Error('Failed to process nutrition data');
-  }
-};
-
-const extractNutritionData = rawText => {
-  try {
-    // 1. Remove everything before the JSON object
-    const jsonStartIndex = rawText.indexOf('{');
-    const jsonEndIndex = rawText.lastIndexOf('}') + 1;
-    const jsonString = rawText.slice(jsonStartIndex, jsonEndIndex);
-
-    // 2. Clean common formatting issues
-    const cleanedJson = jsonString
-      .replace(/(['"])?([a-z0-9A-Z_]+)(['"])?:/g, '"$2": ') // Ensure proper quotes
-      .replace(/'/g, '"') // Replace single quotes
-      .replace(/,\s*}/g, '}') // Remove trailing commas
-      .replace(/&/g, 'and') // Fix special characters
-      .replace(/\\/g, ''); // Remove escape characters
-
-    // 3. Parse the JSON
-    const data = JSON.parse(cleanedJson);
-
-    // 4. Validate structure
-    const requiredStructure = {
-      food: 'string',
-      calories: 'number',
-      macros: {
-        protein: 'number',
-        carbs: 'number',
-        fats: 'number',
-      },
-      vitamins: 'array',
-      minerals: 'array',
-      health_benefits: 'array',
-      summary: 'string',
-    };
-
-    // Recursive validation function
-    const validateStructure = (obj, structure) => {
-      for (const key in structure) {
-        if (!(key in obj)) {
-          throw new Error(`Missing field: ${key}`);
-        }
-
-        const expectedType = structure[key];
-        const actualType = Array.isArray(obj[key]) ? 'array' : typeof obj[key];
-
-        if (typeof expectedType === 'object') {
-          validateStructure(obj[key], expectedType);
-        } else if (actualType !== expectedType) {
-          throw new Error(
-            `Invalid type for ${key}: expected ${expectedType}, got ${actualType}`,
-          );
-        }
-      }
-    };
-
-    validateStructure(data, requiredStructure);
-
-    return data;
-  } catch (error) {
-    console.error('Data extraction failed:', error.message);
-    console.debug('Original text:', rawText);
-    throw new Error('Failed to process nutrition data: ' + error.message);
-  }
-};
+Provide the nutritional information for: ${query}
+ [/INST]
+  `;

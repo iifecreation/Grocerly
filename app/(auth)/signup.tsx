@@ -147,6 +147,13 @@ const Signup = () => {
                     {t('auth.signup.sign')}
                   </Text>
                 </Link>
+                <Link href={APP_ROUTES.ACCOUNT_CREATED}>
+                  <Text
+                    className="font-bold text-base leading-[25px]"
+                    style={{color: COLORS.light.primary}}>
+                    created
+                  </Text>
+                </Link>
               </View>
             </View>
           </>

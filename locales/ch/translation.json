@@ -2,7 +2,8 @@
   "onboarding": {
     "one": {
       "header": "享受一站式新鲜食品购物",
-      "descriptions": "从多汁的水果、脆嫩的蔬菜到优质的肉类和日常用品，我们应有尽有。"
+      "descriptions": "从多汁的水果、脆嫩的蔬菜到优质的肉类和日常用品，我们应有尽有。",
+      "skip": "跳过"
     },
 
     "two": {
@@ -101,5 +102,24 @@
     "404": "发生意外错误。",
     "network": "网络错误",
     "success": "成功"
+  },
+
+  "order": {
+    "header": "我的订单",
+    "pageHeader": "配送历史",
+    "orderID": "订单编号",
+    "date": "购买日期",
+    "item": "总商品数",
+    "details": "查看详情",
+    "status": {
+      "pending": "待处理"
+    },
+    "order.details": {
+      "pageHeader": "订单追踪",
+      "order": "订单",
+      "items": "商品",
+      "amount": "金额",
+      "date": "下单时间"
+    }
   }
 }

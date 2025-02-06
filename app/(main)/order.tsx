@@ -16,12 +16,14 @@ import {useTranslation} from 'react-i18next';
 import ListEmptyContainer from '@/components/ListEmptyContainer';
 import MainPageHeader from '@/components/MainPageHeader';
 import {APP_ROUTES} from '@/contants/app-routes';
+import FullPageLoader from '@/components/FullPageLoader';
 
 const Order = () => {
   const listRef = useRef(null);
   const {t} = useTranslation();
   const {
     isLoading,
+    isFetching,
     error,
     isError,
     data: data,
@@ -35,9 +37,8 @@ const Order = () => {
 
   return (
     <ScreenWrapper background={COLORS.light.primary}>
-      {isLoading ? (
-        // <Loader />
-        <></>
+      {isLoading || isFetching ? (
+        <FullPageLoader />
       ) : (
         // <></>
         <View className="flex-1 bg-white">
