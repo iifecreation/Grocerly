@@ -28,6 +28,7 @@ export default function Details() {
   const [showBottomNav, setShowBottomNav] = useState({
     page: BOTTOM_WRAPPER_PAGES.CLOSE,
   });
+  const listInComp = {name: 'James', stack: ['Java', 'Kotlin']};
 
   function handleCloseBottomNav() {
     setShowBottomNav(() => ({page: BOTTOM_WRAPPER_PAGES.CLOSE}));
@@ -43,6 +44,10 @@ export default function Details() {
     },
   });
   const orderData = useMemo(() => data?.data?.data, [data]);
+
+  function onPress() {
+    console.log();
+  }
 
   return (
     <ScreenWrapper background={COLORS.light.primary}>
@@ -79,11 +84,7 @@ export default function Details() {
           />
         </View>
         <View className="flex flex-row items-center gap-x-4 mt-auto mb-4">
-          <Button
-            className="w-1/2"
-            onPress={function (): void {
-              throw new Error('Function not implemented.');
-            }}>
+          <Button className="w-1/2" onPress={onPress}>
             <Text className="text-white">Track Order Via Map</Text>
           </Button>
           <Button
@@ -112,3 +113,4 @@ export default function Details() {
     </ScreenWrapper>
   );
 }
+
