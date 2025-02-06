@@ -102,5 +102,18 @@
     "404": "An unexpected error occurred.",
     "network": "Network Error",
     "success": "Successful"
+  },
+
+  "filter":{
+    "header": "Filter"
+  },
+
+  "notification":{
+    "header": "Notifications",
+    "headerTitle": "You've got a new notification waiting for you, never miss important updates."
+  },
+
+  "search": {
+    "placeholder" : "Search for Products"
   }
 }

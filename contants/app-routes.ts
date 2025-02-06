@@ -8,4 +8,6 @@ export enum APP_ROUTES {
   FINANCE = 'finance',
   CART = 'cart',
   ACCOUNT = 'account',
+  NOTIFICATION="/authorised/notification",
+  SEARCH="/authorised/search"
 }
