@@ -74,6 +74,11 @@
     "verifyAccount": {
       "header": "Verify your account",
       "descriptions": "Please enter the One-Time Password (OTP) sent to your email address to complete the verification process"
+    },
+    "accountCreated": {
+      "successful": "Account Created Successfully!",
+      "notifications": "Allow the app to send you notifications about new products, offers and promos",
+      "shopping": "Start Shopping"
     }
   },
   "forgetPassword": {

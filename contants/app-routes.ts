@@ -4,4 +4,5 @@ export enum APP_ROUTES {
   CREATE_ACCOUNT = '/(auth)/signup',
   SET_PASSWORD = '/(auth)/password',
   VERIFY_OTP = '/(auth)/verify',
+  ACCOUNT_CREATED = '/(auth)/accountCreated',
 }
