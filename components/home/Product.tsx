@@ -1,6 +1,6 @@
 import { FlatList, StyleSheet, Text, View } from 'react-native'
 import React, { useMemo, useRef } from 'react'
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { QUERY_ENUM } from '@/contants';
 import axiosInstance from '@/api/config';
 import { API_ROUTES } from '@/contants/api-routes';
@@ -11,6 +11,7 @@ import ProductCard from '../common/cards/ProductCard';
 const Product = () => {
     const listRef = useRef(null);
     const {t} = useTranslation();
+    const queryClient = useQueryClient();
     
     const {
         isLoading,
@@ -27,12 +28,10 @@ const Product = () => {
     
     const orderList = useMemo(() => data?.data, [data]);
 
+    const showProduct = ({ item }: { item: any }) => {  
+        return (<ProductCard item={item} />)
+    }
 
-      const showProduct = ({ item }: { item: any }) => {  
-        return (
-            <ProductCard item={item} />
-        )
-      }
 
   return (
     <View style={{flex: 1, height: "100%"}} className='mt-9 pb-8'>

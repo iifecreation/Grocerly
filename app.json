@@ -9,7 +9,13 @@
     "newArchEnabled": true,
     "scheme": "your-app-scheme",
     "plugins": [
-      "expo-localization"
+      "expo-localization",
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
+        }
+      ]
     ],
     "splash": {
       "image": "./assets/images/adaptive-icon.png",

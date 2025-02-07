@@ -22,6 +22,8 @@ import GreaterThan from '@/components/icons/greaterThan';
 import ProductDetailsTab from '@/components/common/tabs/ProductDetailsTab';
 import DisplayTabContent from '@/components/common/tabs/displayTabContent';
 import Entypo from '@expo/vector-icons/Entypo';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import BottomSheetWrapper from '@/components/common/BottomSheet/BottomSheetWrapper';
 
 const tabs = ["Description", "Nutritional Information", "Reviews"];
 
@@ -30,6 +32,7 @@ const ProductDetail = () => {
   const router = useRouter();
   const params = useLocalSearchParams();
   const [activeTab, setActiveTab] = useState(tabs[0]);
+  const [isVisible, setIsVisible] = useState(false);
 
   const {
     isLoading,
@@ -43,8 +46,40 @@ const ProductDetail = () => {
       return await axiosInstance.get(`${API_ROUTES.FETCH_PRODUCT}/${params.id}`);
     },
   });
-  
+
+  // Function to handle button click and show bottom sheet
+  const showBottomSheet = () => setIsVisible(true);
   const {product} = useMemo(() => data?.data, [data]);
+
+  // Helper function to get cart from AsyncStorage
+  const getCart = async () => {
+    const cart = await AsyncStorage.getItem('cart');
+    return cart ? JSON.parse(cart) : [];
+  };
+
+  // Helper function to save cart to AsyncStorage
+  const saveCart = async (cart: any) => {
+      await AsyncStorage.setItem('cart', JSON.stringify(cart));
+  };
+
+  const addToCart = async () => {
+      const cart = await getCart();
+
+      // Check if the product is already in the cart
+      const isProductInCart = cart.some((item: any) => item.id === product.id);
+
+      if (isProductInCart) {
+          // If the product is already in cart, show a toast
+          showBottomSheet()
+      } else {
+        // If not in cart, add it
+        const updatedCart = [...cart, product];
+
+        // Save the updated cart to AsyncStorage
+        await saveCart(updatedCart);  
+        showBottomSheet()   
+    }
+  }
 
   return (
     <ScreenWrapper background={COLORS.light.primary}>
@@ -125,7 +160,7 @@ const ProductDetail = () => {
           </View> 
 
           <View className='mb-20 flex flex-row justify-between items-center'>
-            <TouchableOpacity className='flex flex-row items-center gap-3 rounded-full justify-center py-3' style={{backgroundColor: COLORS.light.primary, width: "45%"}}>
+            <TouchableOpacity className='flex flex-row items-center gap-3 rounded-full justify-center py-3' style={{backgroundColor: COLORS.light.primary, width: "45%"}} onPress={addToCart}>
               <Ionicons
                 name="cart-outline"
                 size={24}
@@ -141,6 +176,14 @@ const ProductDetail = () => {
 
           </View>
         </ScrollView>
+
+        {isVisible && (
+          <BottomSheetWrapper>
+          <View>
+            <Text>hello</Text>
+          </View>
+        </BottomSheetWrapper>
+        )}
       </View>
     </ScreenWrapper>
   )

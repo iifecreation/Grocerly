@@ -6,18 +6,48 @@ import { useRouter } from 'expo-router';
 import Toast from 'react-native-toast-message';
 import { COLORS } from '@/theme/colors';
 import commonStyles from '@/components/styles/common';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ProductCard = ({item}: {item: any}) => {
 
     const router = useRouter()
 
-    const addToCart = () => {
-        Toast.show({
-            type: 'success',
-            text1: "Add to cart",
-            text2: "This Item has been added successfully"
-        });
+    // Helper function to get cart from AsyncStorage
+    const getCart = async () => {
+        const cart = await AsyncStorage.getItem('cart');
+        return cart ? JSON.parse(cart) : [];
+    };
+
+    // Helper function to save cart to AsyncStorage
+    const saveCart = async (cart: any) => {
+        await AsyncStorage.setItem('cart', JSON.stringify(cart));
+    };
+
+    const addToCart = async () => {
+        const cart = await getCart();
+
+        // Check if the product is already in the cart
+        const isProductInCart = cart.some((product: any) => product.id === item.id);
+
+        if (isProductInCart) {
+            // If the product is already in cart, show a toast
+            Toast.show({
+              type: 'info',
+              text1: 'Product already in cart',
+              text2: 'This product is already in your cart.',
+            });
+          } else {
+            // If not in cart, add it
+            const updatedCart = [...cart, item];
+
+            // Save the updated cart to AsyncStorage
+            await saveCart(updatedCart);
+            Toast.show({
+                type: 'success',
+                text1: "Add to cart",
+                text2: "This Item has been added successfully"
+            });
+          }
     }
 
   return (
