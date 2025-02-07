@@ -2,7 +2,8 @@
   "onboarding": {
     "one": {
       "header": "Enjoy one-stop shop for fresh groceries",
-      "descriptions": "From juicy fruits and crisp vegetables to premium meats and pantry staples, we've got everything you need."
+      "descriptions": "From juicy fruits and crisp vegetables to premium meats and pantry staples, we've got everything you need.",
+      "skip": "Skip"
     },
 
     "two": {
@@ -74,6 +75,11 @@
     "verifyAccount": {
       "header": "Verify your account",
       "descriptions": "Please enter the One-Time Password (OTP) sent to your email address to complete the verification process"
+    },
+    "accountCreated": {
+      "successful": "Account Created Successfully!",
+      "notifications": "Allow the app to send you notifications about new products, offers and promos",
+      "shopping": "Start Shopping"
     }
   },
   "forgetPassword": {
@@ -123,5 +129,24 @@
     "sub-title": "Item added to cart!",
     "btn1": "Home",
     "btn2": "Cart"
+  },
+  
+  "order": {
+    "header": "My Order",
+    "pageHeader": "Delivery History",
+    "orderID": "Order ID",
+    "date": "Date of Purchase",
+    "item": "Total Item",
+    "details": "View details",
+    "status": {
+      "pending": "Pending"
+    },
+    "order.details": {
+      "pageHeader": "Track Order",
+      "order": "Order",
+      "items": "Items",
+      "amount": "Amount",
+      "date": "Placed on"
+    }
   }
 }

@@ -144,7 +144,7 @@ const Password = () => {
                 <Text className="font-normal text-black text-base leading-[25px]">
                   {t('auth.signup.account')} {''}
                 </Text>
-                <Link replace href={APP_ROUTES.LOGIN}>
+                <Link href={APP_ROUTES.LOGIN}>
                   <Text
                     className="font-bold text-base leading-[25px]"
                     style={{color: COLORS.light.primary}}>

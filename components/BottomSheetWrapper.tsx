@@ -1,16 +1,13 @@
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import React, {ReactNode, useCallback, useMemo, useRef} from 'react';
-import BottomSheet, {
-  BottomSheetBackdrop,
-  BottomSheetView,
-} from '@gorhom/bottom-sheet';
+import BottomSheet, {BottomSheetView} from '@gorhom/bottom-sheet';
 import {SAFE_AREA_PADDING, SCREEN_HEIGHT, SCREEN_WIDTH} from '@/utils/utils';
 import {COLORS} from '@/theme/colors';
 import {Pressable} from 'react-native-gesture-handler';
-import {RESET_PASSWORD_PAGES} from '@/contants';
+import {BOTTOM_WRAPPER_PAGES} from '@/contants';
 
 type BottomSheetWrapperProps = {
-  activePage: {page: RESET_PASSWORD_PAGES};
+  activePage: {page: BOTTOM_WRAPPER_PAGES};
   onClose: () => void;
   children: ReactNode;
 };
@@ -22,7 +19,12 @@ const BottomSheetWrapper = ({
   const bottomSheetRef = useRef<BottomSheet>(null);
 
   const snapPoints = useMemo(() => {
-    if (activePage.page !== RESET_PASSWORD_PAGES.RESET_PASSWORD) {
+    if (
+      activePage.page.includes([
+        BOTTOM_WRAPPER_PAGES.RESET_PASSWORD,
+        // BOTTOM_WRAPPER_PAGES.OPEN,
+      ] as any)
+    ) {
       return ['50%'];
     } else {
       return ['80%'];

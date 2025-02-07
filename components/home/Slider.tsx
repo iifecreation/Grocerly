@@ -99,6 +99,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: SAFE_AREA_PADDING.paddingRight,
     },
     sliderContainer: {
+      backgroundColor: "#fff",
         display: "flex",
         width: "100%",
         justifyContent: "center",
@@ -120,7 +121,7 @@ const styles = StyleSheet.create({
       resizeMode: 'cover',
     },
     indicatorContainer: {
-        marginTop: 10,
+      marginTop: 10,
       flexDirection: 'row',
       justifyContent: 'center',
     },

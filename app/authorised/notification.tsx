@@ -4,7 +4,6 @@ import React from 'react';
 import ArchBorder from '@/components/ArchBorder';
 import ScreenWrapper from '@/components/ScreenWrapper';
 import {COLORS} from '@/theme/colors';
-import Header from '@/components/home/header';
 import MainPageHeader from '@/components/MainPageHeader';
 import { useTranslation } from 'react-i18next';
 

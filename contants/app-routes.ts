@@ -4,10 +4,17 @@ export enum APP_ROUTES {
   CREATE_ACCOUNT = '/(auth)/signup',
   SET_PASSWORD = '/(auth)/password',
   VERIFY_OTP = '/(auth)/verify',
+
+  ACCOUNT_CREATED = '/(auth)/accountCreated',
+
   ORDER = 'order',
+  ORDER_DETAILS = '/order/details',
   FINANCE = 'finance',
   CART = 'cart',
   ACCOUNT = 'account',
   NOTIFICATION="/authorised/notification",
-  SEARCH="/authorised/search"
+  SEARCH="/authorised/search",
+
+  PRODUCT_DETAILS="/productDetails/[productId]"
+
 }

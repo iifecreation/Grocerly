@@ -1,4 +1,4 @@
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import React, { useState } from 'react';
 import ArchBorder from '@/components/ArchBorder';
 import ScreenWrapper from '@/components/ScreenWrapper';
@@ -9,6 +9,7 @@ import Slider from '@/components/home/Slider';
 import {SAFE_AREA_PADDING} from '@/utils/utils';
 import Category from '@/components/home/category';
 import Product from '@/components/home/Product';
+import CartToast from '@/components/common/toasts/CartToast';
 
 const index = () => {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
@@ -22,14 +23,17 @@ const index = () => {
         {/* Home Banner */}
         <Slider />
 
+        <ScrollView showsVerticalScrollIndicator={false}>
           {/* category section slider  */}
-        <Category />
+          <Category />
 
-        {/* display product section */}
-        <Product />
+          {/* display product section */}
+          <Product />
+        </ScrollView>
 
       </View>
       <Filter modalVisible={modalVisible} setModalVisible={setModalVisible} />
+      <CartToast />
     </ScreenWrapper>
   );
 };
@@ -39,6 +43,8 @@ export default index;
 const styles = StyleSheet.create({
   main: {
     paddingHorizontal: SAFE_AREA_PADDING.paddingRight,
+    backgroundColor: "#fff",
+    flex: 1
   }
 });
 

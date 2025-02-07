@@ -2,9 +2,8 @@
 
 import {cn} from '@/lib/cn';
 import React, {useState} from 'react';
-import {TextInput, Text, View} from 'react-native';
+import {TextInput, View} from 'react-native';
 import ErrorMessage from './nativewindui/ErrorMessage';
-import {Icon} from '@roninoss/icons';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 type TextInputTypes = {

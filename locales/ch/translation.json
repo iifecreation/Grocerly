@@ -1,0 +1,125 @@
+{
+  "onboarding": {
+    "one": {
+      "header": "享受一站式新鲜食品购物",
+      "descriptions": "从多汁的水果、脆嫩的蔬菜到优质的肉类和日常用品，我们应有尽有。",
+      "skip": "跳过"
+    },
+
+    "two": {
+      "header": "您的杂货配送超级英雄",
+      "descriptions": "厌倦了从超市拎着沉重的袋子回家？让我们来为您分担重负！"
+    },
+    "three": {
+      "header": "新鲜食品，送货上门",
+      "descriptions": "尽享便捷，随时随地为您送上高品质新鲜食品。"
+    }
+  },
+  "form": {
+    "errors": {
+      "email": "邮箱是必填项",
+      "password": "密码是必填项",
+      "passwordLength": "密码长度应大于6位",
+      "confirmPassword": "确认密码必须与密码匹配"
+    }
+  },
+  "buttons": {
+    "login": "登录",
+    "signup": "注册",
+    "proceed": "继续",
+    "otp": "验证 OTP",
+    "confirm": "确认新密码",
+    "processLogin": "继续登录",
+    "resend": "重新发送"
+  },
+  "auth": {
+    "login": {
+      "header": "欢迎来到 Grocerly！",
+      "descriptions": "连接路线，传递信任",
+      "remember": "记住我",
+      "forget": "忘记密码？",
+      "account": "还没有账户？",
+      "sign": "注册",
+      "email": "输入邮箱地址",
+      "password": "密码"
+    },
+    "signup": {
+      "header": "欢迎来到 Grocerly！",
+      "descriptions": "连接路线，传递信任",
+      "remember": "记住我",
+      "forget": "忘记密码",
+      "account": "已有账户？",
+      "sign": "登录",
+      "or": "或使用"
+    },
+    "terms": {
+      "header": "勾选此框，即表示您同意",
+      "descriptions": "的条款和条件",
+      "name": "Grocerly，"
+    },
+    "reset": {
+      "header": "重置您的密码",
+      "descriptions": "请验证您的邮箱地址，我们将生成一次性密码并发送到您的邮箱。"
+    },
+    "otp": {
+      "header": "OTP 验证",
+      "descriptions": "请输入发送到您邮箱的一次性密码 (OTP) 以完成验证。",
+      "receive": "未收到 OTP？",
+      "resend": "重新发送",
+      "verify": "验证 OTP"
+    },
+    "newPassword": {
+      "header": "创建新密码",
+      "descriptions": "请设置一个安全的新密码。确保它独特且强大，以保护您的账户安全。"
+    },
+    "verifyAccount": {
+      "header": "验证您的账户",
+      "descriptions": "请输入发送到您邮箱的一次性密码 (OTP) 以完成验证。"
+    }
+  },
+  "forgetPassword": {
+    "header": "重置您的密码",
+    "descriptions": "请验证您的邮箱地址，我们将生成一次性密码并发送到您的邮箱。",
+    "passwordChangeSucess": "OTP 发送成功",
+    "message": "请检查您的邮箱获取 OTP"
+  },
+  "otp": {
+    "header": "OTP 验证",
+    "descriptions": "请输入发送到您邮箱的一次性密码 (OTP) 以完成验证。",
+    "dont": "未收到 OTP？",
+    "message": "OTP 验证成功"
+  },
+  "createPassword": {
+    "header": "创建新密码",
+    "descriptions": "请设置一个安全的新密码。确保它独特且强大，以保护您的账户安全。",
+    "placeholder1": "输入新密码",
+    "placeholder2": "确认密码",
+    "success": "密码重置成功！"
+  },
+  "networkRequest": {
+    "400": "哎呀！邮箱或密码无效",
+    "408": "请求超时，请重试。",
+    "404": "发生意外错误。",
+    "network": "网络错误",
+    "success": "成功"
+  },
+
+  "order": {
+    "header": "我的订单",
+    "pageHeader": "配送历史",
+    "orderID": "订单编号",
+    "date": "购买日期",
+    "item": "总商品数",
+    "details": "查看详情",
+    "status": {
+      "pending": "待处理"
+    },
+    "order.details": {
+      "pageHeader": "订单追踪",
+      "order": "订单",
+      "items": "商品",
+      "amount": "金额",
+      "date": "下单时间"
+    }
+  }
+}
