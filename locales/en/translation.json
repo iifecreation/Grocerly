@@ -115,5 +115,13 @@
 
   "search": {
     "placeholder" : "Search for Products"
+  },
+
+  "cart": {
+    "title": "Add to cart",
+    "desc": "This Item has been added successfully",
+    "sub-title": "Item added to cart!",
+    "btn1": "Home",
+    "btn2": "Cart"
   }
 }

@@ -1,5 +1,5 @@
-import { View, FlatList, TouchableOpacity, Image, Dimensions, StyleSheet } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import { View, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
 import ArchBorder from '@/components/ArchBorder';
 import ScreenWrapper from '@/components/ScreenWrapper';
 import { COLORS } from '@/theme/colors';
@@ -8,6 +8,7 @@ import Filter from '@/components/Filter/Filter';
 import Slider from '@/components/home/Slider';
 import {SAFE_AREA_PADDING} from '@/utils/utils';
 import Category from '@/components/home/category';
+import Product from '@/components/home/Product';
 
 const index = () => {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
@@ -21,7 +22,11 @@ const index = () => {
         {/* Home Banner */}
         <Slider />
 
+          {/* category section slider  */}
         <Category />
+
+        {/* display product section */}
+        <Product />
 
       </View>
       <Filter modalVisible={modalVisible} setModalVisible={setModalVisible} />

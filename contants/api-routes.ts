@@ -6,4 +6,6 @@ export enum API_ROUTES {
   NEW_PASSWORD_RESET = 'auth/user/reset-password/new',
   TEST_LOGIN = 'auth/admin/login',
   CREATE_ACCOUNT = '/auth/user/create',
+
+  FETCH_PRODUCT = "/product"
 }

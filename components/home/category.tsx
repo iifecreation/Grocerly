@@ -18,7 +18,7 @@ function Category() {
         renderItem={({ item }) => (
           <TouchableOpacity style={{ marginRight: 20, alignItems: 'center' }}>
             <View className='mb-3'>{item.image}</View>
-            <Text className='text-gray-200'>{item.name}</Text>
+            <Text className='text-gray-500'>{item.name}</Text>
           </TouchableOpacity>
         )}
       />
@@ -35,17 +35,17 @@ const categoryItem = [
         image: <Garins />
     },
     {
-        id: 1,
+        id: 2,
         name: "Bakery & Grains",
         image: <Food />
     },
     {
-        id: 1,
+        id: 3,
         name: "Bakery & Grains",
         image: <Beverages />
     },
     {
-        id: 1,
+        id: 4,
         name: "Bakery & Grains",
         image: <Spices />
     }
