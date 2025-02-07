@@ -1,9 +1,12 @@
+import {appState, useAuthStore} from '@/store/store';
 import axios from 'axios';
 // axios configuration
 const axiosInstance = axios.create({
   baseURL: process.env.EXPO_PUBLIC_API_URL,
   timeout: 15000,
-  headers: {},
+  headers: {
+    Authorization: `Bearer ${appState}`,
+  },
 });
 
 // axios request interceptor to handle request customization

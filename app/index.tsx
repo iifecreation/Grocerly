@@ -7,10 +7,15 @@ import React from 'react';
 hydrate();
 export default function index() {
   const {token} = useAuthToken();
+  console.log('🚀 ~ index ~ token:', token);
   const {isOnboarded} = useAuthStore();
   if (!isOnboarded) {
     return <Onboarding/>
     
   }
-  return token ? <Redirect href="(main)" /> : <Redirect href="(auth)" />;
+  return token ? (
+    <Redirect href="(auth)" />
+  ) : (
+    <Redirect href="(auth)" />
+  );
 }

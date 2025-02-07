@@ -3,7 +3,7 @@ import axiosInstance from '@/api/config';
 import {
   NOTIFICATIONS_RESPONSE,
   NOTIFICATIONS_ACTION,
-  RESET_PASSWORD_PAGES,
+  BOTTOM_WRAPPER_PAGES,
 } from '@/contants';
 import {API_ROUTES} from '@/contants/api-routes';
 import useYupValidationResolver from '@/hooks/useYupValidationResolver';
@@ -45,7 +45,7 @@ type LoginFormProps = {
 };
 
 type ResetPassagesType = {
-  page: RESET_PASSWORD_PAGES;
+  page: BOTTOM_WRAPPER_PAGES;
   email?: string;
   otp?: string;
 };
@@ -59,10 +59,7 @@ const Validation = yup.object().shape({
   password: yup
     .string()
     .trim()
-    .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,})/,
-      i18n.t('form.errors.passwordLength'),
-    )
+    .matches(/^(?=.{6,})/, i18n.t('form.errors.passwordLength'))
     .required(i18n.t('form.errors.password')),
 });
 const Login = () => {
@@ -71,7 +68,7 @@ const Login = () => {
 
   const [rememberMe, setRemember] = useState(false);
   const [ActivePage, setActivePage] = useState<ResetPassagesType>({
-    page: RESET_PASSWORD_PAGES.LOGIN,
+    page: BOTTOM_WRAPPER_PAGES.LOGIN,
     email: '',
     otp: '',
   });
@@ -87,20 +84,22 @@ const Login = () => {
   } = useForm<LoginFormProps>({
     resolver: yupResolver,
     defaultValues: {
-      email: 'thomas@skyventures.vc',
-      password: 'Test@1234',
+      email: 'decove@mailinator.com',
+      password: 'Password!',
     },
   });
   const loginResponse = useMutation({
     mutationFn: async (data: {password: string; email: string}) => {
       try {
-        const response = await axiosInstance.post(API_ROUTES.TEST_LOGIN, {
+        const response = await axiosInstance.post(API_ROUTES.LOGIN, {
           password: data?.password,
-          username: data?.email,
+          email: data?.email,
         });
+        console.log(response?.data);
         const token = response?.data?.token;
         updateToken(token);
       } catch (error: any) {
+        console.log('🚀 ~ mutationFn: ~ error:', error);
         showMessage({
           message: NOTIFICATIONS_RESPONSE.ERROR,
           description: getErrorMessage(error?.error?.statusCode),
@@ -117,13 +116,13 @@ const Login = () => {
 
   function onForgetPassword() {
     updateActivePage({
-      page: RESET_PASSWORD_PAGES.FORGOT_PASSWORD,
+      page: BOTTOM_WRAPPER_PAGES.FORGOT_PASSWORD,
     });
   }
 
   const handleSheetClose = useCallback(() => {
     setActivePage(() => ({
-      page: RESET_PASSWORD_PAGES.LOGIN,
+      page: BOTTOM_WRAPPER_PAGES.LOGIN,
       email: '',
       otp: '',
     }));
@@ -134,8 +133,7 @@ const Login = () => {
       {loginResponse.isPending ? <FullPageLoader /> : null}
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={{flex: 1}}
-      >
+        style={{flex: 1}}>
         <ScrollView
           contentContainerStyle={{
             flex: 1,
@@ -213,14 +211,17 @@ const Login = () => {
                 <Link push href={APP_ROUTES.CREATE_ACCOUNT}>
                   <Text
                     className="font-bold text-base leading-[25px]"
-                    style={{color: COLORS.light.primary}}>
+                    style={{
+                      color: COLORS.light.primary,
+                      fontFamily: 'Inter_18pt-ThinItalic',
+                    }}>
                     {t('auth.login.sign')}
                   </Text>
                 </Link>
               </View>
             </View>
 
-            {ActivePage.page != RESET_PASSWORD_PAGES.LOGIN ? (
+            {ActivePage.page != BOTTOM_WRAPPER_PAGES.LOGIN ? (
               <BottomSheetWrapper
                 activePage={ActivePage}
                 onClose={handleSheetClose}>
@@ -247,27 +248,27 @@ function ResetPasswordPageHandler({
   ActivePage,
   updateActivePage,
 }: ResetPasswordPageHandlerProps) {
-  if (ActivePage.page === RESET_PASSWORD_PAGES.LOGIN) {
+  if (ActivePage.page === BOTTOM_WRAPPER_PAGES.LOGIN) {
     return <></>;
   }
   switch (ActivePage.page) {
-    case RESET_PASSWORD_PAGES.FORGOT_PASSWORD:
+    case BOTTOM_WRAPPER_PAGES.FORGOT_PASSWORD:
       return <ForgotPassword handleUpdateActivePage={updateActivePage} />;
-    case RESET_PASSWORD_PAGES.RESET_PASSWORD:
+    case BOTTOM_WRAPPER_PAGES.RESET_PASSWORD:
       return (
         <OTPVerification
           handleUpdateActivePage={updateActivePage}
           email={ActivePage.email as string}
         />
       );
-    case RESET_PASSWORD_PAGES.SET_PASSWORD:
+    case BOTTOM_WRAPPER_PAGES.SET_PASSWORD:
       return (
         <SetPassword
           handleUpdateActivePage={updateActivePage}
           data={ActivePage}
         />
       );
-    case RESET_PASSWORD_PAGES.RESET_SUCCESSFULLY:
+    case BOTTOM_WRAPPER_PAGES.RESET_SUCCESSFULLY:
       return <ProceedToLogin handleUpdateActivePage={updateActivePage} />;
 
     default:

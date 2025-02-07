@@ -8,10 +8,12 @@ import {SAFE_AREA_PADDING} from '@/utils/utils';
 import {COLORS} from '@/theme/colors';
 import {ImageSlider} from '@/lib/data';
 import {useAuthStore} from '@/store/store';
+import {useTranslation} from 'react-i18next';
 
 const Onboarding = () => {
   const scrollX = useSharedValue(0);
   const {handleSkipOnboarding} = useAuthStore();
+  const {t} = useTranslation();
   function skipOnBoarding() {
     handleSkipOnboarding();
   }
@@ -35,7 +37,7 @@ const Onboarding = () => {
       <Pagination length={ImageSlider.length} x={scrollX} color={'white'} />
       <View style={{paddingRight: SAFE_AREA_PADDING.paddingLeft}}>
         <Text style={styles.textSkip} onPress={skipOnBoarding}>
-          Skip
+          {t('onboarding.one.skip')}
         </Text>
       </View>
     </View>

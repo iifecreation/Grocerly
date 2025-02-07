@@ -2,7 +2,8 @@
   "onboarding": {
     "one": {
       "header": "Enjoy one-stop shop for fresh groceries",
-      "descriptions": "From juicy fruits and crisp vegetables to premium meats and pantry staples, we've got everything you need."
+      "descriptions": "From juicy fruits and crisp vegetables to premium meats and pantry staples, we've got everything you need.",
+      "skip": "Skip"
     },
 
     "two": {
@@ -107,5 +108,32 @@
     "404": "An unexpected error occurred.",
     "network": "Network Error",
     "success": "Successful"
+  },
+
+  "Tab": {
+    "Home": "Home",
+    "Order": "Order",
+    "Finance": "Finance",
+    "Cart": "Cart",
+    "Account": "Account"
+  },
+
+  "order": {
+    "header": "My Order",
+    "pageHeader": "Delivery History",
+    "orderID": "Order ID",
+    "date": "Date of Purchase",
+    "item": "Total Item",
+    "details": "View details",
+    "status": {
+      "pending": "Pending"
+    },
+    "order.details": {
+      "pageHeader": "Track Order",
+      "order": "Order",
+      "items": "Items",
+      "amount": "Amount",
+      "date": "Placed on"
+    }
   }
 }

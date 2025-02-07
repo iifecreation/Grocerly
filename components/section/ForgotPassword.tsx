@@ -7,7 +7,7 @@ import axiosInstance from '@/api/config';
 import {
   NOTIFICATIONS_RESPONSE,
   NOTIFICATIONS_ACTION,
-  RESET_PASSWORD_PAGES,
+  BOTTOM_WRAPPER_PAGES,
 } from '@/contants';
 import {API_ROUTES} from '@/contants/api-routes';
 import getErrorMessage from '@/utils/error-formatter';
@@ -33,7 +33,7 @@ const ForgotPassword = ({
   handleUpdateActivePage,
 }: {
   handleUpdateActivePage: (arg: {
-    page: RESET_PASSWORD_PAGES;
+    page: BOTTOM_WRAPPER_PAGES;
     email: string;
   }) => void;
 }) => {
@@ -60,7 +60,7 @@ const ForgotPassword = ({
           type: NOTIFICATIONS_ACTION.SUCCESS,
         });
         handleUpdateActivePage({
-          page: RESET_PASSWORD_PAGES.RESET_PASSWORD,
+          page: BOTTOM_WRAPPER_PAGES.RESET_PASSWORD,
           email: getValues().email,
         });
       } catch (error: any) {

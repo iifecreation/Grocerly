@@ -20,3 +20,14 @@ export const SCREEN_HEIGHT = Platform.select<number>({
   android: Dimensions.get('screen').height - StaticSafeAreaInsets?.safeAreaInsetsBottom ?? 10,
   ios: Dimensions.get('window').height,
 }) as number;
+
+
+
+export const currentFormatter = (num: any) => {
+  return (
+    'MYR' +
+    Number(num)
+      .toFixed(2)
+      .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+  );
+};

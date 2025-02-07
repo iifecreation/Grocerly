@@ -3,7 +3,7 @@ import axiosInstance from '@/api/config';
 import {
   NOTIFICATIONS_RESPONSE,
   NOTIFICATIONS_ACTION,
-  RESET_PASSWORD_PAGES,
+  BOTTOM_WRAPPER_PAGES,
 } from '@/contants';
 import {API_ROUTES} from '@/contants/api-routes';
 import useYupValidationResolver from '@/hooks/useYupValidationResolver';
@@ -43,7 +43,7 @@ type LoginFormProps = {
 };
 
 type ResetPassagesType = {
-  page: RESET_PASSWORD_PAGES;
+  page: BOTTOM_WRAPPER_PAGES;
   email?: string;
   otp?: string;
 };
@@ -69,7 +69,7 @@ const Login = () => {
 
   const [rememberMe, setRemember] = useState(false);
   const [ActivePage, setActivePage] = useState<ResetPassagesType>({
-    page: RESET_PASSWORD_PAGES.LOGIN,
+    page: BOTTOM_WRAPPER_PAGES.LOGIN,
     email: '',
     otp: '',
   });
@@ -116,13 +116,13 @@ const Login = () => {
 
   function onForgetPassword() {
     updateActivePage({
-      page: RESET_PASSWORD_PAGES.FORGOT_PASSWORD,
+      page: BOTTOM_WRAPPER_PAGES.FORGOT_PASSWORD,
     });
   }
 
   const handleSheetClose = useCallback(() => {
     setActivePage(() => ({
-      page: RESET_PASSWORD_PAGES.LOGIN,
+      page: BOTTOM_WRAPPER_PAGES.LOGIN,
       email: '',
       otp: '',
     }));
@@ -234,7 +234,7 @@ const Login = () => {
           </View>
         </View>
       </ScrollView>
-      {ActivePage.page != RESET_PASSWORD_PAGES.LOGIN ? (
+      {ActivePage.page != BOTTOM_WRAPPER_PAGES.LOGIN ? (
         <BottomSheetWrapper activePage={ActivePage} onClose={handleSheetClose}>
           <ResetPasswordPageHandler
             ActivePage={ActivePage}
@@ -256,28 +256,28 @@ function ResetPasswordPageHandler({
   ActivePage,
   updateActivePage,
 }: ResetPasswordPageHandlerProps) {
-  if (ActivePage.page === RESET_PASSWORD_PAGES.LOGIN) {
+  if (ActivePage.page === BOTTOM_WRAPPER_PAGES.LOGIN) {
     return <></>;
   }
   console.log(ActivePage);
   switch (ActivePage.page) {
-    case RESET_PASSWORD_PAGES.FORGOT_PASSWORD:
+    case BOTTOM_WRAPPER_PAGES.FORGOT_PASSWORD:
       return <ForgotPassword handleUpdateActivePage={updateActivePage} />;
-    case RESET_PASSWORD_PAGES.RESET_PASSWORD:
+    case BOTTOM_WRAPPER_PAGES.RESET_PASSWORD:
       return (
         <OTPVerification
           handleUpdateActivePage={updateActivePage}
           email={ActivePage.email as string}
         />
       );
-    case RESET_PASSWORD_PAGES.SET_PASSWORD:
+    case BOTTOM_WRAPPER_PAGES.SET_PASSWORD:
       return (
         <SetPassword
           handleUpdateActivePage={updateActivePage}
           data={ActivePage}
         />
       );
-    case RESET_PASSWORD_PAGES.RESET_SUCCESSFULLY:
+    case BOTTOM_WRAPPER_PAGES.RESET_SUCCESSFULLY:
       return <ProceedToLogin handleUpdateActivePage={updateActivePage} />;
 
     default:
