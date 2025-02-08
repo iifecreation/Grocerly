@@ -66,7 +66,7 @@ const ProductDetail = () => {
         // If the product is already in cart
     } else {
       // If not in cart, add it
-      const updatedCart = [...cart, { ...product, count: 1 }];
+      const updatedCart = [...cart, { ...product, count: 1, totalPrice: product.price }];
 
       // Save the updated cart to AsyncStorage
       await saveCart(updatedCart);  

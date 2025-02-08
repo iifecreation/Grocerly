@@ -7,7 +7,7 @@ import { decrementQuantity, deleteSingleProduct, incrementQuantity } from '@/lib
 
 const CartCard = ({item}: {item: any}) => {
   
-    const {image, productLabel, name, price, count} = item?.item
+    const {image, productLabel, name, totalPrice, count} = item?.item
   return (
     <View style={commonStyles.shadow} className='w-full bg-white py-6 px-4 m-1'>
       <View className='flex-row justify-between items-center'>
@@ -20,7 +20,7 @@ const CartCard = ({item}: {item: any}) => {
                 <Text className='font-bold text-lg'>{name}</Text>
             </View>
 
-            <Text className='text-base font-black'>MYR {price}</Text>
+            <Text className='text-base font-black'>MYR {totalPrice}</Text>
       </View>
       <View className='flex-row mt-4 items-center justify-between'>
         <TouchableOpacity onPress={() => deleteSingleProduct(item?.item)}>

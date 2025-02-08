@@ -18,6 +18,7 @@ export const incrementQuantity = async (item: any) => {
 
     if (productIndex !== -1) {
         currentCart[productIndex].count += 1; // Increment quantity
+        currentCart[productIndex].totalPrice = currentCart[productIndex].price * currentCart[productIndex].count
         await saveCart(currentCart);
     }
 };
@@ -28,8 +29,9 @@ export const decrementQuantity = async (item: any) => {
     const productIndex = currentCart.findIndex((product: any) => product.id === item.id);
 
     if (productIndex !== -1 && currentCart[productIndex].count > 1) {
-    currentCart[productIndex].count -= 1; // Decrement quantity
-    await saveCart(currentCart);
+        currentCart[productIndex].count -= 1; // Decrement quantity
+        currentCart[productIndex].totalPrice = currentCart[productIndex].price * currentCart[productIndex].count
+        await saveCart(currentCart);
     }
 };
 

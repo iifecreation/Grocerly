@@ -27,7 +27,7 @@ const ProductCard = ({item}: {item: any}) => {
             });
           } else {
             // If not in cart, add it
-            const updatedCart = [...cart, { ...item, count: 1 }];
+            const updatedCart = [...cart, { ...item, count: 1, totalPrice: item.price }];
 
             // Save the updated cart to AsyncStorage
             await saveCart(updatedCart);
