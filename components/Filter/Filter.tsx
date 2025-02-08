@@ -1,94 +1,82 @@
-import { View, Text, Modal, StyleSheet, ScrollView, TouchableOpacity, Dimensions } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
 import Input from './Input';
 import Checkbox from '../Checkbox';
 import { COLORS } from '@/theme/colors';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import ModalComponent from '../common/Modal/Modal';
 
 interface ModalComponentProps {
   modalVisible: boolean;
   setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const { height } = Dimensions.get('window');
-
 const Filter: React.FC<ModalComponentProps> = ({modalVisible, setModalVisible}) => {
   const [selectedValue, setSelectedValue] = useState<string>('first');
   const [customerRatings, setCustomerRatings] = useState<string>('first');
 
   return (
-    <Modal
-      animationType="slide"
-      transparent={true}
-      visible={modalVisible}
-      onRequestClose={() => {
-      setModalVisible(!modalVisible);
-      }}
-    >
-      <View style={styles.centeredView} className='w-full px-6'>
-        <View style={[{height: height * 0.7, width:"100%"}, styles.modalView]}>
-          <ScrollView className='w-full' showsVerticalScrollIndicator={false}>
-            <View className='w-full'>
-              <View className='flex flex-row justify-between items-center'>
-                <Text className='font-black text-lg mb-6'>Filter</Text>
-                <TouchableOpacity onPress={() => setModalVisible(false)}>
-                  <MaterialIcons name="cancel" size={24} color="black" />
-                </TouchableOpacity>
-              </View>
+    <ModalComponent modalVisible={modalVisible} setModalVisible={setModalVisible} yourHeight={0.7}>
+      <ScrollView className='w-full' showsVerticalScrollIndicator={false}>
+        <View className='w-full'>
+          <View className='flex flex-row justify-between items-center'>
+            <Text className='font-black text-lg mb-6'>Filter</Text>
+            <TouchableOpacity onPress={() => setModalVisible(false)}>
+              <MaterialIcons name="cancel" size={24} color="black" />
+            </TouchableOpacity>
+          </View>
 
-              <View>
-                <Text className='mb-3 font-bold text-gray-700 text-base'>Location</Text>
-                {/* <Location /> */}
-              </View>
+          <View>
+            <Text className='mb-3 font-bold text-gray-700 text-base'>Location</Text>
+            {/* <Location /> */}
+          </View>
 
-              <View className='mb-3'>
-                <Text className='mb-2 font-bold text-gray-700 text-base'>Best Prices</Text>
+          <View className='mb-3'>
+            <Text className='mb-2 font-bold text-gray-700 text-base'>Best Prices</Text>
 
-                <View className='flex flex-row justify-between items-center'>
-                    <Input title='Minimum Price' />
-                    <Input title="Maximum Price " />
-                </View>
-              </View>
-
-              
-
-              <View>
-                <Text className='mb-2 font-bold text-gray-700 text-base'>Discount</Text>
-
-                {discountOptions.map((option) => (
-                  <Checkbox
-                    key={option.value}
-                    selectedValue={selectedValue}
-                    setSelectedValue={setSelectedValue}
-                    text={option.text}
-                    value={option.value}
-                  />
-                ))}
-              </View>
-
-              <View>
-                <Text className='mb-2 font-bold text-gray-700 text-base'>Customer Ratings</Text>
-
-                {customerOptions.map((option) => (
-                  <Checkbox
-                    key={option.value}
-                    selectedValue={customerRatings}
-                    setSelectedValue={setCustomerRatings}
-                    text={option.text}
-                    value={option.value}
-                  />
-                ))}
-              </View>
-
-              <TouchableOpacity className='rounded-full py-2 my-8' style={{backgroundColor: COLORS.light.primary}}>
-                <Text className='text-white text-center font-bold'>Apply Filter</Text>
-              </TouchableOpacity>
-
+            <View className='flex flex-row justify-between items-center'>
+                <Input title='Minimum Price' />
+                <Input title="Maximum Price " />
             </View>
-          </ScrollView>
+          </View>
+
+          
+
+          <View>
+            <Text className='mb-2 font-bold text-gray-700 text-base'>Discount</Text>
+
+            {discountOptions.map((option) => (
+              <Checkbox
+                key={option.value}
+                selectedValue={selectedValue}
+                setSelectedValue={setSelectedValue}
+                text={option.text}
+                value={option.value}
+              />
+            ))}
+          </View>
+
+          <View>
+            <Text className='mb-2 font-bold text-gray-700 text-base'>Customer Ratings</Text>
+
+            {customerOptions.map((option) => (
+              <Checkbox
+                key={option.value}
+                selectedValue={customerRatings}
+                setSelectedValue={setCustomerRatings}
+                text={option.text}
+                value={option.value}
+              />
+            ))}
+          </View>
+
+          <TouchableOpacity className='rounded-full py-2 my-8' style={{backgroundColor: COLORS.light.primary}}>
+            <Text className='text-white text-center font-bold'>Apply Filter</Text>
+          </TouchableOpacity>
+
         </View>
-      </View>
-    </Modal>
+      </ScrollView>
+    </ModalComponent>
   )
 }
 

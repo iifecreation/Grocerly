@@ -1,5 +1,5 @@
 import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useRef, useState } from 'react'
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import ScreenWrapper from '@/components/ScreenWrapper';
 import { COLORS } from '@/theme/colors';
@@ -24,6 +24,9 @@ import DisplayTabContent from '@/components/common/tabs/displayTabContent';
 import Entypo from '@expo/vector-icons/Entypo';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import BottomSheetWrapper from '@/components/common/BottomSheet/BottomSheetWrapper';
+import AddtoCart from '@/components/product-details/AddtoCart';
+import CartPopup from '@/components/product-details/CartPopup';
+import { getCart, saveCart } from '@/lib/cart';
 
 const tabs = ["Description", "Nutritional Information", "Reviews"];
 
@@ -33,6 +36,8 @@ const ProductDetail = () => {
   const params = useLocalSearchParams();
   const [activeTab, setActiveTab] = useState(tabs[0]);
   const [isVisible, setIsVisible] = useState(false);
+  const bottomSheetRef = useRef<BottomSheet>(null);
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
 
   const {
     isLoading,
@@ -51,34 +56,23 @@ const ProductDetail = () => {
   const showBottomSheet = () => setIsVisible(true);
   const {product} = useMemo(() => data?.data, [data]);
 
-  // Helper function to get cart from AsyncStorage
-  const getCart = async () => {
-    const cart = await AsyncStorage.getItem('cart');
-    return cart ? JSON.parse(cart) : [];
-  };
-
-  // Helper function to save cart to AsyncStorage
-  const saveCart = async (cart: any) => {
-      await AsyncStorage.setItem('cart', JSON.stringify(cart));
-  };
-
   const addToCart = async () => {
-      const cart = await getCart();
+    const cart = await getCart();
 
-      // Check if the product is already in the cart
-      const isProductInCart = cart.some((item: any) => item.id === product.id);
+    // Check if the product is already in the cart
+    const isProductInCart = cart.some((item: any) => item.id === product.id);
 
-      if (isProductInCart) {
-          // If the product is already in cart, show a toast
-          showBottomSheet()
-      } else {
-        // If not in cart, add it
-        const updatedCart = [...cart, product];
+    if (isProductInCart) {
+        // If the product is already in cart
+    } else {
+      // If not in cart, add it
+      const updatedCart = [...cart, { ...product, count: 1 }];
 
-        // Save the updated cart to AsyncStorage
-        await saveCart(updatedCart);  
-        showBottomSheet()   
+      // Save the updated cart to AsyncStorage
+      await saveCart(updatedCart);  
     }
+    showBottomSheet()
+    bottomSheetRef.current?.expand();  
   }
 
   return (
@@ -176,18 +170,24 @@ const ProductDetail = () => {
 
           </View>
         </ScrollView>
+      </View>
 
-        {isVisible && (
-          <BottomSheetWrapper>
-          <View>
-            <Text>hello</Text>
-          </View>
-        </BottomSheetWrapper>
-        )}
+      {isVisible &&
+        (
+          <BottomSheetWrapper bottomSheetRef={bottomSheetRef}>
+            <View className='bg-white' style={{backgroundColor: "#fff"}}>
+              <AddtoCart setModalVisible={setModalVisible} item={product} bottomSheetRef={bottomSheetRef}/>
+            </View>
+          </BottomSheetWrapper>
+        )
+      }
+      <View>
+        <CartPopup modalVisible={modalVisible} setModalVisible={setModalVisible} />
       </View>
     </ScreenWrapper>
   )
 }
+
 
 export default ProductDetail
 
@@ -195,7 +195,6 @@ const styles = StyleSheet.create({
   headerDesc: {
     paddingHorizontal: SAFE_AREA_PADDING.paddingRight,
     // position: "absolute",
-    zIndex: 100,
     width: "100%",
     // top: 150,
     flex: 1,

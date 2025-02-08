@@ -7,7 +7,7 @@ import Header from '@/components/home/header';
 import { SAFE_AREA_PADDING } from '@/utils/utils';
 import { useTranslation } from 'react-i18next';
 import Filter from '@/components/Filter/Filter';
-import EvilIcons from '@expo/vector-icons/EvilIcons';
+import SearchComponent from '@/components/common/search/search';
 
 const search = () => {
     const [modalVisible, setModalVisible] = useState<boolean>(false);
@@ -20,10 +20,8 @@ const search = () => {
         </ArchBorder>
         <View style={styles.headerDesc}>
             {/* <Text className='text-center'>{t('search.placeholder')}</Text> */}
-            <View className='flex flex-row items-center border border-gray-300 w-full rounded-full p-2 gap-4'>
-                <EvilIcons name="search" size={24} color="black" />
-                <TextInput placeholder={t('search.placeholder')} className='w-full' />
-            </View>
+            
+            <SearchComponent placeholder="Search for products" />
         </View>
 
         <Filter modalVisible={modalVisible} setModalVisible={setModalVisible} />

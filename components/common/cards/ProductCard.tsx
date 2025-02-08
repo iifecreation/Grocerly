@@ -6,22 +6,11 @@ import { useRouter } from 'expo-router';
 import Toast from 'react-native-toast-message';
 import { COLORS } from '@/theme/colors';
 import commonStyles from '@/components/styles/common';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getCart, saveCart } from '@/lib/cart';
 
 const ProductCard = ({item}: {item: any}) => {
 
     const router = useRouter()
-
-    // Helper function to get cart from AsyncStorage
-    const getCart = async () => {
-        const cart = await AsyncStorage.getItem('cart');
-        return cart ? JSON.parse(cart) : [];
-    };
-
-    // Helper function to save cart to AsyncStorage
-    const saveCart = async (cart: any) => {
-        await AsyncStorage.setItem('cart', JSON.stringify(cart));
-    };
 
     const addToCart = async () => {
         const cart = await getCart();
@@ -38,7 +27,7 @@ const ProductCard = ({item}: {item: any}) => {
             });
           } else {
             // If not in cart, add it
-            const updatedCart = [...cart, item];
+            const updatedCart = [...cart, { ...item, count: 1 }];
 
             // Save the updated cart to AsyncStorage
             await saveCart(updatedCart);
@@ -51,7 +40,7 @@ const ProductCard = ({item}: {item: any}) => {
     }
 
   return (
-    <View className='w-1/2' style={styles.itemContainer}>
+    <View className='w-1/2' style={commonStyles.shadow}>
         <View style={styles.itemContainerInner} className='w-full'>
             <TouchableOpacity onPress={() => router.push({
                 pathname: APP_ROUTES.PRODUCT_DETAILS,
@@ -87,16 +76,6 @@ const ProductCard = ({item}: {item: any}) => {
 export default ProductCard
 
 const styles = StyleSheet.create({
-    itemContainer:{
-        shadowColor: '#000',
-        shadowOffset: {
-        width: 0,
-        height: 0,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 15,
-    },
     itemContainerInner: {
         borderColor: "#0000001A",
         borderWidth: 2,
