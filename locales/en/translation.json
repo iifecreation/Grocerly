@@ -110,6 +110,14 @@
     "success": "Successful"
   },
 
+  "Tab": {
+    "Home": "Home",
+    "Order": "Order",
+    "Finance": "Finance",
+    "Cart": "Cart",
+    "Account": "Account"
+  },
+
   "order": {
     "header": "My Order",
     "pageHeader": "Delivery History",

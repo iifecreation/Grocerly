@@ -4,12 +4,17 @@
     "slug": "Grocerly",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/adaptive-icon.png",
+    "icon": "./assets/images/logo.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "scheme": "your-app-scheme",
     "plugins": [
-      "expo-localization"
+      [
+        "expo-font",
+        {
+          "fonts": ["./assets/fonts/Inter_18pt-ThinItalic.ttf"]
+        }
+      ]
     ],
     "splash": {
       "image": "./assets/images/adaptive-icon.png",
@@ -21,10 +26,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/logo.png",
         "backgroundColor": "red"
       },
-      "package": "com.anonymous.myapp"
+      "package": "com.anonymous.myapp",
+      "foregroundImage": "./assets/images/logo.png",
+      "backgroundColor": "#ffffff"
     },
     "web": {
       "favicon": "./assets/favicon.png"
