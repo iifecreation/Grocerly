@@ -20,4 +20,5 @@ export enum BOTTOM_WRAPPER_PAGES {
 
 export enum QUERY_ENUM {
   ORDER = 'ORDER',
+  PRODUCT = 'PRODUCT'
 }
