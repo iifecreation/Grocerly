@@ -108,6 +108,7 @@
     "network": "Network Error",
     "success": "Successful"
   },
+
   "filter":{
     "header": "Filter"
   },
@@ -126,6 +127,17 @@
     "btn2": "Cart"
   },
   
+
+
+  "Tab": {
+    "Home": "Home",
+    "Order": "Order",
+    "Finance": "Finance",
+    "Cart": "Cart",
+    "Account": "Account"
+  },
+
+
   "order": {
     "header": "My Order",
     "pageHeader": "Delivery History",

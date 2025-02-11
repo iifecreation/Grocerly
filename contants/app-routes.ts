@@ -1,5 +1,5 @@
 export enum APP_ROUTES {
-  HOME = 'index',
+  HOME = '/(main)',
   LOGIN = '/(auth)',
   CREATE_ACCOUNT = '/(auth)/signup',
   SET_PASSWORD = '/(auth)/password',
@@ -12,9 +12,9 @@ export enum APP_ROUTES {
   FINANCE = 'finance',
   CART = 'cart',
   ACCOUNT = 'account',
+
   NOTIFICATION="/authorised/notification",
   SEARCH="/authorised/search",
 
   PRODUCT_DETAILS="/productDetails/[productId]"
-
 }

@@ -211,7 +211,10 @@ const Login = () => {
                 <Link push href={APP_ROUTES.CREATE_ACCOUNT}>
                   <Text
                     className="font-bold text-base leading-[25px]"
-                    style={{color: COLORS.light.primary}}>
+                    style={{
+                      color: COLORS.light.primary,
+                      fontFamily: 'Inter_18pt-ThinItalic',
+                    }}>
                     {t('auth.login.sign')}
                   </Text>
                 </Link>
