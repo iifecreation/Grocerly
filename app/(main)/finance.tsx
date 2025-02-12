@@ -9,10 +9,12 @@ import {
   SafeAreaView,
   ActivityIndicator,
   KeyboardAvoidingView,
+  TouchableWithoutFeedback,
   Platform,
 } from 'react-native';
 import {MMKV} from 'react-native-mmkv';
 import axios from 'axios';
+import {ScrollView} from 'react-native-gesture-handler';
 
 const MODEL_NAME = process.env.EXPO_MODEL_NAME;
 
@@ -84,6 +86,7 @@ const Finance = () => {
   const flatListRef = useRef<FlatList>(null);
   const [language, setLanguage] = useState('Select');
   const [selectedLang, setSelectedLang] = useState('CH');
+
   // Load messages from MMKV
   useEffect(() => {
     const savedMessages = storage.getString('messages');
@@ -167,38 +170,44 @@ Benefits: ${data.health_benefits.slice(0, 3).join(' • ')}`;
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <FlatList
-        ref={flatListRef}
-        data={messages}
-        keyExtractor={item => item.id}
-        renderItem={({item}) => <MessageBubble message={item} />}
-        contentContainerStyle={styles.listContent}
-        onContentSizeChange={() => flatListRef.current?.scrollToEnd()}
-      />
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={{flex: 1}}>
+      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+        <SafeAreaView style={styles.container}>
+          <FlatList
+            ref={flatListRef}
+            data={messages}
+            keyExtractor={item => item.id}
+            renderItem={({item}) => <MessageBubble message={item} />}
+            contentContainerStyle={styles.listContent}
+            onContentSizeChange={() => flatListRef.current?.scrollToEnd()}
+          />
 
-      <View style={styles.inputContainer}>
-        {loading && (
-          <ActivityIndicator style={styles.loading} color="#4CAF50" />
-        )}
+          <View style={styles.inputContainer}>
+            {loading && (
+              <ActivityIndicator style={styles.loading} color="#4CAF50" />
+            )}
 
-        <TextInput
-          style={styles.input}
-          value={inputText}
-          onChangeText={setInputText}
-          placeholder="Ask about any food..."
-          placeholderTextColor="#888"
-          multiline
-        />
+            <TextInput
+              style={styles.input}
+              value={inputText}
+              onChangeText={setInputText}
+              placeholder="Ask about any food..."
+              placeholderTextColor="#888"
+              multiline
+            />
 
-        <TouchableOpacity
-          style={styles.sendButton}
-          onPress={handleSend}
-          disabled={loading}>
-          <Text style={styles.sendText}>➤</Text>
-        </TouchableOpacity>
-      </View>
-    </SafeAreaView>
+            <TouchableOpacity
+              style={styles.sendButton}
+              onPress={handleSend}
+              disabled={loading}>
+              <Text style={styles.sendText}>➤</Text>
+            </TouchableOpacity>
+          </View>
+        </SafeAreaView>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 

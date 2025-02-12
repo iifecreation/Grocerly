@@ -5,6 +5,7 @@ import Octicons from '@expo/vector-icons/Octicons';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import {COLORS} from '@/theme/colors';
+import { useTranslation } from 'react-i18next';
 
 /**
  * note: All route must declared in the app-routes and reference here.
@@ -13,6 +14,7 @@ import {COLORS} from '@/theme/colors';
  *
  */
 const Layout = () => {
+  const {t} = useTranslation()
   return (
     <Tabs
       screenOptions={{
@@ -22,7 +24,7 @@ const Layout = () => {
       <Tabs.Screen
         name={APP_ROUTES.HOME}
         options={{
-          title: 'Home',
+          title: t('Tab.Home'),
           tabBarIcon: ({color, focused}) => (
             <Octicons
               name="home"
@@ -35,7 +37,7 @@ const Layout = () => {
       <Tabs.Screen
         name={APP_ROUTES.ORDER}
         options={{
-          title: 'Order',
+          title: t('Tab.Order'),
           tabBarIcon: ({color, focused}) => (
             <MaterialCommunityIcons
               name="truck-fast-outline"
@@ -48,7 +50,7 @@ const Layout = () => {
       <Tabs.Screen
         name={APP_ROUTES.FINANCE}
         options={{
-          title: 'Finance',
+          title: t('Tab.Finance'),
           tabBarIcon: ({color, focused}) => (
             <Ionicons
               name="wallet-outline"
@@ -61,7 +63,7 @@ const Layout = () => {
       <Tabs.Screen
         name={APP_ROUTES.CART}
         options={{
-          title: 'Cart',
+          title: t('Tab.Cart'),
           tabBarIcon: ({color, focused}) => (
             <Ionicons
               name="cart-outline"
@@ -74,7 +76,7 @@ const Layout = () => {
       <Tabs.Screen
         name={APP_ROUTES.ACCOUNT}
         options={{
-          title: 'Account',
+          title: t('Tab.Account'),
           tabBarIcon: ({color, focused}) => (
             <Ionicons
               name="person-outline"

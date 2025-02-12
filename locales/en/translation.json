@@ -108,6 +108,13 @@
     "network": "Network Error",
     "success": "Successful"
   },
+<<<<<<< HEAD
+=======
+
+  "filter":{
+    "header": "Filter"
+  },
+>>>>>>> 0bc190f8d1a617a5ad5d566def5cf03fba1471c4
   "notification":{
     "header": "Notifications",
     "headerTitle": "You've got a new notification waiting for you, never miss important updates."
@@ -117,6 +124,17 @@
   },
   
   
+
+
+  "Tab": {
+    "Home": "Home",
+    "Order": "Order",
+    "Finance": "Finance",
+    "Cart": "Cart",
+    "Account": "Account"
+  },
+
+
   "order": {
     "header": "My Order",
     "pageHeader": "Delivery History",

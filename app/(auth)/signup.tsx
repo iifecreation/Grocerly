@@ -50,16 +50,30 @@ const Signup = () => {
       email: '',
     },
   });
+  // const signResponse = useMutation({
+  //   mutationFn: async data => {
+  //     try {
+  //       await axiosInstance.post(API_ROUTES.CREATE_ACCOUNT, data);
+  //       route.push({
+  //         pathname: APP_ROUTES.VERIFY_OTP,
+  //         params: {
+  //           email: getValues().email,
+  //         },
+  //       });
+  //     } catch (error: any) {
+  //       showMessage({
+  //         message: NOTIFICATIONS_RESPONSE.ERROR,
+  //         description: error?.message,
+  //         type: NOTIFICATIONS_ACTION.DANGER,
+  //       });
+  //     }
+  //   },
+  // });
   const signResponse = useMutation({
     mutationFn: async data => {
       try {
         await axiosInstance.post(API_ROUTES.CREATE_ACCOUNT, data);
-        route.push({
-          pathname: APP_ROUTES.VERIFY_OTP,
-          params: {
-            email: getValues().email,
-          },
-        });
+        route.push(APP_ROUTES.ACCOUNT_CREATED);
       } catch (error: any) {
         showMessage({
           message: NOTIFICATIONS_RESPONSE.ERROR,
@@ -145,13 +159,6 @@ const Signup = () => {
                     className="font-bold text-base leading-[25px]"
                     style={{color: COLORS.light.primary}}>
                     {t('auth.signup.sign')}
-                  </Text>
-                </Link>
-                <Link href={APP_ROUTES.ACCOUNT_CREATED}>
-                  <Text
-                    className="font-bold text-base leading-[25px]"
-                    style={{color: COLORS.light.primary}}>
-                    created
                   </Text>
                 </Link>
               </View>

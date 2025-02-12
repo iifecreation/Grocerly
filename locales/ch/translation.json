@@ -114,6 +114,13 @@
   "search": {
     "placeholder": "搜索产品"
   },
+  "Tab": {
+    "Home": "首页",
+    "Order": "订单",
+    "Finance": "财务",
+    "Cart": "购物车",
+    "Account": "帐户"
+  },
   "order": {
     "header": "我的订单",
     "pageHeader": "配送历史",
