@@ -1,16 +1,15 @@
 import * as React from "react"
-import Svg, { Circle, Path, Defs, Pattern, Use, Image } from "react-native-svg"
+import Svg, { Path, Defs, Pattern, Use, Image } from "react-native-svg"
 const SvgComponent = (props) => (
   <Svg
     xmlns="http://www.w3.org/2000/svg"
     xmlnsXlink="http://www.w3.org/1999/xlink"
-    width={70}
-    height={70}
+    width={35}
+    height={35}
     fill="none"
     {...props}
   >
-    <Circle cx={35} cy={35} r={35} fill="#EDFEDC" />
-    <Path fill="url(#a)" d="M17 18h35v35H17z" />
+    <Path fill="url(#a)" d="M0 0h35v35H0z" />
     <Defs>
       <Pattern
         id="a"

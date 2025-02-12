@@ -8,13 +8,14 @@ import MainPageHeader from '@/components/MainPageHeader';
 import { getCart } from '@/lib/cart';
 import EmptyCart from '@/components/cart/EmptyCart';
 import CartProduct from '@/components/cart/CartProduct';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { useTranslation } from 'react-i18next';
 
 const { height } = Dimensions.get('window');
 const { width } = Dimensions.get('window');
 
 const Cart = () => {
   const [cart, setCart] = useState<any[]>([]);
+  const {t} = useTranslation();
 
   useEffect(() => {
     const fetchCart = async () => {
@@ -28,20 +29,17 @@ const Cart = () => {
     <ScreenWrapper background={COLORS.light.primary}>
       <View className="flex-1 bg-white">
         <ArchBorder>
-          <MainPageHeader name="Cart" />
+          <MainPageHeader name={t("product.cart.title")} />
         </ArchBorder>
 
         <View style={styles.headerDesc}>
-          {cart.length < 1 ? <View style={{flex: 1}}><EmptyCart /></View> : <CartProduct cart={cart} /> }
+          {cart.length < 1 ? 
+          <View style={{flex: 1, paddingHorizontal: SAFE_AREA_PADDING.paddingRight}}><EmptyCart /></View> : 
+          <View className='flex-1'>
 
-          <View></View>
-
-          <View style={styles.btn}>
-            <TouchableOpacity className='flex flex-row items-center gap-5 rounded-full justify-center py-3 w-full ' style={{backgroundColor: COLORS.light.primary}}>
-              <MaterialIcons name="shopping-cart-checkout" size={24} color="white" />
-              <Text className='text-white font-bold capitalize text-base'>Complete checkout</Text>
-            </TouchableOpacity>
-          </View>
+            <CartProduct cart={cart} /> 
+          </View>          
+          }
           
         </View>
 
@@ -58,7 +56,6 @@ const styles = StyleSheet.create({
     flex: 1,
     top: 150,
     zIndex: 10,
-    paddingHorizontal: SAFE_AREA_PADDING.paddingRight,
     width: "100%",
     height: height * 0.7
   },
@@ -68,7 +65,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     left: 0,
     right: 0,
-    bottom: 0,
+    bottom: -5,
     padding: 10,
     display: "flex",
     justifyContent: "center"

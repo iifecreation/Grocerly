@@ -6,17 +6,13 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { COLORS } from '@/theme/colors';
 import commonStyles from '../styles/common';
 import { decrementQuantity, getCart, incrementQuantity, saveCart } from '@/lib/cart';
+import { useTranslation } from 'react-i18next';
 
 const AddtoCart = ( {setModalVisible, item, bottomSheetRef}: { setModalVisible: Dispatch<SetStateAction<boolean>>, item: any, bottomSheetRef: React.MutableRefObject<BottomSheet> }) => {
 
     const [cart, setCart] = useState<any[]>([]);
-
-    // Save cart to AsyncStorage
-    // const saveCart = async (updatedCart: any) => {
-    //     await AsyncStorage.setItem('cart', JSON.stringify(updatedCart));
-    //     setCart(updatedCart);
-    // };
-
+    const {t} = useTranslation();
+ 
     useEffect(() => {
         const fetchCart = async () => {
             let data = await getCart()
@@ -58,7 +54,7 @@ const AddtoCart = ( {setModalVisible, item, bottomSheetRef}: { setModalVisible: 
               size={24}
               color="#fff"
             />
-            <Text className='text-white font-bold capitalize text-base'>done</Text>
+            <Text className='text-white font-bold capitalize text-base'>{t('button.done')}</Text>
         </TouchableOpacity>
     </View>
   )

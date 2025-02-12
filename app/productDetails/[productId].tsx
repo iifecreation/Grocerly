@@ -27,17 +27,18 @@ import BottomSheetWrapper from '@/components/common/BottomSheet/BottomSheetWrapp
 import AddtoCart from '@/components/product-details/AddtoCart';
 import CartPopup from '@/components/product-details/CartPopup';
 import { getCart, saveCart } from '@/lib/cart';
-
-const tabs = ["Description", "Nutritional Information", "Reviews"];
+import { useTranslation } from 'react-i18next';
 
 const ProductDetail = () => {
-
-  const router = useRouter();
+  const {t} = useTranslation();
   const params = useLocalSearchParams();
+  const tabs = [t('product.product-details.tag-Description'), t('product.product-details.tag-Nutritional'), t('product.product-details.tag-Reviews')];
   const [activeTab, setActiveTab] = useState(tabs[0]);
   const [isVisible, setIsVisible] = useState(false);
   const bottomSheetRef = useRef<BottomSheet>(null);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
+
+
 
   const {
     isLoading,
@@ -60,7 +61,7 @@ const ProductDetail = () => {
     const cart = await getCart();
 
     // Check if the product is already in the cart
-    const isProductInCart = cart.some((item: any) => item.id === product.id);
+    const isProductInCart = cart.some((item: any) => item.id === product?.id);
 
     if (isProductInCart) {
         // If the product is already in cart
@@ -81,7 +82,7 @@ const ProductDetail = () => {
 
       <View className="flex-1 bg-white">
         <ArchBorder>
-          <MainPageHeader name="Product Details" />
+          <MainPageHeader name={t('product.product-details.title')} />
         </ArchBorder>
 
         <ScrollView style={styles.headerDesc} className='pb-8'>
@@ -90,7 +91,7 @@ const ProductDetail = () => {
           </View>
 
           <View className='flex flex-row items-center mb-2'>
-            <Text className='font-bold text-base'>Category: </Text>
+            <Text className='font-bold text-base'>{t('product.product-details.category')}: </Text>
             <Text className='capitalize text-base'>{product?.productLabel}</Text>
           </View>
 
@@ -102,7 +103,7 @@ const ProductDetail = () => {
               <Ionicons name="checkmark-done-circle-outline" size={24} color="#2F5B03" />
             </View>
             <View className='flex flex-row items-center'>
-              <Text className='text-lg font-medium'>Availability: </Text>
+              <Text className='text-lg font-medium'>{t('product.product-details.Availability')}: </Text>
               <Text style={styles.color} className='font-bold capitalize mt-1'>{product?.inventory?.available >= 1 ? "Instore" : "Out of stock" }</Text>
             </View>
           </View>
@@ -113,16 +114,16 @@ const ProductDetail = () => {
                 <Fontisto name="flash" size={24} color="#FA8707" />
               </View>
 
-              <Text className='text-lg font-medium'>Delivery Time Frame</Text>
+              <Text className='text-lg font-medium'>{t('product.product-details.Delivery')}</Text>
             </View>
-            <Text className='ms-12 font-bold text-base' style={commonStyles.color}>{product?.deliveryTimeFrame.minDays} - {product?.deliveryTimeFrame.maxDays} working days</Text>
+            <Text className='ms-12 font-bold text-base' style={commonStyles.color}>{product?.deliveryTimeFrame.minDays} - {product?.deliveryTimeFrame.maxDays} {t('product.product-details.time')}</Text>
           </View>
 
           <View className='flex flex-row items-center gap-3 mb-6'>
             <View style={[styles.circle, {backgroundColor: "#FFEDEF"}]}>
               <EvilIcons name="location" size={24} color="#EE3248" />
             </View>
-            <Text className='text-lg font-medium'>Deliver to 5 Provinces</Text>
+            <Text className='text-lg font-medium'>{t('product.product-details.Provinces')}</Text>
           </View>
 
           <View className='flex flex-row justify-between items-center py-6 px-6 mb-4 w-full' style={{backgroundColor: COLORS.light.primarytrans2}}>
@@ -131,11 +132,11 @@ const ProductDetail = () => {
             </View>
 
             <View className='w-3/5'>
-              <Text className='font-bold mb-1 text-lg'>Save money!</Text>
-              <Text className='text-gray-600'>Top up now and enjoy the best price in the market</Text>
+              <Text className='font-bold mb-1 text-lg'>{t('product.product-details.Save')}</Text>
+              <Text className='text-gray-600'>{t('product.product-details.save-desc')}</Text>
               <View className='flex flex-row gap-2 mt-3 items-center' >
                 <Tags />
-                <Text style={commonStyles.color} className='font-medium'>Compare to market price</Text>
+                <Text style={commonStyles.color} className='font-medium'>{t('product.product-details.save-title-desc')}</Text>
               </View>
             </View>
 
@@ -160,11 +161,11 @@ const ProductDetail = () => {
                 size={24}
                 color="#fff"
               />
-              <Text className='text-white font-bold'>Add to cart</Text>
+              <Text className='text-white font-bold'>{t('button.cart')}</Text>
             </TouchableOpacity>
 
             <TouchableOpacity className='flex flex-row items-center gap-3 rounded-full justify-center py-3 border border-gray-500' style={{width: "45%"}}>
-              <Text className='text-gray-500 font-bold'>SHARE LINK</Text>
+              <Text className='text-gray-500 font-bold'>{t('button.share')}</Text>
               <Entypo name="share" size={24} color="#222222" />
             </TouchableOpacity>
 

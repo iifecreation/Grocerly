@@ -1,6 +1,7 @@
 import { StyleSheet, Text, TextInput, View } from 'react-native'
 import React from 'react'
 import EvilIcons from '@expo/vector-icons/EvilIcons';
+import { SAFE_AREA_PADDING } from '@/utils/utils';
 
 const SearchComponent = ({placeholder}: {placeholder: string}) => {
   return (

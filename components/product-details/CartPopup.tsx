@@ -8,6 +8,7 @@ import { useRouter } from 'expo-router';
 import { APP_ROUTES } from '@/contants/app-routes';
 import commonStyles from '../styles/common';
 import ModalComponent from '../common/Modal/Modal';
+import { useTranslation } from 'react-i18next';
 
 interface ModalComponentProps {
   modalVisible: boolean;
@@ -17,12 +18,14 @@ interface ModalComponentProps {
 const CartPopup: React.FC<ModalComponentProps> = ({modalVisible, setModalVisible}) => {
 
   const router = useRouter()
+  const {t} = useTranslation();
+
   return (
     <ModalComponent modalVisible={modalVisible} setModalVisible={setModalVisible} yourHeight={0.5}>
       <View className='justify-center items-center'>
       <View className='mb-7 mt-5'>
             <Bag />
-            <Text className='font-medium text-base mt-4'>Item added to cart!</Text>
+            <Text className='font-medium text-base mt-4'>{t('product.cart.sub-title')}</Text>
       </View>
 
       <View className='mb-20 flex flex-row justify-between items-center w-full'>
@@ -34,7 +37,7 @@ const CartPopup: React.FC<ModalComponentProps> = ({modalVisible, setModalVisible
             size={24}
             color="#fff"
             />
-          <Text className='text-white font-bold capitalize'>home</Text>
+          <Text className='text-white font-bold capitalize'>{t('button.Home')}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity className='flex flex-row items-center gap-3 rounded-full justify-center py-3 border' style={{width: "45%", borderColor: COLORS.light.primary}} onPress={() => {
@@ -45,7 +48,7 @@ const CartPopup: React.FC<ModalComponentProps> = ({modalVisible, setModalVisible
             size={24}
             color="#F15A22"
           />
-          <Text className='text-gray-500 font-bold capitalize' style={commonStyles.color}>cart</Text>
+          <Text className='text-gray-500 font-bold capitalize' style={commonStyles.color}>{t('button.cart2')}</Text>
         </TouchableOpacity>
       </View>
     </View>

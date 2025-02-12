@@ -1,5 +1,5 @@
 import { View, StyleSheet, ScrollView } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ArchBorder from '@/components/ArchBorder';
 import ScreenWrapper from '@/components/ScreenWrapper';
 import { COLORS } from '@/theme/colors';
@@ -10,14 +10,30 @@ import {SAFE_AREA_PADDING} from '@/utils/utils';
 import Category from '@/components/home/category';
 import Product from '@/components/home/Product';
 import CartToast from '@/components/common/toasts/CartToast';
+import { getUserLocation } from '@/utils/location';
 
 const index = () => {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const [location, setLocation] = useState<any>({});
+
+  const fetchLocation = async () => {
+    try {
+      const locationData = await getUserLocation();
+      setLocation(locationData);
+      
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchLocation()
+  }, [])
 
   return (
     <ScreenWrapper background={COLORS.light.primary}>
       <ArchBorder>
-        <Header location='Ipoh, Malaysia' profilePic='https://www.strasys.uk/wp-content/uploads/2022/02/Depositphotos_484354208_S.jpg' setModalVisible={setModalVisible} />
+        <Header location={`${location?.state}, ${location?.country}`} profilePic='https://www.strasys.uk/wp-content/uploads/2022/02/Depositphotos_484354208_S.jpg' setModalVisible={setModalVisible} />
       </ArchBorder>
       <View style={styles.main}>
         {/* Home Banner */}
@@ -32,7 +48,7 @@ const index = () => {
         </ScrollView>
 
       </View>
-      <Filter modalVisible={modalVisible} setModalVisible={setModalVisible} />
+      <Filter modalVisible={modalVisible} setModalVisible={setModalVisible} country={location?.country} state={location?.state} />
       <CartToast />
     </ScreenWrapper>
   );

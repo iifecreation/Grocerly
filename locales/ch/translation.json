@@ -1,25 +1,24 @@
 {
   "onboarding": {
     "one": {
-      "header": "享受一站式新鲜食品购物",
-      "descriptions": "从多汁的水果、脆嫩的蔬菜到优质的肉类和日常用品，我们应有尽有。",
+      "header": "享受一站式新鲜杂货购物",
+      "descriptions": "从多汁的水果和新鲜的蔬菜到优质的肉类和 pantry 必需品，我们应有尽有。",
       "skip": "跳过"
     },
-
     "two": {
       "header": "您的杂货配送超级英雄",
-      "descriptions": "厌倦了从超市拎着沉重的袋子回家？让我们来为您分担重负！"
+      "descriptions": "厌倦了从杂货店搬重袋子回家吗？让我们来帮您搬运！"
     },
     "three": {
-      "header": "新鲜食品，送货上门",
-      "descriptions": "尽享便捷，随时随地为您送上高品质新鲜食品。"
+      "header": "新鲜杂货，送货上门",
+      "descriptions": "享受新鲜、高品质杂货的便利，随时随地送货上门。"
     }
   },
   "form": {
     "errors": {
       "email": "邮箱是必填项",
       "password": "密码是必填项",
-      "passwordLength": "密码长度应大于6位",
+      "passwordLength": "密码应超过6个字符",
       "confirmPassword": "确认密码必须与密码匹配"
     }
   },
@@ -27,7 +26,7 @@
     "login": "登录",
     "signup": "注册",
     "proceed": "继续",
-    "otp": "验证 OTP",
+    "otp": "验证OTP",
     "confirm": "确认新密码",
     "processLogin": "继续登录",
     "resend": "重新发送"
@@ -38,7 +37,7 @@
       "descriptions": "连接路线，传递信任",
       "remember": "记住我",
       "forget": "忘记密码？",
-      "account": "还没有账户？",
+      "account": "没有账户？",
       "sign": "注册",
       "email": "输入邮箱地址",
       "password": "密码"
@@ -53,45 +52,50 @@
       "or": "或使用"
     },
     "terms": {
-      "header": "勾选此框，即表示您同意",
+      "header": "勾选此框即表示您同意",
       "descriptions": "的条款和条件",
-      "name": "Grocerly，"
+      "name": "Grocerly"
     },
     "reset": {
       "header": "重置您的密码",
-      "descriptions": "请验证您的邮箱地址，我们将生成一次性密码并发送到您的邮箱。"
+      "descriptions": "请验证您的邮箱地址，系统将生成一次性密码并发送到提供的邮箱。"
     },
     "otp": {
       "header": "OTP 验证",
-      "descriptions": "请输入发送到您邮箱的一次性密码 (OTP) 以完成验证。",
-      "receive": "未收到 OTP？",
+      "descriptions": "请输入发送到您邮箱地址的一次性密码（OTP）以完成验证过程",
+      "receive": "未收到OTP？",
       "resend": "重新发送",
-      "verify": "验证 OTP"
+      "verify": "验证OTP"
     },
     "newPassword": {
       "header": "创建新密码",
-      "descriptions": "请设置一个安全的新密码。确保它独特且强大，以保护您的账户安全。"
+      "descriptions": "请设置一个安全的新密码。确保其独特且强大，以保护您的账户安全。"
     },
     "verifyAccount": {
       "header": "验证您的账户",
-      "descriptions": "请输入发送到您邮箱的一次性密码 (OTP) 以完成验证。"
+      "descriptions": "请输入发送到您邮箱地址的一次性密码（OTP）以完成验证过程"
+    },
+    "accountCreated": {
+      "successful": "账户创建成功！",
+      "notifications": "允许应用向您发送有关新产品、优惠和促销的通知",
+      "shopping": "开始购物"
     }
   },
   "forgetPassword": {
     "header": "重置您的密码",
-    "descriptions": "请验证您的邮箱地址，我们将生成一次性密码并发送到您的邮箱。",
+    "descriptions": "请验证您的邮箱地址，系统将生成一次性密码并发送到提供的邮箱。",
     "passwordChangeSucess": "OTP 发送成功",
-    "message": "请检查您的邮箱获取 OTP"
+    "message": "请检查您的邮箱以获取OTP"
   },
   "otp": {
     "header": "OTP 验证",
-    "descriptions": "请输入发送到您邮箱的一次性密码 (OTP) 以完成验证。",
-    "dont": "未收到 OTP？",
-    "message": "OTP 验证成功"
+    "descriptions": "请输入发送到您邮箱地址的一次性密码（OTP）以完成验证过程",
+    "dont": "未收到OTP？",
+    "message": "OTP 已验证"
   },
   "createPassword": {
     "header": "创建新密码",
-    "descriptions": "请设置一个安全的新密码。确保它独特且强大，以保护您的账户安全。",
+    "descriptions": "请设置一个安全的新密码。确保其独特且强大，以保护您的账户安全。",
     "placeholder1": "输入新密码",
     "placeholder2": "确认密码",
     "success": "密码重置成功！"
@@ -103,7 +107,13 @@
     "network": "网络错误",
     "success": "成功"
   },
-
+  "notification": {
+    "header": "通知",
+    "headerTitle": "您有一条新通知等待查看，不要错过重要更新。"
+  },
+  "search": {
+    "placeholder": "搜索产品"
+  },
   "order": {
     "header": "我的订单",
     "pageHeader": "配送历史",
@@ -115,11 +125,132 @@
       "pending": "待处理"
     },
     "order.details": {
-      "pageHeader": "订单追踪",
+      "pageHeader": "跟踪订单",
       "order": "订单",
       "items": "商品",
       "amount": "金额",
-      "date": "下单时间"
+      "date": "下单日期"
+    }
+  },
+  "product": {
+    "product-details": {
+      "title": "产品详情",
+      "category": "类别",
+      "Availability": "库存状态",
+      "Delivery": "配送时间范围",
+      "time": "工作日",
+      "Provinces": "配送至5个省",
+      "Save": "省钱！",
+      "save-desc": "立即充值，享受市场最佳价格",
+      "save-title-desc": "与市场价格比较",
+      "tag-Description": "描述",
+      "tag-Nutritional": "营养信息",
+      "tag-Reviews": "评论"
+    },
+    "cart": {
+      "title": "我的购物车",
+      "input-placeholder": "搜索购物车中的产品",
+      "item-incart": "购物车中的商品",
+      "clear": "清空购物车",
+      "desc": "此商品已成功添加",
+      "sub-title": "商品已加入购物车！",
+      "Processing-fee": "处理费",
+      "Discount": "折扣",
+      "Delivery-fees": "配送费",
+      "Total-cost": "总费用",
+      "empty": {
+        "title": "您的购物车是空的",
+        "desc": "开始购物，享受您喜爱产品的惊人折扣。"
+      }
+    },
+    "Categories": {
+      "title": "类别",
+      "Bakery": "面包和谷物",
+      "Health": "健康食品",
+      "Beverages": "饮料",
+      "Spices": "香料和调味品",
+      "Meat": "肉类和家禽",
+      "Dairy": "乳制品",
+      "Dry-Foods": "干货和谷物",
+      "Frozen-Foods": "冷冻食品"
+    },
+    "filter": {
+      "title": "筛选",
+      "Location": "位置",
+      "dropdown": "所有城市",
+      "dropdown-search": "搜索...",
+      "Best-Prices": "最佳价格",
+      "Minimum": "最低价格",
+      "Maximum": "最高价格",
+      "Discount": {
+        "title": "折扣",
+        "value1": "少于10%",
+        "value2": "10%或更多",
+        "value3": "20%或更多",
+        "value4": "30%或更多",
+        "value5": "40%或更多",
+        "value6": "50%或更多"
+      },
+      "Customer-Ratings": {
+        "title": "客户评分",
+        "value1": "少于1星",
+        "value2": "2星",
+        "value3": "3星",
+        "value4": "4星",
+        "value5": "5星"
+      },
+      "Brand": {
+        "title": "品牌",
+        "value1": "少于10%",
+        "value2": "10%或更多",
+        "value3": "20%或更多",
+        "value4": "30%或更多",
+        "value5": "40%或更多",
+        "value6": "50%或更多"
+      }
+    }
+  },
+  "discount": {
+    "title": "充值您的钱包",
+    "desc1": "立即充值，享受市场最佳价格",
+    "desc2": "折扣仅适用于最低充值100马币和最高订单500马币"
+  },
+  "button": {
+    "cart": "加入购物车",
+    "share": "分享链接",
+    "done": "完成",
+    "Home": "首页",
+    "cart2": "购物车",
+    "checkout": "完成结账",
+    "Payment": "完成付款",
+    "Proceed-payment": "继续付款",
+    "Shopping": "开始购物",
+    "Filter": "应用筛选"
+  },
+  "Checkout": {
+    "title": "完成结账",
+    "sub-title": "订单详情",
+    "desc": "选择您希望如何接收订单",
+    "tab_Delivery": "配送",
+    "tab_Pick_up": "自提",
+    "Delivery": {
+      "title": "配送",
+      "address": "配送地址",
+      "choose_address": "您希望配送到当前地址吗？",
+      "delivery_fees": "此地址的配送费用预计为50",
+      "delivery_date": "配送日期",
+      "delivery_date_desc": "由于需求量大，您可以选择4天或之后的配送日期",
+      "Delivery_Time": "配送时间段",
+      "Delivery_Time_desc": "由于需求量大，您可以选择上午9点至晚上7点的自提时间",
+      "Time": "时间"
+    },
+    "Pick_up": {
+      "title": "自提",
+      "delivery_date": "自提日期",
+      "delivery_date_desc": "由于需求量大，您可以选择4天或之后的自提日期",
+      "Delivery_Time": "自提时间段",
+      "Delivery_Time_desc": "由于需求量大，您可以选择上午9点至晚上7点的自提时间",
+      "Time": "时间"
     }
   }
 }

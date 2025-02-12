@@ -108,9 +108,6 @@
     "network": "Network Error",
     "success": "Successful"
   },
-  "filter":{
-    "header": "Filter"
-  },
   "notification":{
     "header": "Notifications",
     "headerTitle": "You've got a new notification waiting for you, never miss important updates."
@@ -118,13 +115,7 @@
   "search": {
     "placeholder" : "Search for Products"
   },
-  "cart": {
-    "title": "Add to cart",
-    "desc": "This Item has been added successfully",
-    "sub-title": "Item added to cart!",
-    "btn1": "Home",
-    "btn2": "Cart"
-  },
+  
   
   "order": {
     "header": "My Order",
@@ -142,6 +133,131 @@
       "items": "Items",
       "amount": "Amount",
       "date": "Placed on"
+    }
+  },
+
+  "product": {
+    "product-details": {
+      "title": "Product Details",
+      "category": "category",
+      "Availability": "Availability",
+      "Delivery" : "Delivery Time Frame",
+      "time" : "working days",
+      "Provinces": "Deliver to 5 Provinces",
+      "Save" : "Save money!",
+      "save-desc" : "Top up now and enjoy the best price in the market",
+      "save-title-desc": "Compare to market price",
+      "tag-Description": "Description",
+      "tag-Nutritional": "Nutritional Information",
+      "tag-Reviews": "Reviews"
+    },
+    "cart": {
+      "title": "My Cart",
+      "input-placeholder": "Search for Products In Cart",
+      "item-incart": "items in your cart",
+      "clear": "Clear Cart",
+      "desc": "This Item has been added successfully",
+      "sub-title": "Item added to cart!",
+      "Processing-fee": "Processing fees",
+      "Discount": "Discount",
+      "Delivery-fees": "Delivery fees",
+      "Total-cost": "Total cost",
+      "empty": {
+        "title": "Your Cart Is Empty",
+        "desc": "Start Shopping to enjoy amazing discounts on your favorite products."
+      }
+    },
+    "Categories": {
+      "title": "Categories",
+      "Bakery": "Bakery & Grains",
+      "Health": "Health Foods",
+      "Beverages": "Beverages",
+      "Spices": "Spices & Condimemts",
+      "Meat": "Meat & Poultry",
+      "Dairy": "Dairy Products",
+      "Dry-Foods": "Dry Foods & Grains",
+      "Frozen-Foods":"Frozen Foods"
+    },
+    "filter": {
+      "title": "Filter",
+      "Location": "Location",
+      "dropdown": "All Cities",
+      "dropdown-search": "Search...",
+      "Best-Prices": "Best Prices",
+      "Minimum": "Minimum Price ",
+      "Maximum": "Maximum Price ",
+      "Discount": {
+        "title": "Discount",
+        "value1": "Less than 10%",
+        "value2": "10% or more",
+        "value3": "20% or more",
+        "value4": "30% or more",
+        "value5": "40% or more",
+        "value6": "50% 0r more"
+      },
+      "Customer-Ratings": {
+        "title": "Customer Ratings",
+        "value1": "Less than 1 Star",
+        "value2": "2 Stars",
+        "value3": "3 Stars",
+        "value4": "4 Stars",
+        "value5": "5 Stars"
+      },
+      "Brand": {
+        "title": "Brand",
+        "value1": "Less than 10%",
+        "value2": "10% or more",
+        "value3": "20% or more",
+        "value4": "30% or more",
+        "value5": "40% or more",
+        "value6": "50% 0r more"
+      }
+    }
+  },
+
+  "discount": {
+    "title": "Top up Your Wallet",
+    "desc1": "Top up now and enjoy the best price in the market",
+    "desc2": "Discounts valid only for min. Topups of RM100 & max. orders of RM500"
+  },
+
+  "button": {
+    "cart": "Add to cart",
+    "share": "SHARE LINK",
+    "done": "done",
+    "Home": "Home",
+    "cart2": "Cart",
+    "checkout": "Complete checkout",
+    "Payment" : "Complete Payment",
+    "Proceed-payment": "Proceed to payment",
+    "Shopping": "Start Shopping",
+    "Filter": "Apply Filter"
+  },
+
+  "Checkout": {
+    "title": "Complete Checkout",
+    "sub-title": "Order details",
+    "desc": "Choose how would you like to take the order",
+    "tab_Delivery": "Delivery",
+    "tab_Pick_up": "Pick_up",
+    "Delivery": {
+      "title": "Delivery",
+      "address": "Delivery Address",
+      "choose_address": "Would You like to deliver to current address?",
+      "delivery_fees": "The delivery fees to this address is estimated to be 50",
+      "delivery_date": "Delivery Date",
+      "delivery_date_desc": "Due to high demand, you can choose the Delivery date to be in 4 days or later",
+      "Delivery_Time": "Delivery Time Slot",
+      "Delivery_Time_desc": "Due to high demand, you can choose the pick-up time to 9 AM to 7 PM: ",
+      "Time": "Time"
+    },
+    "Pick_up": {
+      "title": "Pick-up",
+      "delivery_date": "Pick-up Date",
+      "delivery_date_desc": "Due to high demand, you can choose the Delivery date to be in 4 days or later",
+      "Delivery_Time": "Pick-up Time Slot",
+      "Delivery_Time_desc": "Due to high demand, you can choose the pick-up time to 9 AM to 7 PM: ",
+      "Time": "Time"
     }
   }
 }

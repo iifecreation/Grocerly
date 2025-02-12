@@ -15,6 +15,7 @@ export enum APP_ROUTES {
   NOTIFICATION="/authorised/notification",
   SEARCH="/authorised/search",
 
-  PRODUCT_DETAILS="/productDetails/[productId]"
+  PRODUCT_DETAILS="/productDetails/[productId]",
+  CHECKOUT="/checkout/CheckOut"
 
 }
