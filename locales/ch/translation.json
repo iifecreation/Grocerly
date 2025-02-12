@@ -100,8 +100,9 @@
     "400": "哎呀！邮箱或密码无效",
     "408": "请求超时，请重试。",
     "404": "发生意外错误。",
-    "network": "网络错误",
-    "success": "成功"
+    "success": "成功",
+    "network": "哎呀！网络错误。请检查您的连接并重试。",
+    "reload": "重新加载"
   },
 
   "order": {
@@ -112,7 +113,10 @@
     "item": "总商品数",
     "details": "查看详情",
     "status": {
-      "pending": "待处理"
+      "pending": "待处理",
+      "processing": "处理中",
+      "failed": "失败",
+      "successful": "成功"
     },
     "order.details": {
       "pageHeader": "订单追踪",

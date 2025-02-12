@@ -106,8 +106,9 @@
     "400": "Oops!, invalid email or password",
     "408": "Request timeout. Please try again.",
     "404": "An unexpected error occurred.",
-    "network": "Network Error",
-    "success": "Successful"
+    "network": "Ops! Network Error. Check your connection and try again.",
+    "success": "Successful",
+    "reload": "Reload"
   },
 
   "order": {
@@ -118,7 +119,10 @@
     "item": "Total Item",
     "details": "View details",
     "status": {
-      "pending": "Pending"
+      "pending": "PENDING",
+      "processing": "PROCESSING",
+      "failed": "FAILED",
+      "successful": "SUCCESSFUL"
     },
     "order.details": {
       "pageHeader": "Track Order",

@@ -5,6 +5,7 @@ import Octicons from '@expo/vector-icons/Octicons';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import {COLORS} from '@/theme/colors';
+import {useTranslation} from 'react-i18next';
 
 /**
  * note: All route must declared in the app-routes and reference here.
@@ -13,6 +14,7 @@ import {COLORS} from '@/theme/colors';
  *
  */
 const Layout = () => {
+  const {t} = useTranslation();
   return (
     <Tabs
       screenOptions={{
