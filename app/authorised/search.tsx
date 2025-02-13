@@ -6,7 +6,6 @@ import {COLORS} from '@/theme/colors';
 import Header from '@/components/home/header';
 import { SAFE_AREA_PADDING } from '@/utils/utils';
 import { useTranslation } from 'react-i18next';
-import Filter from '@/components/Filter/Filter';
 import SearchComponent from '@/components/common/search/search';
 
 const search = () => {
@@ -15,16 +14,15 @@ const search = () => {
     
   return (
     <ScreenWrapper background={COLORS.light.primary}>
-        <ArchBorder>
-            <Header location='Ipoh, Malaysia' profilePic='https://www.strasys.uk/wp-content/uploads/2022/02/Depositphotos_484354208_S.jpg' setModalVisible={setModalVisible} />
-        </ArchBorder>
-        <View style={styles.headerDesc}>
-            {/* <Text className='text-center'>{t('search.placeholder')}</Text> */}
-            
-            <SearchComponent placeholder="Search for products" />
-        </View>
+      <ArchBorder>
+          <Header location='Ipoh, Malaysia' profilePic='https://www.strasys.uk/wp-content/uploads/2022/02/Depositphotos_484354208_S.jpg' setModalVisible={setModalVisible} />
+      </ArchBorder>
+      <View style={styles.headerDesc}>
+          {/* <Text className='text-center'>{t('search.placeholder')}</Text> */}
+          
+          <SearchComponent placeholder="Search for products" />
+      </View>
 
-        <Filter modalVisible={modalVisible} setModalVisible={setModalVisible} />
     </ScreenWrapper>
   );
 };
