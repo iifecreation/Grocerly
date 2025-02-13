@@ -17,37 +17,29 @@ import ListEmptyContainer from '@/components/ListEmptyContainer';
 import MainPageHeader from '@/components/MainPageHeader';
 import {APP_ROUTES} from '@/contants/app-routes';
 import FullPageLoader from '@/components/FullPageLoader';
+import GetRequestPageWrapper from '@/components/GetRequestPageWrapper';
 
 const Order = () => {
   const listRef = useRef(null);
   const {t} = useTranslation();
-  const {
-    isLoading,
-    isFetching,
-    error,
-    isError,
-    data: data,
-  } = useQuery({
+  const response = useQuery({
     queryKey: [QUERY_ENUM.ORDER],
     queryFn: async () => {
       return await axiosInstance.get(API_ROUTES.FETCH_ORDER);
     },
   });
-  const orderList = useMemo(() => data?.data, [data]);
+  const orderList = useMemo(() => response?.data?.data, [response]);
 
   return (
     <ScreenWrapper background={COLORS.light.primary}>
-      {isLoading || isFetching ? (
-        <FullPageLoader />
-      ) : (
-        // <></>
-        <View className="flex-1 bg-white">
-          <ArchBorder>
-            <MainPageHeader name={t('order.header')} />
-          </ArchBorder>
-          {orderList?.data?.length < 1 ? (
-            <ListEmptyContainer />
-          ) : (
+      <View className="flex-1 bg-white">
+        <ArchBorder>
+          <MainPageHeader name={t('order.header')} />
+        </ArchBorder>
+        {orderList?.data?.length < 1 ? (
+          <ListEmptyContainer />
+        ) : (
+          <GetRequestPageWrapper response={response}>
             <View style={{paddingHorizontal: SAFE_AREA_PADDING.paddingLeft}}>
               <View className="mb-4">
                 <Text className="font-bold text-base leading-[25px]">
@@ -141,9 +133,9 @@ const Order = () => {
                 />
               </View>
             </View>
-          )}
-        </View>
-      )}
+          </GetRequestPageWrapper>
+        )}
+      </View>
     </ScreenWrapper>
   );
 };
@@ -163,3 +155,4 @@ const styles = StyleSheet.create({
     padding: 10,
   },
 });
+

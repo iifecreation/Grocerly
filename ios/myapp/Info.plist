@@ -61,6 +61,7 @@
     <array>
       <string>Montserrat-Italic-VariableFont_wght.ttf</string>
       <string>Montserrat-VariableFont_wght.ttf</string>
+      <string>Inter_18pt-ThinItalic.ttf</string>
     </array>
     <key>UILaunchStoryboardName</key>
     <string>SplashScreen</string>

@@ -13,9 +13,5 @@ export default function index() {
     return <Onboarding/>
     
   }
-  return token ? (
-    <Redirect href="(auth)" />
-  ) : (
-    <Redirect href="(auth)" />
-  );
+  return token ? <Redirect href="(main)" /> : <Redirect href="(auth)" />;
 }

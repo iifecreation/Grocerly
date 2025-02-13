@@ -18,6 +18,7 @@
 		EB809B1D57BD43BA88F5FA0C /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C421EFB66D43A89CBCB5ED /* noop-file.swift */; };
 		73D15C88861F4B999AECF96B /* Montserrat-Italic-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FFEF900E909243608785BB81 /* Montserrat-Italic-VariableFont_wght.ttf */; };
 		1639B0101E3649DAB926C532 /* Montserrat-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D9D6DCD706B24B7986D05912 /* Montserrat-VariableFont_wght.ttf */; };
+		D6252AAAE97D44A0876BC77B /* Inter_18pt-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 07BDC68655D14CC78F83C706 /* Inter_18pt-ThinItalic.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-myapp/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		FFEF900E909243608785BB81 /* Montserrat-Italic-VariableFont_wght.ttf */ = {isa = PBXFileReference; name = "Montserrat-Italic-VariableFont_wght.ttf"; path = "../assets/fonts/Montserrat-Italic-VariableFont_wght.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		D9D6DCD706B24B7986D05912 /* Montserrat-VariableFont_wght.ttf */ = {isa = PBXFileReference; name = "Montserrat-VariableFont_wght.ttf"; path = "../assets/fonts/Montserrat-VariableFont_wght.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		07BDC68655D14CC78F83C706 /* Inter_18pt-ThinItalic.ttf */ = {isa = PBXFileReference; name = "Inter_18pt-ThinItalic.ttf"; path = "../assets/fonts/Inter_18pt-ThinItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +151,7 @@
 			children = (
 				FFEF900E909243608785BB81 /* Montserrat-Italic-VariableFont_wght.ttf */,
 				D9D6DCD706B24B7986D05912 /* Montserrat-VariableFont_wght.ttf */,
+				07BDC68655D14CC78F83C706 /* Inter_18pt-ThinItalic.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -221,6 +224,7 @@
 				01C05D018E5D6ADCEB19EAE7 /* PrivacyInfo.xcprivacy in Resources */,
 				73D15C88861F4B999AECF96B /* Montserrat-Italic-VariableFont_wght.ttf in Resources */,
 				1639B0101E3649DAB926C532 /* Montserrat-VariableFont_wght.ttf in Resources */,
+				D6252AAAE97D44A0876BC77B /* Inter_18pt-ThinItalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

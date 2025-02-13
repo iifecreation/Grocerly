@@ -21,6 +21,7 @@ import FullPageLoader from '@/components/FullPageLoader';
 import BottomSheetWrapper from '@/components/BottomSheetWrapper';
 import OrderItemDetails from './(components)/OrderItemDetails';
 import OrderItem from './(components)/OrderItem';
+import GetRequestPageWrapper from '@/components/GetRequestPageWrapper';
 
 export default function Details() {
   const {t} = useTranslation();
@@ -37,13 +38,13 @@ export default function Details() {
   function handleShowBottomNav() {
     setShowBottomNav(() => ({page: BOTTOM_WRAPPER_PAGES.OPEN}));
   }
-  const {isLoading, data: data} = useQuery({
+  const response = useQuery({
     queryKey: [QUERY_ENUM.ORDER],
     queryFn: async () => {
       return await axiosInstance.get(API_ROUTES.ORDER.concat(`/${id}`));
     },
   });
-  const orderData = useMemo(() => data?.data?.data, [data]);
+  const orderData = useMemo(() => response?.data?.data, [response]);
 
   function onPress() {
     console.log();
@@ -51,65 +52,68 @@ export default function Details() {
 
   return (
     <ScreenWrapper background={COLORS.light.primary}>
-      {isLoading ? <FullPageLoader /> : null}
-      <ArchBorder>
-        <MainPageHeader name={t('order.order.details.pageHeader')} />
-      </ArchBorder>
-      <View
-        className="flex-1 bg-white "
-        style={{
-          paddingHorizontal: SAFE_AREA_PADDING.paddingRight + 20,
-          paddingBottom: SAFE_AREA_PADDING.paddingBottom + 30,
-        }}>
-        <OrderItem orderData={orderData} />
-        <View
-          className="mt-6 py-4 gap-y-10"
-          style={{height: SCREEN_HEIGHT / 2}}>
-          <FlatList
-            numColumns={1}
-            contentContainerStyle={{rowGap: 30}}
-            data={orderData?.timeline}
-            renderItem={({item}) => {
-              return (
-                <TimeLineComp
-                  key={item?._id}
-                  item={item}
-                  isLastItem={
-                    orderData?.timeline[orderData?.timeline.length - 1]?._id ===
-                    item?._id
-                  }
-                />
-              );
-            }}
-          />
-        </View>
-        <View className="flex flex-row items-center gap-x-4 mt-auto mb-4">
-          <Button className="w-1/2" onPress={onPress}>
-            <Text className="text-white">Track Order Via Map</Text>
-          </Button>
-          <Button
-            className="w-1/2 "
-            type="outline"
-            onPress={handleShowBottomNav}>
-            <Text
-              className="text-white"
-              style={{
-                color: COLORS.light.primary,
-              }}>
-              View Order Items
-            </Text>
-          </Button>
-        </View>
-      </View>
-      {showBottomNav.page !== BOTTOM_WRAPPER_PAGES.CLOSE ? (
-        <BottomSheetWrapper
-          activePage={showBottomNav}
-          onClose={handleCloseBottomNav}>
-          <OrderItemDetails orderData={orderData} />
-        </BottomSheetWrapper>
-      ) : (
-        <></>
-      )}
+      <GetRequestPageWrapper response={response}>
+        <>
+          <ArchBorder>
+            <MainPageHeader name={t('order.order.details.pageHeader')} />
+          </ArchBorder>
+          <View
+            className="flex-1 bg-white "
+            style={{
+              paddingHorizontal: SAFE_AREA_PADDING.paddingRight + 20,
+              paddingBottom: SAFE_AREA_PADDING.paddingBottom + 30,
+            }}>
+            <OrderItem orderData={orderData} />
+            <View
+              className="mt-6 py-4 gap-y-10"
+              style={{height: SCREEN_HEIGHT / 2}}>
+              <FlatList
+                numColumns={1}
+                contentContainerStyle={{rowGap: 30}}
+                data={orderData?.timeline}
+                renderItem={({item}) => {
+                  return (
+                    <TimeLineComp
+                      key={item?._id}
+                      item={item}
+                      isLastItem={
+                        orderData?.timeline[orderData?.timeline.length - 1]
+                          ?._id === item?._id
+                      }
+                    />
+                  );
+                }}
+              />
+            </View>
+            <View className="flex flex-row items-center gap-x-4 mt-auto mb-4">
+              <Button className="w-1/2" onPress={onPress}>
+                <Text className="text-white">Track Order Via Map</Text>
+              </Button>
+              <Button
+                className="w-1/2 "
+                type="outline"
+                onPress={handleShowBottomNav}>
+                <Text
+                  className="text-white"
+                  style={{
+                    color: COLORS.light.primary,
+                  }}>
+                  View Order Items
+                </Text>
+              </Button>
+            </View>
+          </View>
+          {showBottomNav.page !== BOTTOM_WRAPPER_PAGES.CLOSE ? (
+            <BottomSheetWrapper
+              activePage={showBottomNav}
+              onClose={handleCloseBottomNav}>
+              <OrderItemDetails orderData={orderData} />
+            </BottomSheetWrapper>
+          ) : (
+            <></>
+          )}
+        </>
+      </GetRequestPageWrapper>
     </ScreenWrapper>
   );
 }

@@ -17,6 +17,7 @@ import {MMKV} from 'react-native-mmkv';
 import axios from 'axios';
 import {ScrollView} from 'react-native-gesture-handler';
 
+const HF_API_KEY = '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';
 const MODEL_NAME = process.env.EXPO_MODEL_NAME;
 
 const getAIResponse = async (query: string, language: string) => {
