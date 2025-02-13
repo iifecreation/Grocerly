@@ -27,6 +27,7 @@
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
         <data android:scheme="com.anonymous.myapp"/>
+        <data android:scheme="exp+my-app"/>
         <data android:scheme="your-app-scheme"/>
       </intent-filter>
     </activity>
