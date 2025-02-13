@@ -8,4 +8,6 @@ export enum API_ROUTES {
   CREATE_ACCOUNT = '/auth/user/create',
   FETCH_ORDER = '/order/user',
   ORDER = '/order',
+
+  FETCH_PRODUCT = "/product/admin",
 }

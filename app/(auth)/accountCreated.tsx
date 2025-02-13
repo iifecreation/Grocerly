@@ -21,7 +21,6 @@ import Button from '@/components/nativewindui/Button';
 import {Link, useRouter} from 'expo-router';
 import {APP_ROUTES} from '@/contants/app-routes';
 import {Image, StyleSheet} from 'react-native';
-import {Switch} from 'react-native-gesture-handler';
 import {SAFE_AREA_PADDING} from '@/utils/utils';
 
 type SignUpFormProps = {
@@ -72,7 +71,7 @@ const accountCreated = () => {
       <ScrollView>
         <>
           <View
-            className="h-full w-full justify-center items-center mt-10"
+            className="h-full w-full justify-center items-center mt-20"
             style={{
               paddingHorizontal: SAFE_AREA_PADDING.paddingTop,
               paddingVertical: SAFE_AREA_PADDING.paddingTop,
@@ -92,41 +91,26 @@ const accountCreated = () => {
                 }}>
                 {t('auth.accountCreated.successful')}
               </Text>
-              <View
-                className="flex flex-row px-10 py-10"
-                style={{
-                  paddingHorizontal: SAFE_AREA_PADDING.paddingTop,
-                }}>
-                <View>
-                  <Text className="text-sm text-black text-base leading-[25px]">
-                    {t('auth.accountCreated.notifications')}
-                  </Text>
-                </View>
-                <View className="mt-5">
-                  <Switch
-                    trackColor={{false: '#888', true: '#F15A22'}}
-                    thumbColor="#fff"
-                    ios_backgroundColor="#F15A22"
-                    onValueChange={() => setIsEnabled(prev => !prev)}
-                    value={isEnabled}
-                    style={{transform: [{scaleX: 1}, {scaleY: 1}]}}
-                  />
-                </View>
-              </View>
             </View>
           </View>
 
           {/* Button */}
           <View
-            className="w-full"
             style={{
-              paddingHorizontal: SAFE_AREA_PADDING.paddingTop,
+              paddingHorizontal: SAFE_AREA_PADDING.paddingRight,
+              backgroundColor: COLORS.light.primary,
+              padding: 15,
+              marginLeft: 20,
+              marginRight: 20,
+              marginTop: 30,
+              borderRadius: 50,
+              alignItems: 'center',
             }}>
-            <Button onPress={handleSubmit(onSubmit)}>
-              <Text className="leading-4 text-xs text-white font-semibold">
+            <Link href={APP_ROUTES.HOME}>
+              <Text className="leading-4 text-xs text-white font-semibold rounded-[50px]">
                 {t('auth.accountCreated.shopping')}
               </Text>
-            </Button>
+            </Link>
           </View>
         </>
       </ScrollView>

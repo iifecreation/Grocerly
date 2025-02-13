@@ -11,7 +11,7 @@ export default function ScreenWrapper({
 }) {
   return (
     <View className="flex-1">
-      <StatusBar backgroundColor={background} />
+      <StatusBar backgroundColor={background} style='light' />
       <View className="flex-1">{children}</View>
     </View>
   );

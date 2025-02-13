@@ -101,7 +101,6 @@
     "placeholder2": "Confirm Password",
     "success": "Password Reset Successfully!"
   },
-
   "networkRequest": {
     "400": "Oops!, invalid email or password",
     "408": "Request timeout. Please try again.",
@@ -110,6 +109,35 @@
     "success": "Successful",
     "reload": "Reload"
   },
+
+  "filter":{
+    "header": "Filter"
+  },
+  "notification":{
+    "header": "Notifications",
+    "headerTitle": "You've got a new notification waiting for you, never miss important updates."
+  },
+  "search": {
+    "placeholder" : "Search for Products"
+  },
+  "cart": {
+    "title": "Add to cart",
+    "desc": "This Item has been added successfully",
+    "sub-title": "Item added to cart!",
+    "btn1": "Home",
+    "btn2": "Cart"
+  },
+  
+
+
+  "Tab": {
+    "Home": "Home",
+    "Order": "Order",
+    "Finance": "Finance",
+    "Cart": "Cart",
+    "Account": "Account"
+  },
+
 
   "order": {
     "header": "My Order",
