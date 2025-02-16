@@ -1,4 +1,4 @@
-import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { FlatList, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useRef } from 'react'
 import SearchComponent from '../common/search/search'
 import commonStyles from '../styles/common'
@@ -39,7 +39,7 @@ const CartProduct = ({cart}: {cart: any[]}) => {
   }
   
   return (
-    <View className='w-full'>
+    <ScrollView className='w-full'>
       <View style={{paddingHorizontal: SAFE_AREA_PADDING.paddingRight}}>
         <SearchComponent placeholder={t("product.cart.input-placeholder")} />
       </View>
@@ -54,54 +54,53 @@ const CartProduct = ({cart}: {cart: any[]}) => {
       </View>
 
       <View className='mt-3'>
-         <FlatList
-            ref={listRef}
-            numColumns={1}sub-title
-            data={cart}
-            keyExtractor={(_, id) => id.toString()}
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={{rowGap: 10}}
-            renderItem={showProduct}
-            ListFooterComponent={() => ( 
-              <View className='flex-1 mt-5 mb-40'>
-                <View style={{paddingHorizontal: SAFE_AREA_PADDING.paddingRight, width: "100%"}} >
-                  <Discount />
-                </View>
+        <FlatList
+          ref={listRef}
+          numColumns={1}sub-title
+          data={cart}
+          keyExtractor={(_, id) => id.toString()}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{rowGap: 10}}
+          renderItem={showProduct}
+        />
 
-                <View className='mt-5 bg-gray-100 pt-10 pb-5' style={{paddingHorizontal: SAFE_AREA_PADDING.paddingRight, borderTopRightRadius: 50, borderTopLeftRadius: 50}}>
+        <View className='flex-1 mt-5'>
+          <View style={{paddingHorizontal: SAFE_AREA_PADDING.paddingRight, width: "100%"}} >
+            <Discount />
+          </View>
 
-                  <View className='border-b border-red-500'>
-                    <View className='flex flex-row items-center justify-between mb-3'>
-                      <Text className='font-bold'>{t("product.cart.Processing-fee")}</Text>
-                      <Text className='font-black'>6%</Text>
-                    </View>
+          <View className='mt-5 bg-gray-100 pt-10 pb-5' style={{paddingHorizontal: SAFE_AREA_PADDING.paddingRight, borderTopRightRadius: 50, borderTopLeftRadius: 50}}>
 
-                    <View className='flex flex-row items-center justify-between mb-3'>
-                      <Text className='font-bold'>{t("product.cart.Discount")}</Text>
-                      <Text className='font-black'>3%</Text>
-                    </View>
-
-                    <View className='flex flex-row items-center justify-between mb-3'>
-                      <Text className='font-bold'>{t("product.cart.Delivery-fees")}</Text>
-                      <Text className='font-black'>20%</Text>
-                    </View>
-                  </View>
-
-                  <View className='flex flex-row items-center justify-between mt-5'> 
-                    <Text className='font-bold text-base'>{t("product.cart.Total-cost")}</Text>
-                    <Text className='font-black text-lg'>{totalPrice}</Text>
-                  </View>
-
-                  <TouchableOpacity className='flex flex-row items-center gap-5 rounded-full justify-center py-3 mt-10 w-full' style={{backgroundColor: COLORS.light.primary}} onPress={() => CompleteCheckOut()}>
-                    <MaterialIcons name="shopping-cart-checkout" size={24} color="white" />
-                    <Text className='text-white font-bold capitalize text-base'>{t("button.checkout")}</Text>
-                  </TouchableOpacity>
-                </View>
+            <View className='border-b border-red-500'>
+              <View className='flex flex-row items-center justify-between mb-3'>
+                <Text className='font-bold'>{t("product.cart.Processing-fee")}</Text>
+                <Text className='font-black'>6%</Text>
               </View>
-            )}
-          />
+
+              <View className='flex flex-row items-center justify-between mb-3'>
+                <Text className='font-bold'>{t("product.cart.Discount")}</Text>
+                <Text className='font-black'>3%</Text>
+              </View>
+
+              <View className='flex flex-row items-center justify-between mb-3'>
+                <Text className='font-bold'>{t("product.cart.Delivery-fees")}</Text>
+                <Text className='font-black'>20%</Text>
+              </View>
+            </View>
+
+            <View className='flex flex-row items-center justify-between mt-5'> 
+              <Text className='font-bold text-base'>{t("product.cart.Total-cost")}</Text>
+              <Text className='font-black text-lg'>{totalPrice}</Text>
+            </View>
+
+            <TouchableOpacity className='flex flex-row items-center gap-5 rounded-full justify-center py-3 mt-10 w-full' style={{backgroundColor: COLORS.light.primary}} onPress={CompleteCheckOut}>
+              <MaterialIcons name="shopping-cart-checkout" size={24} color="white" />
+              <Text className='text-white font-bold capitalize text-base'>{t("button.checkout")}</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
-    </View>
+    </ScrollView>
   )
 }
 

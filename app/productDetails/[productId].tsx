@@ -22,7 +22,6 @@ import GreaterThan from '@/components/icons/greaterThan';
 import ProductDetailsTab from '@/components/common/tabs/ProductDetailsTab';
 import DisplayTabContent from '@/components/common/tabs/displayTabContent';
 import Entypo from '@expo/vector-icons/Entypo';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import BottomSheetWrapper from '@/components/common/BottomSheet/BottomSheetWrapper';
 import AddtoCart from '@/components/product-details/AddtoCart';
 import CartPopup from '@/components/product-details/CartPopup';
@@ -37,8 +36,6 @@ const ProductDetail = () => {
   const [isVisible, setIsVisible] = useState(false);
   const bottomSheetRef = useRef<BottomSheet>(null);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
-
-
 
   const {
     isLoading,
@@ -126,7 +123,7 @@ const ProductDetail = () => {
             <Text className='text-lg font-medium'>{t('product.product-details.Provinces')}</Text>
           </View>
 
-          <View className='flex flex-row justify-between items-center py-6 px-6 mb-4 w-full' style={{backgroundColor: COLORS.light.primarytrans2}}>
+          <View className='flex flex-row justify-between items-center py-6 px-6 mb-4 w-full' style={{backgroundColor: "#F15A2233"}}>
             <View className='bg-white p-3'>
               <Setting color={COLORS.light.primary} />
             </View>

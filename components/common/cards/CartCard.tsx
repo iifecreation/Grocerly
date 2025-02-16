@@ -12,16 +12,16 @@ const CartCard = ({item}: {item: any}) => {
   return (
     <View style={commonStyles.shadow} className='w-full bg-white py-4 px-3 m-1' >
       <View className='flex-row justify-between items-center'>
-            <View className='w-[70] h-[70]'>
-                <Image source={{uri: image?.url}} className='w-full h-full object-cover rounded-md' />
-            </View>
+        <View className='w-[70] h-[70]'>
+          <Image source={{uri: image?.url}} className='w-full h-full object-cover rounded-md' />
+        </View>
 
-            <View>
-                <Text className='text-gray-500'>{productLabel}</Text>
-                <Text className='font-bold text-lg'>{name}</Text>
-            </View>
+        <View>
+          <Text className='text-gray-500'>{productLabel}</Text>
+          <Text className='font-bold text-lg'>{name}</Text>
+        </View>
 
-            <Text className='text-base font-black'>MYR {totalPrice}</Text>
+        <Text className='text-base font-black'>MYR {totalPrice}</Text>
       </View>
       <View className='flex-row mt-4 items-center justify-between'>
         <TouchableOpacity onPress={() => deleteSingleProduct(item?.item)}>

@@ -7,6 +7,7 @@ import { COLORS } from '@/theme/colors';
 import commonStyles from '../styles/common';
 import { decrementQuantity, getCart, incrementQuantity, saveCart } from '@/lib/cart';
 import { useTranslation } from 'react-i18next';
+import BottomSheet from '@gorhom/bottom-sheet';
 
 const AddtoCart = ( {setModalVisible, item, bottomSheetRef}: { setModalVisible: Dispatch<SetStateAction<boolean>>, item: any, bottomSheetRef: React.MutableRefObject<BottomSheet> }) => {
 

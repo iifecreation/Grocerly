@@ -5,7 +5,6 @@
       "descriptions": "From juicy fruits and crisp vegetables to premium meats and pantry staples, we've got everything you need.",
       "skip": "Skip"
     },
-
     "two": {
       "header": "Your Grocery Delivery Superhero",
       "descriptions": "Tired of lugging heavy bags home from the grocery store? Let us do the heavy lifting!"
@@ -109,13 +108,6 @@
     "success": "Successful",
     "reload": "Reload"
   },
-<<<<<<< HEAD
-=======
-
-  "filter":{
-    "header": "Filter"
-  },
->>>>>>> 0bc190f8d1a617a5ad5d566def5cf03fba1471c4
   "notification":{
     "header": "Notifications",
     "headerTitle": "You've got a new notification waiting for you, never miss important updates."
@@ -123,10 +115,6 @@
   "search": {
     "placeholder" : "Search for Products"
   },
-  
-  
-
-
   "Tab": {
     "Home": "Home",
     "Order": "Order",
@@ -134,8 +122,6 @@
     "Cart": "Cart",
     "Account": "Account"
   },
-
-
   "order": {
     "header": "My Order",
     "pageHeader": "Delivery History",
@@ -157,7 +143,6 @@
       "date": "Placed on"
     }
   },
-
   "product": {
     "product-details": {
       "title": "Product Details",
@@ -236,13 +221,11 @@
       }
     }
   },
-
   "discount": {
     "title": "Top up Your Wallet",
     "desc1": "Top up now and enjoy the best price in the market",
     "desc2": "Discounts valid only for min. Topups of RM100 & max. orders of RM500"
   },
-
   "button": {
     "cart": "Add to cart",
     "share": "SHARE LINK",
@@ -255,15 +238,14 @@
     "Shopping": "Start Shopping",
     "Filter": "Apply Filter"
   },
-
   "Checkout": {
+    "Checkout_Summary": "Checkout Summary",
     "title": "Complete Checkout",
     "sub-title": "Order details",
     "desc": "Choose how would you like to take the order",
     "tab_Delivery": "Delivery",
-    "tab_Pick_up": "Pick_up",
+    "tab_Pick_up": "Pick-up",
     "Delivery": {
-      "title": "Delivery",
       "address": "Delivery Address",
       "choose_address": "Would You like to deliver to current address?",
       "delivery_fees": "The delivery fees to this address is estimated to be 50",
@@ -271,15 +253,38 @@
       "delivery_date_desc": "Due to high demand, you can choose the Delivery date to be in 4 days or later",
       "Delivery_Time": "Delivery Time Slot",
       "Delivery_Time_desc": "Due to high demand, you can choose the pick-up time to 9 AM to 7 PM: ",
-      "Time": "Time"
+      "Time": "Time",
+      "card": {
+        "available": "Available in 25 Minutes",
+        "stores": "Iphoh District",
+        "address": "Delivery address address, street, district, town"
+      }
     },
     "Pick_up": {
-      "title": "Pick-up",
+      "outlets": "Pick-up outlets",
+      "Choose_outlet": "Choose the outlet from which you pick-up the order",
       "delivery_date": "Pick-up Date",
       "delivery_date_desc": "Due to high demand, you can choose the Delivery date to be in 4 days or later",
       "Delivery_Time": "Pick-up Time Slot",
       "Delivery_Time_desc": "Due to high demand, you can choose the pick-up time to 9 AM to 7 PM: ",
-      "Time": "Time"
+      "Time": "Time",
+      "card": {
+        "available": "Available in 25 Minutes",
+        "stores": "Pakhum Stores",
+        "address": "outlet address, street, district, town",
+        "distance": "3km Away",
+        "station": "Call Pickup Station"
+      }
     }
+  },
+  "Payment": {
+    "title": "Payment",
+    "desc": "Select Payment Method",
+    "wallet": "Pay Via Wallet",
+    "bank": "Pay Via Online Bank",
+    "BoostPay": "BoostPay",
+    "Grab_Pay": "Grab Pay",
+    "MasterCard": "MasterCard",
+    "Touchngo": "Touchngo"
   }
 }

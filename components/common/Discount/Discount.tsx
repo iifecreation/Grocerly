@@ -29,7 +29,7 @@ const Discount = () => {
           </Text>
         </View>
 
-        <Image className='w-1/2' source={require("../../../assets/images/discount.png")} />
+        <Image className='w-1/2' source={require("@/assets/images/discount.png")} />
       </View>
     </View>
   )

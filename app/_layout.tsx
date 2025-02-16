@@ -12,7 +12,7 @@ import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {useReactQueryDevTools} from '@dev-plugins/react-query';
 import FlashMessage from 'react-native-flash-message';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
-// LogBox.ignoreAllLogs(true);
+LogBox.ignoreAllLogs(true);
 
 const queryClient = new QueryClient();
 
