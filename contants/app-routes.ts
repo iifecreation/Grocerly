@@ -28,4 +28,7 @@ export enum APP_ROUTES {
   PRIVACY = "/account/PrivacyPolicy",
   SUPPORT = "/account/Support",
   TERMS = "/account/Terms",
+
+  // address routes link 
+  ADD_ADDRESS = "/address/AddAddress"
 }

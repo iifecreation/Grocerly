@@ -12,7 +12,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { useRouter } from 'expo-router';
 import { APP_ROUTES } from '@/contants/app-routes';
 
-const Address = () => {
+const AddAddress = () => {
     const {t} = useTranslation();
     const router = useRouter()
     const [addressValue, setAddressValue] = useState([])
@@ -25,27 +25,11 @@ const Address = () => {
         <ScreenWrapper background={COLORS.light.primary}>
         <View className="flex-1 bg-white">
             <ArchBorder>
-            <MainPageHeader name={t("account.Address.title")} />
+            <MainPageHeader name={t("account.Address.add_Address.title")} />
             </ArchBorder>
 
             <View style={styles.headerDesc}>
-              {
-                addressValue?.length == 0 ? (
-                  <View className='w-full items-center justify-center '>
-                    <AddressIcon />
-
-                    <CustomButton navigateProps={addAddress} textProps={t("button.add_Address")}>
-                      <Ionicons name="location-outline" size={24} color="#ffffff" />
-                    </CustomButton>
-                  </View>
-                )
-                : 
-                (
-                  <View>
-
-                  </View>
-                )
-              }
+              
             
             </View>
         </View>
@@ -53,7 +37,7 @@ const Address = () => {
     )
 }
 
-export default Address
+export default AddAddress
 
 const styles = StyleSheet.create({
     headerDesc: {

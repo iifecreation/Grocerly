@@ -9,9 +9,11 @@ import { SAFE_AREA_PADDING } from '@/utils/utils';
 import CheckoutTab from '@/components/common/tabs/CheckoutTab';
 import PickUp from '@/components/checkout/PickUp';
 import Delivery from '@/components/checkout/Delivery';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { useRouter } from 'expo-router';
 import { APP_ROUTES } from '@/contants/app-routes';
+import NoAddressIcon from "@/components/icons/no_address"
+import CustomButton from '@/components/CustomButton';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 const { width } = Dimensions.get("window");
 
@@ -21,9 +23,7 @@ const CheckOut = () => {
   const [xTabOne, setXTabOne] = useState(0);
   const [xTabTwo, setXTabTwo] = useState(0);
   const [translateY, setTranslateY] = useState(0);
-  const [hour, setHour] = useState('12');
-  const [minute, setMinute] = useState('00');
-  const [ampm, setAmpm] = useState('AM');
+  const [getAddress, setGetAddress] = useState([])
   const router = useRouter()
 
   // Animated values using useRef to persist values across renders
@@ -78,6 +78,10 @@ const CheckOut = () => {
     }
   };
 
+  const setUpAddress = () => {
+    router.push(APP_ROUTES.ADDRESS)
+  }
+
   return (
     <ScreenWrapper background={COLORS.light.primary} >
       <View className="flex-1 bg-white">
@@ -102,7 +106,7 @@ const CheckOut = () => {
                   }}
                   onLayout={(event) => setTranslateY(event.nativeEvent.layout.height)}
               >
-                <PickUp ampm={ampm} hour={hour} minute={minute} setAmpm={setAmpm} setHour={setHour} setMinute={setMinute} />
+                <PickUp />
               </Animated.View>
             </View>
 
@@ -115,15 +119,26 @@ const CheckOut = () => {
                   ],
                 }}
                 >
-                <Delivery ampm={ampm} hour={hour} minute={minute} setAmpm={setAmpm} setHour={setHour} setMinute={setMinute} />
+                
+                {
+                  getAddress?.length === 0 ? (
+                    <View className='flex-1 items-center justify-center mt-7'>
+                      <NoAddressIcon />
+                      <Text className='text-base text-center font-bold mt-5'>{t("Checkout.Delivery.Setup_Delivery.title")}</Text>
+                      <Text className='text-base text-center font-normal mt-2'>{t("Checkout.Delivery.Setup_Delivery.desc")}</Text>
+
+                      <CustomButton navigateProps={setUpAddress} textProps={t("button.Setup_Address")}>
+                        <Ionicons name="location-outline" size={24} color="#ffffff" />
+                      </CustomButton>
+                    </View>
+                  )
+                  : (
+                    <Delivery />
+                  )
+                }
               </Animated.View>
             </View>
           </View>
-
-          <TouchableOpacity className='flex flex-row items-center gap-5 rounded-full justify-center py-3 mt-10 mb-16 w-full' style={{backgroundColor: COLORS.light.primary}} onPress={() => router.push(APP_ROUTES.CHECKOUTSUMMARY)} >
-              <MaterialIcons name="shopping-cart-checkout" size={24} color="white" />
-              <Text className='text-white font-bold capitalize text-base'>{t("button.Payment")}</Text>
-          </TouchableOpacity>
 
         </ScrollView>
       </View>

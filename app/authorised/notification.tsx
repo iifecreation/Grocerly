@@ -1,14 +1,20 @@
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Dimensions} from 'react-native';
 import {SAFE_AREA_PADDING} from '@/utils/utils';
-import React from 'react';
+import React, { useState } from 'react';
 import ArchBorder from '@/components/ArchBorder';
 import ScreenWrapper from '@/components/ScreenWrapper';
 import {COLORS} from '@/theme/colors';
 import MainPageHeader from '@/components/MainPageHeader';
 import { useTranslation } from 'react-i18next';
+import EmptyNotificationIcon from '@/components/icons/Notification'
+
+const height = Dimensions.get('window').height
 
 const notification = () => {
   const {t} = useTranslation();
+  const [notified, setNotified] = useState([])
+
+  
   return (
     <ScreenWrapper background={COLORS.light.primary}>
       <View className="flex-1 bg-white">
@@ -17,7 +23,24 @@ const notification = () => {
         </ArchBorder>
 
         <View style={styles.headerDesc}>
-          <Text className='text-center'>{t('notification.headerTitle')}</Text>
+          {
+            notified?.length == 0 ? (
+              <View className='flex-1 w-full flex-col items-center justify-center bg-white' style={{height: height}} >
+                <EmptyNotificationIcon />
+                <Text className='mt-5 font-bold text-base'>{t('notification.No_Notifications')}</Text>
+              </View>
+            ) 
+            :
+            (
+              <View>
+                <View style={styles.notifiedHeader}>
+                  <Text className='text-center'>{t('notification.headerTitle')}</Text>
+                </View>
+
+
+              </View>
+            )
+          }
         </View>
       </View>
     </ScreenWrapper>
@@ -28,6 +51,11 @@ export default notification;
 
 const styles = StyleSheet.create({
   headerDesc: {
+    width: "100%",
+    flex: 1,
+    paddingHorizontal: SAFE_AREA_PADDING.paddingRight,
+  },
+  notifiedHeader: {
     position: "absolute",
     top: 150,
     zIndex: 10,

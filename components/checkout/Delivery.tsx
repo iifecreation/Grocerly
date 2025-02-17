@@ -5,19 +5,23 @@ import EvilIcons from '@expo/vector-icons/EvilIcons';
 import DeliveryCard from '../common/cards/DeliveryCard';
 import CheckoutDate from '../common/Calendar/CheckoutDate';
 import CheckoutTime from '../common/Time/CheckoutTime';
+import CustomButton from '../CustomButton';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { useRouter } from 'expo-router';
+import { APP_ROUTES } from '@/contants/app-routes';
+
 
 interface PickTimeType {
-    hour: string
-    minute: string
-    ampm: string
-    setAmpm: Dispatch<SetStateAction<string>>
-    setHour: Dispatch<SetStateAction<string>>
-    setMinute: Dispatch<SetStateAction<string>>
+    
 }
 
-const Delivery: React.FC<PickTimeType> = ({hour, minute, ampm, setAmpm, setHour, setMinute}) => {
+const Delivery: React.FC<PickTimeType> = () => {
     const {t} = useTranslation();
     const [selectedDate, setSelectedDate] = useState<string | null>(null);
+    const [hour, setHour] = useState('12');
+    const [minute, setMinute] = useState('00');
+    const [ampm, setAmpm] = useState('AM');
+    const router = useRouter()
 
     const deliveryAddress = [
         {
@@ -27,6 +31,10 @@ const Delivery: React.FC<PickTimeType> = ({hour, minute, ampm, setAmpm, setHour,
             address: t("Checkout.Delivery.card.address"),
         }
     ]
+
+    const goToSummary = () => {
+        router.push(APP_ROUTES.CHECKOUTSUMMARY)
+    }
 
   return (
     <View>
@@ -53,6 +61,10 @@ const Delivery: React.FC<PickTimeType> = ({hour, minute, ampm, setAmpm, setHour,
         <CheckoutDate title={t("Checkout.Delivery.delivery_date")} desc={t("Checkout.Delivery.Delivery_Time_desc")} selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
 
         <CheckoutTime ampm={ampm} hour={hour} minute={minute} setAmpm={setAmpm} setHour={setHour} setMinute={setMinute}  />
+
+        <CustomButton navigateProps={goToSummary} textProps={t("button.Payment")}>
+            <MaterialIcons name="shopping-cart-checkout" size={24} color="#ffffff" />
+        </CustomButton>
 
     </View>
   )

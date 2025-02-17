@@ -82,7 +82,7 @@ const CheckoutTab: React.FC<TakeOrder> = ({handleLayout, setActive, active, hand
         <View className='flex flex-row justify-center items-center w-[30] h-[30] rounded-full' style={{backgroundColor: "#FFEDEF"}}>
             <PickUpIcon />
         </View>
-        <Text style={{ color: active === 1 ? COLORS.light.primary : "#000000" }}>
+        <Text style={{ color: active === 1 ? COLORS.light.primary : "#000000" }} className='font-black'>
             {t("Checkout.tab_Pick_up")}
         </Text>
         </TouchableOpacity>
