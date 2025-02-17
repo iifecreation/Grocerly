@@ -19,6 +19,13 @@ export enum APP_ROUTES {
   PRODUCT_DETAILS="/productDetails/[productId]",
   CHECKOUT="/checkout/checkout",
   CHECKOUTSUMMARY="/checkout/CheckoutSummary",
-  PAYMENT="/checkout/Payment"
+  PAYMENT="/checkout/Payment",
 
+  //account routes link
+  ADDRESS = "/account/Address",
+  PASSWORD_SETTING = "/account/PasswordSettings",
+  PERSONAL_DETAILS = "/account/PersonalDetails",
+  PRIVACY = "/account/PrivacyPolicy",
+  SUPPORT = "/account/Support",
+  TERMS = "/account/Terms",
 }

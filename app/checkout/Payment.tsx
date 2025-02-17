@@ -6,7 +6,7 @@ import ArchBorder from '@/components/ArchBorder';
 import MainPageHeader from '@/components/MainPageHeader';
 import { useTranslation } from 'react-i18next';
 import { SAFE_AREA_PADDING } from '@/utils/utils';
-import GreaterThan from "@/components/icons/greaterThan"
+import GreaterThan from "@/components/icons/greaterThan";
 
 const Payment = () => {
     const {t} = useTranslation();
