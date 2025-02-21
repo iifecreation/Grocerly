@@ -19,7 +19,7 @@ const CartProduct = ({cart}: {cart: any[]}) => {
 
   const showProduct= (item: any ) => {
     return (
-    <View style={{paddingHorizontal: SAFE_AREA_PADDING.paddingRight}}>
+    <View style={{paddingHorizontal: SAFE_AREA_PADDING.paddingRight, flex: 1}}>
       <CartCard item={item} />
     </View>
     ) 
@@ -90,7 +90,7 @@ const CartProduct = ({cart}: {cart: any[]}) => {
 
             <View className='flex flex-row items-center justify-between mt-5'> 
               <Text className='font-bold text-base'>{t("product.cart.Total-cost")}</Text>
-              <Text className='font-black text-lg'>{totalPrice}</Text>
+              <Text className='font-black text-lg'>${totalPrice}.00</Text>
             </View>
 
             <TouchableOpacity className='flex flex-row items-center gap-5 rounded-full justify-center py-3 mt-10 w-full' style={{backgroundColor: COLORS.light.primary}} onPress={CompleteCheckOut}>

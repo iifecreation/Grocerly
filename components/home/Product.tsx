@@ -1,59 +1,36 @@
-import { FlatList, StyleSheet, Text, View } from 'react-native'
-import React, { useMemo, useRef } from 'react'
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { QUERY_ENUM } from '@/contants';
-import axiosInstance from '@/api/config';
-import { API_ROUTES } from '@/contants/api-routes';
-import FullPageLoader from '../FullPageLoader';
-import { useTranslation } from 'react-i18next';
+import { ActivityIndicator, Dimensions, FlatList, View } from 'react-native'
+import React, { useRef } from 'react'
 import ProductCard from '../common/cards/ProductCard';
 
-const Product = () => {
-    const listRef = useRef(null);
-    const {t} = useTranslation();
-    const queryClient = useQueryClient();
-    
-    const {
-        isLoading,
-        isFetching,
-        error,
-        isError,
-        data: data,
-      } = useQuery({
-        queryKey: [QUERY_ENUM.PRODUCT],
-        queryFn: async () => {
-          return await axiosInstance.get(API_ROUTES.FETCH_PRODUCT);
-        },
-    });
-    
-    const orderList = useMemo(() => data?.data, [data]);
+// Get screen width
+const screenWidth = Dimensions.get('window').width;
 
-    const showProduct = ({ item }: { item: any }) => {  
-        return (<ProductCard item={item} />)
-    }
+const Product = ({orderList, onEndReachedFunc, isFetchingNextPage}: {orderList: any, onEndReachedFunc?: () => void, isFetchingNextPage?: boolean}) => {
+  const listRef = useRef(null);
 
+  const showProduct = ({ item }: { item: any }) => {  
+    return (<ProductCard item={item} />)
+  }
+
+  const numColumns = screenWidth < 768 ? 2 : 3;
 
   return (
-    <View style={{flex: 1, height: "100%"}} className='mt-9 pb-8'>
-      {isLoading || isFetching ? <FullPageLoader /> : null}
-
-      {orderList?.data?.length < 1 ? (
-            <Text>error</Text>
-        ) : (
-            <View style={{flex: 1}}>
-                <FlatList 
-                    ref={listRef}
-                    numColumns={2}
-                    data={orderList?.data?.data}
-                    keyExtractor={(_, id) => id.toString()}
-                    showsVerticalScrollIndicator={false}
-                    contentContainerStyle={{rowGap: 10}}
-                    renderItem={showProduct}
-                />
-            </View>
-        )
-    }
-
+    <View style={{flex: 1}}>
+      <FlatList 
+        ref={listRef}
+        data={orderList}
+        numColumns={numColumns}
+        keyExtractor={(_, id) => id.toString()}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{columnGap: 10, rowGap: 15, width: "100%", }}
+        columnWrapperStyle={{justifyContent: "space-between", columnGap: 10, rowGap: 15 }}
+        renderItem={showProduct}
+        onEndReachedThreshold={0.5}
+        onEndReached={onEndReachedFunc}
+        ListFooterComponent={() => {
+          if (isFetchingNextPage) return <ActivityIndicator />
+      }}
+      />
     </View>
   )
 }

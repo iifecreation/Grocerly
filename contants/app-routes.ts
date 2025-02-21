@@ -16,7 +16,10 @@ export enum APP_ROUTES {
   NOTIFICATION="/authorised/notification",
   SEARCH="/authorised/search",
 
-  PRODUCT_DETAILS="/productDetails/[productId]",
+  // product routes link 
+  ALL_PRODUCT = "/product/AllProducts/AllProducts",
+  PRODUCT_BY_CATEGORY = "/product/Category/Category",
+  PRODUCT_DETAILS="/product/productDetails/[productId]",
   CHECKOUT="/checkout/checkout",
   CHECKOUTSUMMARY="/checkout/CheckoutSummary",
   PAYMENT="/checkout/Payment",

@@ -1,96 +1,72 @@
-import React from 'react'
-import Grains from "../icons/Grains"
-import Food from "../icons/food"
-import Beverages from "../icons/Beverages"
-import Spices from "../icons/spices"
-import Meat from "../icons/Meat"
-import Dairy from "../icons/dairy"
-import DryFoods from "../icons/DryFoods"
-import FrozenFoods from "../icons/FrozenFoods"
-
-import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React, { useMemo } from 'react'
+import { FlatList, StyleSheet, Text, TouchableOpacity, View, Image, ActivityIndicator } from 'react-native'
 import { useTranslation } from 'react-i18next'
+import { useQuery } from '@tanstack/react-query'
+import { QUERY_ENUM } from '@/contants'
+import axiosInstance from '@/api/config'
+import { API_ROUTES } from '@/contants/api-routes'
+import { useRouter } from 'expo-router'
+import { APP_ROUTES } from '@/contants/app-routes'
 
 function Category() {
-   const {t} = useTranslation();
+  const {t} = useTranslation();
+  const router = useRouter()
 
-  const categoryItem = [
-    {
-        id: 1,
-        name: t("product.Categories.Bakery"),
-        color: "#D7F8FF",
-        image: <Grains />
+   const {
+    isLoading,
+    isFetching,
+    error,
+    isError,
+    data: data,
+  } = useQuery({
+    queryKey: [QUERY_ENUM.CATEGORY],
+    queryFn: async () => {
+      return await axiosInstance.get(API_ROUTES.FETCH_CATEGORY);
     },
-    {
-        id: 2,
-        name: t("product.Categories.Health"),
-        color: "#FDEDCC",
-        image: <Food />
-    },
-    {
-        id: 3,
-        name: t("product.Categories.Beverages"),
-        color: "#EDFEDC",
-        image: <Beverages />
-    },
-    {
-        id: 4,
-        name: t("product.Categories.Spices"),
-        color: "#FFEDEF",
-        image: <Spices />
-    },
-    {
-      id: 5,
-      name: t("product.Categories.Meat"),
-      color: "#FDD3BC",
-      image: <Meat />
-    },
-    {
-        id: 6,
-        name: t("product.Categories.Dairy"),
-        color: "#D3F9FF",
-        image: <Dairy />
-    },
-    {
-        id: 7,
-        name: t("product.Categories.Dry-Foods"),
-        color: "#FDEDCC",
-        image: <DryFoods />
-    },
-    {
-        id: 8,
-        name: t("product.Categories.Frozen-Foods"),
-        color: "#EDFEDC",
-        image: <FrozenFoods />
-    }
-  ]
+  });
+  const categoryList = useMemo(() => data?.data, [data]);
+  
+  const randomColor = () => {
+    const categoryColor = ["#D7F8FF", "#FDEDCC", "#EDFEDC", "#FFEDEF", "#FDD3BC", "#D3F9FF","#FDEDCC", "#EDFEDC"]
+    let choose = Math.floor(Math.random() * categoryColor.length)
+    return categoryColor[choose]
+  }
 
   return (
-    <View style={styles.main}>
-        <Text className='font-black mb-4 text-lg'>Categories</Text>
+    <View>
+      <Text className='font-black mb-3 text-lg'>{t("product.Categories.title")}</Text>
 
+      {isLoading || isFetching ? (
+        <ActivityIndicator size={'large'}  />
+      ) : isError || categoryList?.data?.data?.length == 0 ? (
+        <Text className='text-center font-bold text-lg'>{t("product.Categories.notAvailable")}</Text>
+      ) : (
         <FlatList
-        horizontal
-        data={categoryItem}
-        keyExtractor={(item) => item.id.toString()}
-        showsHorizontalScrollIndicator={false}
-        renderItem={({ item }) => (
-          <TouchableOpacity style={{ marginRight: 20, alignItems: 'center' }}>
-            <View className='mb-3 flex justify-center items-center rounded-full' style={{backgroundColor: item.color, width: 70, height: 70}}>{item.image}</View>
-            <Text className='text-gray-500'>{item.name}</Text>
-          </TouchableOpacity>
-        )}
-      />
+          horizontal
+          data={categoryList?.data?.data}
+          keyExtractor={(item) => item.id.toString()}
+          showsHorizontalScrollIndicator={false}
+          renderItem={({ item }) => (
+            <TouchableOpacity style={{ marginRight: 10, alignItems: 'center' }}
+              onPress={() => router.push({
+                pathname: APP_ROUTES.PRODUCT_BY_CATEGORY,
+                params: {
+                  id: item?.id
+                }
+              })}
+            >
+              <View className='mb-3 flex justify-center items-center rounded-full' style={{backgroundColor: randomColor(), width: 60, height: 60}}>
+                <Image source={{uri : item?.avatar?.url}} width={40} height={40} style={{objectFit: "cover"}} />
+              </View>
+              <Text className='text-gray-500'>{item?.name}</Text>
+            </TouchableOpacity>
+          )}
+        />
+      )
+      }
     </View>
   )
 }
 
 export default Category
-
-const styles = StyleSheet.create({
-  main: {
-    marginTop: 220
-  }
-});
-
 

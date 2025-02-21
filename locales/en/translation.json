@@ -145,6 +145,9 @@
     }
   },
   "product": {
+    "title": "Products",
+    "view": "View more",
+    "no_product": "No product",
     "product-details": {
       "title": "Product Details",
       "category": "category",
@@ -177,14 +180,7 @@
     },
     "Categories": {
       "title": "Categories",
-      "Bakery": "Bakery & Grains",
-      "Health": "Health Foods",
-      "Beverages": "Beverages",
-      "Spices": "Spices & Condimemts",
-      "Meat": "Meat & Poultry",
-      "Dairy": "Dairy Products",
-      "Dry-Foods": "Dry Foods & Grains",
-      "Frozen-Foods":"Frozen Foods"
+      "notAvailable": "No category to display "
     },
     "filter": {
       "title": "Filter",

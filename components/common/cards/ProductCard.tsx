@@ -38,9 +38,10 @@ const ProductCard = ({item}: {item: any}) => {
             });
           }
     }
+    
 
   return (
-    <View className='w-1/2' style={commonStyles.shadow}>
+    <View style={[commonStyles.shadow2, { flex: 1, height: "100%"}]}>
         <View style={styles.itemContainerInner} className='w-full'>
             <TouchableOpacity onPress={() => router.push({
                 pathname: APP_ROUTES.PRODUCT_DETAILS,
@@ -57,7 +58,7 @@ const ProductCard = ({item}: {item: any}) => {
                 <Text className='text-black text-base mb-2'>Quantity: {item?.inventory?.quantity}g</Text>
 
                 <View className='flex flex-row justify-between items-center'>
-                    <Text className='font-bold text-base' style={commonStyles.color}>MYR {item?.price}</Text>
+                    <Text className='font-bold text-base' style={commonStyles.color}>$ {item?.price}.00</Text>
 
                     <TouchableOpacity style={styles.cartBtn} className='flex items-center justify-center' onPress={addToCart}>
                         <Ionicons
@@ -82,7 +83,8 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
         paddingHorizontal: 7,
         paddingVertical: 10,
-        borderRadius: 20
+        borderRadius: 20,
+        flex: 1
     },
     cartBtn: {
         backgroundColor: COLORS.light.primary,

@@ -1,5 +1,5 @@
-import { View, StyleSheet, ScrollView } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import { View, StyleSheet, ScrollView, Text, TouchableOpacity } from 'react-native';
+import React, { useEffect, useMemo, useState } from 'react';
 import ArchBorder from '@/components/ArchBorder';
 import ScreenWrapper from '@/components/ScreenWrapper';
 import { COLORS } from '@/theme/colors';
@@ -11,10 +11,19 @@ import Category from '@/components/home/category';
 import Product from '@/components/home/Product';
 import CartToast from '@/components/common/toasts/CartToast';
 import { getUserLocation } from '@/utils/location';
+import { useQuery } from '@tanstack/react-query';
+import { QUERY_ENUM } from '@/contants';
+import axiosInstance from '@/api/config';
+import { API_ROUTES } from '@/contants/api-routes';
+import { useTranslation } from 'react-i18next';
+import { APP_ROUTES } from '@/contants/app-routes';
+import { useRouter } from 'expo-router';
 
 const index = () => {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
   const [location, setLocation] = useState<any>({});
+  const {t} = useTranslation();
+  const router = useRouter()
 
   const fetchLocation = async () => {
     try {
@@ -25,6 +34,21 @@ const index = () => {
       console.log(error);
     }
   };
+
+  const {
+    isLoading,
+    isFetching,
+    error,
+    isError,
+    data: data,
+  } = useQuery({
+    queryKey: [QUERY_ENUM.PRODUCT],
+    queryFn: async () => {
+      return await axiosInstance.get(API_ROUTES.FETCH_PRODUCT);
+    },
+  });
+  
+  const orderList = useMemo(() => data?.data, [data]);
 
   useEffect(() => {
     fetchLocation()
@@ -41,10 +65,23 @@ const index = () => {
 
         <ScrollView showsVerticalScrollIndicator={false}>
           {/* category section slider  */}
-          <Category />
+          <View style={{marginTop: 200}}>
+            <Category />
+          </View>
 
           {/* display product section */}
-          <Product />
+          <View className='mt-5 pb-8'>
+            <View className='flex-row justify-between items-center mb-3'>
+              <Text className='font-black mb-4 text-lg'>{t('product.title')}</Text>
+              <TouchableOpacity 
+                onPress={() => router.push(APP_ROUTES.ALL_PRODUCT)}
+              >
+                <Text style={{color: COLORS.light.primary, borderBottomWidth: 1, borderBottomColor: COLORS.light.primary}}>{t('product.view')}</Text>
+              </TouchableOpacity>
+            </View>
+
+            <Product orderList={orderList?.data?.data} />
+          </View>
         </ScrollView>
 
       </View>
@@ -63,5 +100,3 @@ const styles = StyleSheet.create({
     flex: 1
   }
 });
-
-
