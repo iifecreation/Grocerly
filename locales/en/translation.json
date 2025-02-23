@@ -235,7 +235,13 @@
     "Shopping": "Start Shopping",
     "Filter": "Apply Filter",
     "Setup_Address": "Setup Delivery Address",
-    "add_Address": "Add Address"
+    "add_Address": "Add Address",
+    "choose_map": "Chose on Map",
+    "Refer_Earn": "Refer & Earn",
+    "Redeem": "Redeem",
+    "share_Link": "Share  Link",
+    "Scan_QR": "Scan QR code"
+
   },
   "Checkout": {
     "Checkout_Summary": "Checkout Summary",
@@ -326,12 +332,114 @@
       "title": "Address",
       "edit": "Edit Address Details",
       "add": "Add New Address",
+      "error": "Unable to fetch address",
       "zip_code": "Zip/Postal Code",
       "State": "State/Province/Region",
-      "Select City": "Select City",
+      "Select_City": "Select City",
+      "Select_type": "Select Type",
       "warn": "Please Ensure your delivery address is correct",
       "add_Address": {
         "title": "Add Address"
+      },
+      "type": {
+        "home": "Home",
+        "office": "Office",
+        "other": "Other"
+      }
+    }
+  },
+  "Finance": {
+    "title": "My Wallet",
+    "tab": {
+      "one": "My Wallet",
+      "two": "My Savings",
+      "three": "My Referrals"
+    },
+    "Balance": "Available Balance",
+    "Topup_wallet": "Topup wallet",
+    "Transaction_History": "Transaction History",
+    "All_Transaction_History": "See All",
+    "TopUpWallet": {
+      "title": "Top Up Wallet",
+      "title2": "Top up Your Wallet",
+      "desc": "Top up now and enjoy the best price in the market",
+      "input": "Enter Amount",
+      "pay_desc": "Your payment will be made on stripe"
+    },
+    "Transaction_Details": {
+      "error": "Unable to fetch transaction history",
+      "none": {
+        "title": "You have no Transaction History Yet",
+        "desc": "Top up your wallet and Start Shopping to enjoy amazing discounts on your favorite products."
+      },
+      "id": "Order ID: ",
+      "date": "Date of Purchase: "
+    },
+    "My_Referrals": {
+      "point": "Referral Points",
+      "equil": "Equivalent to: ",
+      "Referrals": "Referrals",
+      "work": "How this works",
+      "Credit_history": "Credit history"
+    },
+    "How_works": {
+      "title": "How it works",
+      "sub": "Referral program terms",
+      "list1": {
+        "title": "Share",
+        "desc": "Share your referral code with your friends"
+      },
+      "list2": {
+        "title": "Earn",
+        "desc": "Earn reward credit worth of RM20 when a friend uses your code "
+      },
+      "list3": {
+        "title": "Redeem",
+        "desc": "Redeem your reward credit to top up your credit "
+      },
+      "list4": {
+        "title": "Shop",
+        "desc": "Enjoy shopping and paying with this credit"
+      }
+    },
+    "Credit_History": {
+      "title": "Credit History",
+      "error": "Unable to fetch referral credit history",
+      "none": {
+        "title": "You have no Credit History Yet",
+        "desc": "Start Referring to earn amazing discounts on your favorite products."
+      }
+    },
+    "Redeem": {
+      "title": "Statistics",
+      "Redeem_Credit": "Redeem Credit",
+      "view": "View History",
+      "enter": "Enter amount of reward credit that you want to redeem",
+      "none": {
+        "title": "You have no Referral  History Yet",
+        "desc": "Start Referring to earn amazing discounts on your favorite products."
+      }
+    },
+    "Share": {
+      "Share_Link": "Share Link",
+      "ScanQR": "Scan QR Code",
+      "align": "Align the camera with QR code",
+      "copy": "Copy Link",
+      "col1": {
+        "title": "Share",
+        "desc": "Share your referral code with your friends"
+      },
+      "col2": {
+        "title": "Earn",
+        "desc": "Earn reward credit when your code is used "
+      },
+      "col3": {
+        "title": "Redeem",
+        "desc": "Redeem your reward credit to top up your credit "
+      },
+      "col4": {
+        "title": "Shop",
+        "desc": "Enjoy shopping and paying with this credit"
       }
     }
   }

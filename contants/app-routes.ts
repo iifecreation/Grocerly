@@ -33,5 +33,14 @@ export enum APP_ROUTES {
   TERMS = "/account/Terms",
 
   // address routes link 
-  ADD_ADDRESS = "/address/AddAddress"
+  ADD_ADDRESS = "/address/AddAddress",
+
+  //Finance
+  TOPUPWALLET= "/Finance/TopUpWallet/TopUpWallet",
+  CREDITHISTORY= "/Finance/CreditHistory/CreditHistory",
+  HOWWORKS= "/Finance/HowWorks/HowWorks",
+  REDEEM= "/Finance/Redeem/Redeem",
+  REFEREARN= "/Finance/ReferEarn/ReferEarn",
+  SHAREQR= "/Finance/ShareQR/ShareQR",
+  SHARELINK= "/Finance/ShareLink/ShareLink",
 }

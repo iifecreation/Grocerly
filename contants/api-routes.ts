@@ -13,4 +13,13 @@ export enum API_ROUTES {
   FETCH_PRODUCT = "/product/admin",
   FETCH_PRODUCT_BY_CATEGORY = "/product/product-by-category",
 
+  // address
+  FETCH_ADDRESS= "/address",
+
+  //finance 
+  FETCH_WALLET= "/payment",
+  TRANSACTIONHISTORY= "/payment/history",
+  CREDITHISTORY= "/payment/credit-history",
+  REDEEMCHART= "/payment/credit-chart",
+  REFERRALS = "/user/referrals"
 }

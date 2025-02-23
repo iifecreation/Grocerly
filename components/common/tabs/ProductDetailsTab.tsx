@@ -38,6 +38,7 @@ const ProductDetailsTab = ({
         data={tabs}
         horizontal
         showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{justifyContent: "space-between", width: "100%", }}
         renderItem={({ item }) => (
           <TabButton
             name={item}
@@ -57,7 +58,7 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 10,
     marginBottom: 15,
-    width: "100%"
+    width: "100%",
   },
   btn: (name: string, activeTab: string) => ({
     paddingVertical: 10,
