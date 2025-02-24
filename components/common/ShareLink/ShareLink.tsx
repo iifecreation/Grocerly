@@ -6,7 +6,6 @@ import ReferIcon from "@/components/icons/Refer";
 import ShopIcon from "@/components/icons/Shop";
 import EarnIcon from "@/components/icons/Earn";
 import { FlatList } from 'react-native';
-import { COLORS } from '@/theme/colors';
 
 const ShareLinkComp = () => {
     const {t} = useTranslation();

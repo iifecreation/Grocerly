@@ -39,6 +39,14 @@ const ReferEarn = () => {
   });
 
   const referralsData = useMemo(() => referrals?.data, [referrals]);
+
+  const movetoShare = () => {
+    router.push(APP_ROUTES.SHARELINK)
+  }
+
+  const movetoShareQR = () => {
+    router.push(APP_ROUTES.SHAREQR)
+  }
   
   return (
     <ScreenWrapper background={COLORS.light.primary}>
@@ -72,8 +80,8 @@ const ReferEarn = () => {
                   <CustomTwoButton
                     icon1={<ReferIcon color="#FAFAFA" />}
                     icon2={<ScanIcon />}
-                    moveButton={() => router.push(APP_ROUTES.SHARELINK)}
-                    moveButtonTwo={() => router.push(APP_ROUTES.SHAREQR)}
+                    moveButton={movetoShare}
+                    moveButtonTwo={movetoShareQR}
                     text1={t("button.share_Link")}
                     text2={t("button.Scan_QR")}
                   />

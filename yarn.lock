@@ -5226,11 +5226,6 @@ expo-checkbox@~4.0.1:
   resolved "https://registry.npmjs.org/expo-checkbox/-/expo-checkbox-4.0.1.tgz"
   integrity sha512-dZECDqNVeAl8bLbho4mvZD+Vvqwr8mpa6lAHU7tBGGXtx4xfkztw05XlvB89yiIcG3FOQX5KhUBVhXOz+S2+VQ==
 
-expo-clipboard@~7.0.1:
-  version "7.0.1"
-  resolved "https://registry.npmjs.org/expo-clipboard/-/expo-clipboard-7.0.1.tgz"
-  integrity sha512-rqYk0+WoqitPcPKxmMxSpLonX1E5Ije3LBYfnYMbH3xU5Gr8EAH9QnOWOi4BgahUPvcot6nbFEnx+DqARrmxKQ==
-
 expo-constants@*, expo-constants@~17.0.4, expo-constants@~17.0.5:
   version "17.0.5"
   resolved "https://registry.npmjs.org/expo-constants/-/expo-constants-17.0.5.tgz"
@@ -5308,7 +5303,7 @@ expo-keep-awake@~14.0.2:
   resolved "https://registry.npmjs.org/expo-keep-awake/-/expo-keep-awake-14.0.2.tgz"
   integrity sha512-71XAMnoWjKZrN8J7Q3+u0l9Ytp4OfhNAYz8BCWF1/9aFUw09J3I7Z5DuI3MUsVMa/KWi+XhG+eDUFP8cVA19Uw==
 
-expo-linear-gradient@~14.0.1:
+expo-linear-gradient@*, expo-linear-gradient@~14.0.1:
   version "14.0.2"
   resolved "https://registry.npmjs.org/expo-linear-gradient/-/expo-linear-gradient-14.0.2.tgz"
   integrity sha512-nvac1sPUfFFJ4mY25UkvubpUV/olrBH+uQw5k+beqSvQaVQiUfFtYzfRr+6HhYBNb4AEsOtpsCRkpDww3M2iGQ==
@@ -5893,6 +5888,11 @@ getenv@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/getenv/-/getenv-1.0.0.tgz"
   integrity sha512-7yetJWqbS9sbn0vIfliPsFgoXMKn/YMF+Wuiog97x+urnSRRRZ7xB+uVkwGKzRgq9CDFfMQnE9ruL5DHv9c6Xg==
+
+gifted-charts-core@0.1.59:
+  version "0.1.59"
+  resolved "https://registry.npmjs.org/gifted-charts-core/-/gifted-charts-core-0.1.59.tgz"
+  integrity sha512-yFqqhsXLAgBSSYmk2+/6DO4XMtipKNpDsjIftLtNxoCGFvmMTTgEqXJL4yr4GPX1jo3TFDPnFW1Fvmjr95C6eA==
 
 glob-parent@^5.1.2:
   version "5.1.2"
@@ -9085,6 +9085,13 @@ react-native-gesture-handler@>=2.16.1, react-native-gesture-handler@~2.20.2:
     invariant "^2.2.4"
     prop-types "^15.7.2"
 
+react-native-gifted-charts@^1.4.57:
+  version "1.4.57"
+  resolved "https://registry.npmjs.org/react-native-gifted-charts/-/react-native-gifted-charts-1.4.57.tgz"
+  integrity sha512-h79fnp+JAhh+GJESJ9lsr9PGaxW+z7YyvDhzaHM7FW5saaPRwuzbA8wwiACYBwHVcyy5A7mPdihqe76RgFh6Wg==
+  dependencies:
+    gifted-charts-core "0.1.59"
+
 react-native-helmet-async@2.0.4:
   version "2.0.4"
   resolved "https://registry.npmjs.org/react-native-helmet-async/-/react-native-helmet-async-2.0.4.tgz"
@@ -9165,7 +9172,7 @@ react-native-static-safe-area-insets@^2.2.0:
   resolved "https://registry.npmjs.org/react-native-static-safe-area-insets/-/react-native-static-safe-area-insets-2.2.0.tgz"
   integrity sha512-TLTW2e2kRK3COSK8gMZzwp4wHguFCtcO18itDLn5av/xQblXt9ylu84o+qD9aKJCBfvtNzGOvqqTKqC5GJRZ/g==
 
-"react-native-svg@> 6.4.1", react-native-svg@15.8.0:
+react-native-svg@*, "react-native-svg@> 6.4.1", react-native-svg@15.8.0:
   version "15.8.0"
   resolved "https://registry.npmjs.org/react-native-svg/-/react-native-svg-15.8.0.tgz"
   integrity sha512-KHJzKpgOjwj1qeZzsBjxNdoIgv2zNCO9fVcoq2TEhTRsVV5DGTZ9JzUZwybd7q4giT/H3RdtqC3u44dWdO0Ffw==

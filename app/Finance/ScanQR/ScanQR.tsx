@@ -6,13 +6,7 @@ import { COLORS } from '@/theme/colors';
 import ArchBorder from '@/components/ArchBorder';
 import MainPageHeader from '@/components/MainPageHeader';
 import { useTranslation } from 'react-i18next';
-import { QUERY_ENUM } from '@/contants';
-import { useQuery } from '@tanstack/react-query';
-import axiosInstance from '@/api/config';
-import { API_ROUTES } from '@/contants/api-routes';
-import WalletCard from '@/components/Finance/WalletCard';
-import TransactionHistory from '@/components/Finance/TransactionHistory';
-
+import ShareLinkComp from '@/components/common/ShareLink/ShareLink';
 
 const ScanQR = () => {
   const {t} = useTranslation();
@@ -24,11 +18,13 @@ const ScanQR = () => {
           <MainPageHeader name={t("Finance.TopUpWallet.title")} />
         </ArchBorder>
 
-        <View style={styles.headerDesc}>
+        <ScrollView style={styles.headerDesc}>
+          <ShareLinkComp />
 
-          
-          
-        </View>
+          <View className='mt-5' >
+            <Text className='text-center'>{t("Finance.Share.align")}</Text>
+          </View>
+        </ScrollView>
 
       </View>
     </ScreenWrapper>
@@ -39,14 +35,8 @@ export default ScanQR
 
 const styles = StyleSheet.create({
   headerDesc: {
-    // position: "absolute",
     flex: 1,
-    // top: 150,
-    zIndex: 10,
     width: "100%",
     paddingHorizontal: SAFE_AREA_PADDING.paddingRight,
   },
-  finance: {
-    flex: 1
-  }
 });

@@ -240,8 +240,11 @@
     "Refer_Earn": "Refer & Earn",
     "Redeem": "Redeem",
     "share_Link": "Share  Link",
-    "Scan_QR": "Scan QR code"
-
+    "Scan_QR": "Scan QR code",
+    "Activity_Status": "Activity Status",
+    "report": "Generate Report",
+    "Generate": "Generate",
+    "Download_Report": "Download Report"
   },
   "Checkout": {
     "Checkout_Summary": "Checkout Summary",
@@ -440,6 +443,16 @@
       "col4": {
         "title": "Shop",
         "desc": "Enjoy shopping and paying with this credit"
+      }
+    },
+    "mySaving": {
+      "card1": "Total Savings",
+      "card2": "Total Expense",
+      "History": "Savings History",
+      "error": "Unable to fetch saving history",
+      "none": {
+        "title": "You have no Savings History Yet",
+        "desc": "Top up your wallet and Start Shopping to enjoy amazing discounts on your favorite products."
       }
     }
   }

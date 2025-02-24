@@ -53,7 +53,7 @@ const HowWorks = () => {
           <MainPageHeader name={t("Finance.How_works.title")} />
         </ArchBorder>
 
-        <ScrollView style={styles.headerDesc}>
+        <ScrollView style={styles.headerDesc} showsVerticalScrollIndicator={false}>
           <Text className='text-center text-base font-medium mb-4'>{t("Finance.How_works.sub")}</Text>
 
           <FlatList
@@ -73,7 +73,7 @@ const HowWorks = () => {
                   {!isLastItem && <View className='bg-gray-500 w-1 flex-1' ></View>}
                 </View>
 
-                <View className='pb-10' style={{alignSelf: "flex-start", alignContent: "flex-start"}}>
+                <View className='pb-10 flex-1' style={{alignSelf: "flex-start", alignContent: "flex-start"}}>
                   <View className='flex-row gap-3 items-center mb-2'>
                     {item.icon}
                     <Text className='text-base font-bold' style={{color: COLORS.light.primary}}>{item.title}</Text>
@@ -84,7 +84,7 @@ const HowWorks = () => {
             )}}
           />
 
-          <View className='flex-row justify-between items-center'>
+          <View className='flex-row justify-between items-center mb-12'>
             <TouchableOpacity className='flex-row items-center gap-3 rounded-full justify-center py-3 px-5' style={{backgroundColor: COLORS.light.primary}} onPress={() => router.push(APP_ROUTES.REFEREARN)} >
               <ReferIcon color="#FAFAFA" />
               <Text className='text-white font-bold capitalize text-base'>{t("button.Refer_Earn")}</Text>

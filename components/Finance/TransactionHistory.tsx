@@ -73,7 +73,7 @@ const TransactionHistory = () => {
                             renderItem={(item) => {
                                 return (
                                 <View style={commonStyles.shadow2} className='w-full flex-row justify-between items-center gap-3 px-3 py-4 rounded-lg'>
-                                    <TransactionIcon />
+                                    <TransactionIcon color="#EE3248" />
                                     <View className='flex-1 '>
                                         <Text className='text-base font-bold capitalize mb-2'>{item?.item?.description}</Text>
                                         <Text className='text-xs font-medium mb-2'>{t("Finance.Transaction_Details.id")} {item?.item?.transactionId}</Text>

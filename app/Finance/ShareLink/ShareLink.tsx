@@ -8,21 +8,21 @@ import MainPageHeader from '@/components/MainPageHeader';
 import { useTranslation } from 'react-i18next';
 import ShareLinkComp from '@/components/common/ShareLink/ShareLink';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import * as Clipboard from 'expo-clipboard';
 import Toast from 'react-native-toast-message';
 
 const ShareLink = () => {
   const {t} = useTranslation();
 
-  const copyToClipboard = async () => {
-    const textToCopy = "https://example.com"; // Example text to copy
-    await Clipboard.setStringAsync(textToCopy); // Copy text to clipboard
-    // Show toast message
+  const handleCopyToClipboard = async () => {
+    // const textToCopy = "Hello, this is the text to copy!";
+    // Clipboard.setString(textToCopy);
+
+    // Show a success toast
     Toast.show({
       type: 'success',
       position: 'top',
-      text1: 'Link Copied!',
-      visibilityTime: 2000,
+      text1: 'Copied to Clipboard!',
+      text2: 'The text has been copied successfully.',
     });
   };
   
@@ -38,7 +38,7 @@ const ShareLink = () => {
 
           <View className='mt-5' >
             <Text className='bg-gray-200 w-full px-2 py-3 border border-gray-300 rounded-md'>https://www.order.net/usernamecode</Text>
-            <TouchableOpacity className='items-center justify-center flex-row mt-5 gap-3' onPress={copyToClipboard}>
+            <TouchableOpacity className='items-center justify-center flex-row mt-5 gap-3' onPress={handleCopyToClipboard} >
               <Ionicons name="copy-outline" size={24} color={COLORS.light.primary} />
               <Text className='text-base font-semibold' style={{color: COLORS.light.primary}}>{t("Finance.Share.copy")}</Text>
             </TouchableOpacity>
@@ -62,8 +62,5 @@ const styles = StyleSheet.create({
     zIndex: 10,
     width: "100%",
     paddingHorizontal: SAFE_AREA_PADDING.paddingRight,
-  },
-  finance: {
-    flex: 1
   }
 });

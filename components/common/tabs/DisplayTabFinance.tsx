@@ -17,6 +17,7 @@ import CreditIcon from "@/components/icons/Credit"
 import QuestionIcon from "@/components/icons/Question"
 import RedeemIcon from "@/components/icons/Redeem"
 import ReferIcon from "@/components/icons/Refer"
+import MySaving from '@/components/Finance/MySaving';
 
 
 const { height } = Dimensions.get('window');
@@ -38,6 +39,8 @@ const DisplayTabFinance = ({activeTab, }: {activeTab: string,}) => {
   });
 
   const orderList = useMemo(() => wallet?.data, [wallet]);
+  // console.log(orderList);
+  
 
   switch (activeTab) {
       case "My Wallet":
@@ -69,7 +72,7 @@ const DisplayTabFinance = ({activeTab, }: {activeTab: string,}) => {
       case "My Savings":
         return (
           <View>
-  
+            <MySaving savingData={orderList?.data}/>
           </View>
         );
   

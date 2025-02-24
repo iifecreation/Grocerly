@@ -21,5 +21,7 @@ export enum API_ROUTES {
   TRANSACTIONHISTORY= "/payment/history",
   CREDITHISTORY= "/payment/credit-history",
   REDEEMCHART= "/payment/credit-chart",
-  REFERRALS = "/user/referrals"
+  REFERRALS = "/user/referrals",
+  SAVINGHISTORY="/payment/saving-history",
+  SAVINGCHART= "/payment/saving-chart"
 }
