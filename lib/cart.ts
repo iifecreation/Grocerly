@@ -1,52 +1,55 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { MMKV } from 'react-native-mmkv';
 
-// Helper function to get cart from AsyncStorage
-export const getCart = async () => {
-    const cart = await AsyncStorage.getItem('cart');
+export const CART_STORAGE = 'cart-storage';
+
+const storage = new MMKV();
+
+// Helper function to get cart from MMKV
+export const getCart = () => {
+    const cart = storage.getString(CART_STORAGE);
     return cart ? JSON.parse(cart) : [];
 };
 
-// Helper function to save cart to AsyncStorage
-export const saveCart = async (cart: any) => {
-    return await AsyncStorage.setItem('cart', JSON.stringify(cart));
+// Helper function to save cart to MMKV
+export const saveCart = (cart: any) => {
+    return storage.set(CART_STORAGE, JSON.stringify(cart));
 };
 
 // Increment quantity
-export const incrementQuantity = async (item: any) => {
-    const currentCart = await getCart();
+export const incrementQuantity = (item: any) => {
+    const currentCart = getCart();
     const productIndex = currentCart.findIndex((product: any) => product.id === item.id);
 
     if (productIndex !== -1) {
         currentCart[productIndex].count += 1; // Increment quantity
-        currentCart[productIndex].totalPrice = currentCart[productIndex].price * currentCart[productIndex].count
-        await saveCart(currentCart);
+        currentCart[productIndex].totalPrice = currentCart[productIndex].price * currentCart[productIndex].count;
+        saveCart(currentCart);
     }
 };
 
 // Decrement quantity
-export const decrementQuantity = async (item: any) => {
-    const currentCart = await getCart();
+export const decrementQuantity = (item: any) => {
+    const currentCart = getCart();
     const productIndex = currentCart.findIndex((product: any) => product.id === item.id);
 
     if (productIndex !== -1 && currentCart[productIndex].count > 1) {
         currentCart[productIndex].count -= 1; // Decrement quantity
-        currentCart[productIndex].totalPrice = currentCart[productIndex].price * currentCart[productIndex].count
-        await saveCart(currentCart);
+        currentCart[productIndex].totalPrice = currentCart[productIndex].price * currentCart[productIndex].count;
+        saveCart(currentCart);
     }
 };
 
-export const deleteSingleProduct = async (item: any) => {
-    const currentCart = await getCart();
+export const deleteSingleProduct = (item: any) => {
+    const currentCart = getCart();
     const productIndex = currentCart.findIndex((product: any) => product.id === item.id);
 
     // Check if the product is found in the cart
     if (productIndex !== -1) {
         currentCart.splice(productIndex, 1); 
-        await saveCart(currentCart);
+        saveCart(currentCart);
     }
 };
 
-export const deleteAllProduct = async () => {
-    const currentCart = await getCart();
-    await saveCart([]);
+export const deleteAllProduct = () => {
+    saveCart([]);
 };

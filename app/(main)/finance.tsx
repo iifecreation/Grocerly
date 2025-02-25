@@ -21,7 +21,7 @@ const Finance = () => {
     <ScreenWrapper background={COLORS.light.primary}>
       <View className="flex-1 bg-white">
         <ArchBorder>
-          <MainPageHeader name={t("Finance.title")} />
+          <MainPageHeader name={activeTab == "My Wallet" ? t("Finance.tab.one") : activeTab == "My Savings" ? t("Finance.tab.two") : t("Finance.tab.three") } />
         </ArchBorder>
 
         <View style={styles.wallet}>

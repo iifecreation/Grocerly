@@ -5,6 +5,7 @@ import { COLORS } from '@/theme/colors';
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'expo-router';
 import Contact from '@/components/Support/Contact';
+import LiveChat from '@/components/Support/LiveChat';
 
 const { height } = Dimensions.get('window');
 
@@ -21,9 +22,7 @@ const DisplayTabSupport = ({activeTab, }: {activeTab: string,}) => {
 
       case "Live Chat Support":
         return (
-          <View>
-            
-          </View>
+          <LiveChat />
         );
   
       default:

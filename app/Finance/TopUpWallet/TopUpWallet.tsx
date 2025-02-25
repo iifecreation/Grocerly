@@ -16,6 +16,7 @@ import axiosInstance from '@/api/config';
 import ModalComponent from '@/components/common/Modal/Modal';
 import Toast from 'react-native-toast-message';
 import CartToast from '@/components/common/toasts/CartToast';
+import { StripeProvider,confirmPayment } from '@stripe/stripe-react-native';
 
 const TopUpWallet = () => {
   const {t} = useTranslation();
@@ -42,7 +43,7 @@ const TopUpWallet = () => {
     try {
       const response = await axiosInstance.post(API_ROUTES.POST_TOP_WALLET, formData)
       console.log(response?.data?.data);
-      const paymentIntentId = response?.data?.data?.paymentIntents?.split('_secret_')[0];
+      const paymentIntentId = response?.data?.data?.paymentIntents;
       if(response.status == 200){
         setconfirmPaymentValue((prevState) => ({
           paymentIntentId: paymentIntentId,

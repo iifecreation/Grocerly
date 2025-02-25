@@ -26,7 +26,7 @@
       "desc": "Unable to processed your request"
     },
     "server_error": {
-      "title": "Unable to send req uest",
+      "title": "Unable to send request",
       "desc": "Invalid data"
     },
     "Contact": {

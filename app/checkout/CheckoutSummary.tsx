@@ -49,17 +49,17 @@ const CheckoutSummary = () => {
                         showsVerticalScrollIndicator={false}
                         contentContainerStyle={{rowGap: 10}}
                         renderItem={(item: any) => (
-                            <View style={commonStyles.shadow2} className='w-full py-4 px-3 flex-row items-center justify-between rounded-lg mb-3 bg-white' >
+                            <View style={commonStyles.shadow2} className='w-full py-4 px-3 flex-row items-center justify-between rounded-lg mb-3 bg-white gap-3' >
                                 <View className='w-[70] h-[70]'>
                                     <Image source={{uri: item?.item?.image?.url}} className='w-full h-full object-cover rounded-md' />
                                 </View>
                         
-                                <View>
+                                <View className='flex-1'>
                                     <Text className='text-gray-500'>{item?.item?.productLabel}</Text>
                                     <Text className='font-bold text-lg'>{item?.item?.name}</Text>
                                 </View>
                         
-                                <Text className='text-base font-black'>MYR {item?.item?.totalPrice}</Text>
+                                <Text className='text-base font-black'>$ {item?.item?.totalPrice}.00</Text>
                             </View>
                         )}
                     />
@@ -116,7 +116,7 @@ const CheckoutSummary = () => {
 
                     <TouchableOpacity className='flex flex-row items-center gap-5 rounded-full justify-center py-3 mt-10 mb-7 w-full' style={{backgroundColor: COLORS.light.primary}} onPress={() => router.push(APP_ROUTES.PAYMENT)} >
                         <MaterialIcons name="shopping-cart-checkout" size={24} color="white" />
-                        <Text className='text-white font-bold capitalize text-base'>{t("button.checkout")}</Text>
+                        <Text className='text-white font-bold capitalize text-base'>{t("button.Proceed-payment")}</Text>
                     </TouchableOpacity>
                 </View>
 
