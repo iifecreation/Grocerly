@@ -46,7 +46,7 @@
       "adaptiveIcon": {
 
         "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#F15A22"
+        "backgroundColor": "#ffffff"
       },
       "package": "com.anonymous.myapp",
       "permissions": [

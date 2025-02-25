@@ -64,7 +64,7 @@ const Validation = yup.object().shape({
 });
 const Login = () => {
   const {t} = useTranslation();
-  const {updateToken} = useAuthToken();
+  const {updateToken, updateUserData} = useAuthToken();
 
   const [rememberMe, setRemember] = useState(false);
   const [ActivePage, setActivePage] = useState<ResetPassagesType>({
@@ -97,6 +97,7 @@ const Login = () => {
         });
         console.log(response?.data);
         const token = response?.data?.token;
+        updateUserData(response?.data?.user)
         updateToken(token);
       } catch (error: any) {
         console.log('🚀 ~ mutationFn: ~ error:', error);

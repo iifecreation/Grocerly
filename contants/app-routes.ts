@@ -41,6 +41,6 @@ export enum APP_ROUTES {
   HOWWORKS= "/Finance/HowWorks/HowWorks",
   REDEEM= "/Finance/Redeem/Redeem",
   REFEREARN= "/Finance/ReferEarn/ReferEarn",
-  SHAREQR= "/Finance/ShareQR/ShareQR",
+  SCANQRCODE= "/Finance/ScanQRCode/ScanQRCode",
   SHARELINK= "/Finance/ShareLink/ShareLink",
 }

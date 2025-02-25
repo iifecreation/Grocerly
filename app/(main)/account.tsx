@@ -13,12 +13,14 @@ import GreaterThan from "@/components/icons/greaterThan"
 import { APP_ROUTES } from '@/contants/app-routes'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { useRouter } from 'expo-router'
+import useAuthToken from '@/hooks/useAuthToken'
 
 
 const Account = () => {
   const {t} = useTranslation();
   const listRef = useRef(null);
   const router = useRouter()
+  const {logOut} = useAuthToken();
 
   const listSection = [
     {
@@ -90,12 +92,12 @@ const Account = () => {
             )}
           />
 
-          <View className='flex-row items-center gap-3'>
+          <TouchableOpacity className='flex-row items-center gap-3' onPress={() => logOut()}>
             <View className='rounded-full items-center justify-center w-[40] h-[40]' style={{backgroundColor: "#E00000"}}>
               <MaterialIcons name="logout" size={20} color="#ffffff" />
             </View>
             <Text className='font-medium text-base capitalize' style={{color: "#E00000"}}>{t("account.list_section.7")}</Text>
-          </View>
+          </TouchableOpacity>
         </View>
 
       </View>

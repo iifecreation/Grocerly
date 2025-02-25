@@ -20,11 +20,11 @@ type Action = {
 
   export const useAuthStore = create(
     persist(
-      (set, get) => ({
+      (set, get: any) => ({
         token: null,
         userData: null,
         setToken: (data: any) => set({token: data}),
-        userSetData: () => set({}),
+        userSetData: (data: any) => set({userData: data}),
         logOut: () => set({token: '', userData: null}),
         isOnboarded: false,
         handleSkipOnboarding: () => set({isOnboarded: true}),
@@ -34,6 +34,7 @@ type Action = {
           if (!activeToken) {
             // sign out
             removeToken();
+            get().logOut();
           } else {
             // update login
             get().setToken(activeToken);

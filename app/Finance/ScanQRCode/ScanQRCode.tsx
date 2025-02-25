@@ -7,9 +7,13 @@ import ArchBorder from '@/components/ArchBorder';
 import MainPageHeader from '@/components/MainPageHeader';
 import { useTranslation } from 'react-i18next';
 import ShareLinkComp from '@/components/common/ShareLink/ShareLink';
+import { useAuthStore } from '@/store/store';
+import QRCode from 'react-native-qrcode-svg';
 
-const ScanQR = () => {
+const ScanQRCode = () => {
   const {t} = useTranslation();
+  const {userData} = useAuthStore();
+  let referralCode = `your-app-scheme://jdnncvw238892nniij/referral?code=${userData?.referralCode}`
   
   return (
     <ScreenWrapper background={COLORS.light.primary}>
@@ -18,11 +22,18 @@ const ScanQR = () => {
           <MainPageHeader name={t("Finance.TopUpWallet.title")} />
         </ArchBorder>
 
-        <ScrollView style={styles.headerDesc}>
+        <ScrollView style={styles.headerDesc} showsVerticalScrollIndicator={false}>
           <ShareLinkComp />
 
-          <View className='mt-5' >
-            <Text className='text-center'>{t("Finance.Share.align")}</Text>
+          <View className='mt-5 pb-10' >
+            <Text className='text-center mb-5'>{t("Finance.Share.align")}</Text>
+
+            <View className='items-center mb-8'>
+              <QRCode
+                value={referralCode}
+                size={150}
+              />
+            </View>
           </View>
         </ScrollView>
 
@@ -31,7 +42,7 @@ const ScanQR = () => {
   );
 }
 
-export default ScanQR
+export default ScanQRCode
 
 const styles = StyleSheet.create({
   headerDesc: {

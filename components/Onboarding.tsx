@@ -9,6 +9,7 @@ import {COLORS} from '@/theme/colors';
 import {ImageSlider} from '@/lib/data';
 import {useAuthStore} from '@/store/store';
 import {useTranslation} from 'react-i18next';
+import { StatusBar } from 'expo-status-bar';
 
 const Onboarding = () => {
   const scrollX = useSharedValue(0);
@@ -23,6 +24,7 @@ const Onboarding = () => {
         height: '95%',
         paddingBottom: SAFE_AREA_PADDING.paddingBottom + 30,
       }}>
+        <StatusBar backgroundColor='#ffffff' />
       <FlashList
         data={ImageSlider}
         renderItem={({item, index}) => <SliderItem item={item} index={index} />}

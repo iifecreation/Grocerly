@@ -50,7 +50,7 @@ const ReferEarn = () => {
   }
 
   const movetoShareQR = () => {
-    router.push(APP_ROUTES.SHAREQR)
+    router.push(APP_ROUTES.SCANQRCODE)
   }
   
   return (
@@ -128,7 +128,7 @@ const ReferEarn = () => {
                   icon1={<ReferIcon color="#FAFAFA" />}
                   icon2={<ScanIcon />}
                   moveButton={() => router.push(APP_ROUTES.SHARELINK)}
-                  moveButtonTwo={() => router.push(APP_ROUTES.SHAREQR)}
+                  moveButtonTwo={() => router.push(APP_ROUTES.SCANQRCODE)}
                   text1={t("button.share_Link")}
                   text2={t("button.Scan_QR")}
                 />
