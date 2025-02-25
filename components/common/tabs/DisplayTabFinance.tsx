@@ -65,7 +65,6 @@ const DisplayTabFinance = ({activeTab, }: {activeTab: string,}) => {
   const formattedToday = today.toISOString().split('T')[0];
 
   const orderList = useMemo(() => wallet?.data, [wallet]);
-  console.log(orderList);
   
   const savingHistory = useMemo(() => saving?.data, [saving]);
 

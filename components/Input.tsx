@@ -24,6 +24,7 @@ type TextInputTypes = {
   label?: string;
   className?: string;
   disabled?: boolean;
+  multiline?: boolean;
 };
 
 export default function TextInputComp({
@@ -40,6 +41,7 @@ export default function TextInputComp({
   label,
   readOnly = false,
   className,
+  multiline,
 }: TextInputTypes) {
   const [isFocused, setFocused] = useState(false);
   const [hidePassword, setHidePassword] = useState(false);
@@ -56,7 +58,7 @@ export default function TextInputComp({
           handleBlur(id);
         }}
         className={cn(
-          `border  rounded-[4px] h-12 w-full px-4 placeholder:text-base font-normal placeholder:leading-[25px] placeholder:text-black ${isFocused ? 'border-red-900' : 'border-gray-300'}`,
+          `border rounded-[4px] h-12 w-full px-4 placeholder:text-base font-normal placeholder:leading-[25px] placeholder:text-gray-500 ${isFocused ? 'border-red-900' : 'border-gray-300'}`,
           className,
         )}
         onBlur={() => {
@@ -71,6 +73,8 @@ export default function TextInputComp({
         autoComplete={autoComplete}
         keyboardType={keyboardType}
         maxLength={maxLength || null}
+        multiline={multiline}
+        style={{textAlignVertical: multiline ? "top": "center"}}
       />
       {/* <Icon /> */}
       {id === 'password' ? (

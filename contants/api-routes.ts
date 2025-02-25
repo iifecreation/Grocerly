@@ -26,4 +26,7 @@ export enum API_ROUTES {
   SAVINGCHART= "/payment/saving-chart",
   POST_TOP_WALLET = "/payment/topup",
   POST_CONFIRM_TOP_UP = "/payment/topup-confirm",
+
+  //contact us
+  CONTACT_US = "/user/contact-us"
 }

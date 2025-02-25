@@ -20,6 +20,29 @@
       "password": "Password is required",
       "passwordLength": "Password should be more than 6",
       "confirmPassword": "Confirm password must match password"
+    },
+    "network": {
+      "title": "Network Error",
+      "desc": "Unable to processed your request"
+    },
+    "server_error": {
+      "title": "Unable to send req uest",
+      "desc": "Invalid data"
+    },
+    "Contact": {
+      "error": {
+        "name": "Full name is required",
+        "email": "Email is required",
+        "phone": "Mobile number is required",
+        "message": "Message is required",
+        "nameMinLength": "Full name must be valid",
+        "invalidEmail": "Invalid email address",
+        "phoneMinLength": "Mobile number must be greather than 7"
+      },
+      "success": {
+        "title": "Success! Your form has been submitted.",
+        "desc": "Thank you for getting in touch! We appreciate you contacting us."
+      }
     }
   },
   "buttons": {
@@ -246,7 +269,8 @@
     "Generate": "Generate",
     "Download_Report": "Download Report",
     "Pay": "Pay",
-    "confirm_payment": "Confirm Payment"
+    "confirm_payment": "Confirm Payment",
+    "Submit": "Submit"
   },
   "Checkout": {
     "Checkout_Summary": "Checkout Summary",
@@ -319,7 +343,10 @@
       "Last_Name": "Last Name",
       "Email_Address": "Email Address",
       "Phone_Number": "Phone Number",
-      "DOB": "Date of Birth"
+      "DOB": "Date of Birth",
+      "editDetails": {
+        "title": "Edit Profile"
+      }
     },
     "terms": {
       "title": "Terms of Usage",
@@ -350,6 +377,61 @@
         "home": "Home",
         "office": "Office",
         "other": "Other"
+      }
+    },
+    "Password_Email": {
+      "title": "Account Settings",
+      "card1": {
+        "title": "Password",
+        "desc": "Set up a unique password to protect your account"
+      },
+      "card2": {
+        "title": "Email Address",
+        "desc": "Email address associated with your account"
+      },
+      "card3": {
+        "title": "Deactivate Account",
+        "desc": "Email address associated with your account",
+        "btn": "Deactivate"
+      },
+      "Change_Password": {
+        "input1": "Old Password",
+        "input2": "New Password",
+        "otp": {
+          "title": "OTP Verification",
+          "desc": "Please enter the One-Time Password (OTP) sent to your email address to complete the verification process",
+          "didnt": "Didnt Receive OTP? ",
+          "Resend": "Resend"
+        },
+        "success": "Password reset successfully!"
+      },
+      "Change_email": {
+        "input1": "Old Email",
+        "input2": "New Email",
+        "alert": {
+          "title": "WE’VE SENT YOU AN EMAIL",
+          "desc": "Please click on the link sent to janedoe3@gmail.com verify your account and access the app"
+        }
+      }
+    },
+    "support": {
+      "title1": "Contact Us",
+      "title2": "Chat Support",
+      "tab": {
+        "col1": "Contact Us",
+        "col2": "Live Chat Support"
+      },
+      "contact": {
+        "address": "House# 72, Road# 21, Banani, Dhaka-1213 (near Banani Bidyaniketon School & College, beside University of South Asia)",
+        "call": "Call : 13301 (24/7)",
+        "email": "Email : support@pathao.com",
+        "form": {
+          "title": "Send Message",
+          "input1": "Name",
+          "input2": "Email",
+          "input3": "Your mobile number",
+          "input4": "Write your text"
+        }
       }
     }
   },

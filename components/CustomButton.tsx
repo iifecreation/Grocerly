@@ -3,7 +3,7 @@ import React from 'react'
 import { COLORS } from '@/theme/colors'
 
 interface CustomButtonProps{
-    children: React.ReactNode
+    children?: React.ReactNode
     navigateProps: () => void
     textProps: string
 }

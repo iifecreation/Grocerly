@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import ScreenWrapper from '@/components/ScreenWrapper';
 import { COLORS } from '@/theme/colors';
@@ -6,9 +6,15 @@ import ArchBorder from '@/components/ArchBorder';
 import MainPageHeader from '@/components/MainPageHeader';
 import { useTranslation } from 'react-i18next';
 import { SAFE_AREA_PADDING } from '@/utils/utils';
+import { useAuthStore } from '@/store/store';
+import AntDesign from '@expo/vector-icons/AntDesign';
+import { APP_ROUTES } from '@/contants/app-routes';
+import { useRouter } from 'expo-router';
 
-const PersonalDetails = () => {
+const ChangeEmail = () => {
     const {t} = useTranslation();
+    const {userData} = useAuthStore();
+    const router = useRouter()
   
     return (
         <ScreenWrapper background={COLORS.light.primary}>
@@ -18,9 +24,7 @@ const PersonalDetails = () => {
             </ArchBorder>
 
             <ScrollView style={styles.headerDesc} showsVerticalScrollIndicator={false}>
-              <View>
-                
-              </View>
+              
             
             </ScrollView>
         </View>
@@ -28,7 +32,7 @@ const PersonalDetails = () => {
     )
 }
 
-export default PersonalDetails
+export default ChangeEmail
 
 const styles = StyleSheet.create({
     headerDesc: {

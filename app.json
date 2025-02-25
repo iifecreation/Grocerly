@@ -31,6 +31,12 @@
           "publishableKey": "pk_live_51P4Z70I7ciauicKkD3AwQlok3gc8XTY5MpmWF2X0AkFn3iOnOiZntoViNzQaeJ2LSa0JAHKyMCZk3xPkpD62FNIA00KtS72uke",
           "enableGooglePay": true
         }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
       ]
     ],
     "splash": {
