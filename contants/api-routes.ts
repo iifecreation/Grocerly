@@ -23,5 +23,7 @@ export enum API_ROUTES {
   REDEEMCHART= "/payment/credit-chart",
   REFERRALS = "/user/referrals",
   SAVINGHISTORY="/payment/saving-history",
-  SAVINGCHART= "/payment/saving-chart"
+  SAVINGCHART= "/payment/saving-chart",
+  POST_TOP_WALLET = "/payment/topup",
+  POST_CONFIRM_TOP_UP = "/payment/topup-confirm",
 }

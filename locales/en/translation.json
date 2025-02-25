@@ -244,7 +244,9 @@
     "Activity_Status": "Activity Status",
     "report": "Generate Report",
     "Generate": "Generate",
-    "Download_Report": "Download Report"
+    "Download_Report": "Download Report",
+    "Pay": "Pay",
+    "confirm_payment": "Confirm Payment"
   },
   "Checkout": {
     "Checkout_Summary": "Checkout Summary",
@@ -415,11 +417,14 @@
     },
     "Redeem": {
       "title": "Statistics",
+      "title1": "Refer & Earn",
       "Redeem_Credit": "Redeem Credit",
       "view": "View History",
       "enter": "Enter amount of reward credit that you want to redeem",
+      "error": "Unable to fetch Redeem chart data.",
+      "Recent_Referal": "Recent Referal Flow",
       "none": {
-        "title": "You have no Referral  History Yet",
+        "title": "You have no Referral History Yet",
         "desc": "Start Referring to earn amazing discounts on your favorite products."
       }
     },
@@ -453,7 +458,8 @@
       "none": {
         "title": "You have no Savings History Yet",
         "desc": "Top up your wallet and Start Shopping to enjoy amazing discounts on your favorite products."
-      }
+      },
+      "selectReportDate": "Select Date for Report"
     }
   }
 }

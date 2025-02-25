@@ -1,15 +1,14 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React, { Dispatch, SetStateAction } from 'react'
-import Warn from "@/components/icons/Warn"
-import {Calendar, Agenda, LocaleConfig} from 'react-native-calendars';
-import { COLORS } from '@/theme/colors';
+import Warn from "@/components/icons/Warn";
 import commonStyles from '@/components/styles/common';
+import CalendarComp from './CalendarComp';
 
 interface PickDate {
   title: string
   desc: string
   selectedDate: string | null
-  setSelectedDate: Dispatch<SetStateAction<string | null>>
+  setSelectedDate: Dispatch<SetStateAction<string>>
 };
 
 const CheckoutDate: React.FC<PickDate> = ({title, desc, selectedDate, setSelectedDate}) => {
@@ -26,23 +25,7 @@ const CheckoutDate: React.FC<PickDate> = ({title, desc, selectedDate, setSelecte
         <Text className='text-gray-500 font-medium text-sm'>{desc}</Text>
       </View>
 
-      <Calendar 
-        onDayPress={(day: any) => {
-          const selectedDate = day.dateString;
-          setSelectedDate(selectedDate);
-        }}
-        theme={{
-          backgroundColor: '#ffffff',
-          calendarBackground: '#ffffff',
-          selectedDayBackgroundColor: COLORS.light.primary,
-          selectedDayTextColor: '#ffffff',
-          dayTextColor: COLORS.light.primary,
-          arrowColor: COLORS.light.primary,
-          todayTextColor: "#000000",
-        }}
-        enableSwipeMonths={true}
-        minDate={formattedToday}
-      />
+      <CalendarComp setSelectedDate={setSelectedDate} maxDateValue='' minDateValue={formattedToday} />
 
     </View>
   )

@@ -1,6 +1,6 @@
 
 import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import WalletCard from '@/components/Finance/WalletCard';
 import TransactionHistory from '@/components/Finance/TransactionHistory';
 import { COLORS } from '@/theme/colors';
@@ -18,12 +18,21 @@ import QuestionIcon from "@/components/icons/Question"
 import RedeemIcon from "@/components/icons/Redeem"
 import ReferIcon from "@/components/icons/Refer"
 import MySaving from '@/components/Finance/MySaving';
-
+import Toast from 'react-native-toast-message';
+import ModalComponent from '../Modal/Modal';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import CustomButton from '@/components/CustomButton';
+import AntDesign from '@expo/vector-icons/AntDesign';
+import CalendarComp from '../Calendar/CalendarComp';
+import GenerateReport from '@/components/Finance/GenerateReport';
 
 const { height } = Dimensions.get('window');
 
 const DisplayTabFinance = ({activeTab, }: {activeTab: string,}) => {
   const {t} = useTranslation();
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [showReport, setShowReport] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
   const router = useRouter()
   const {
     isLoading,
@@ -36,11 +45,49 @@ const DisplayTabFinance = ({activeTab, }: {activeTab: string,}) => {
     queryFn: async () => {
       return await axiosInstance.get(API_ROUTES.FETCH_WALLET);
     },
+    refetchOnMount: true
   });
 
+  const {
+    isLoading: isLoadingsaving,
+    isFetching: isFetchingsaving,
+    error: errorsaving,
+    isError: isErrorsaving,
+    data: saving,
+  } = useQuery({
+      queryKey: [QUERY_ENUM.SAVINGHISTORY],
+      queryFn: async () => {
+        return await axiosInstance.get(API_ROUTES.SAVINGHISTORY);
+      },
+  });
+
+  const today = new Date();
+  const formattedToday = today.toISOString().split('T')[0];
+
   const orderList = useMemo(() => wallet?.data, [wallet]);
-  // console.log(orderList);
+  console.log(orderList);
   
+  const savingHistory = useMemo(() => saving?.data, [saving]);
+
+  const showActivityStatus = () => {
+    Toast.show({
+      type: 'info',
+      text1: 'Activity Status',
+      text2: orderList?.data?.accountStatus,
+    });
+  }
+
+  const selectReportDate = () => {
+    setModalVisible(!isModalVisible);
+  }
+
+  const handleGenerate = () => {
+    setShowReport(!showReport)
+    selectReportDate()
+  }
+  const cancelGenerate = () => {
+    setShowReport(!showReport)
+  }
 
   switch (activeTab) {
       case "My Wallet":
@@ -72,7 +119,30 @@ const DisplayTabFinance = ({activeTab, }: {activeTab: string,}) => {
       case "My Savings":
         return (
           <View>
-            <MySaving savingData={orderList?.data}/>
+            {
+              showReport ? 
+              (
+                <GenerateReport selectedDate={selectedDate} isLoading={isLoading} isFetching={isFetching} orderList={orderList} savingHistory={savingHistory} errorsaving={isErrorsaving} isFetchingsaving={isFetchingsaving} isLoadingsaving={isLoadingsaving} cancelGenerate={cancelGenerate} />
+              )
+              : 
+              (
+                <MySaving savingData={orderList?.data} showActivityStatus={showActivityStatus} selectReportDate={selectReportDate} savingHistory={savingHistory} errorsaving={isErrorsaving} isFetchingsaving={isFetchingsaving} isLoadingsaving={isLoadingsaving}/>
+              )
+            }
+
+            <ModalComponent modalVisible={isModalVisible} setModalVisible={setModalVisible} yourHeight={0.75}>
+              <TouchableOpacity onPress={selectReportDate}>
+                <MaterialIcons name="cancel" size={24} color="black" />
+              </TouchableOpacity>
+
+              <Text className='text-center font-bold text-base'>{t("Finance.mySaving.selectReportDate")}</Text>
+              <CalendarComp setSelectedDate={setSelectedDate} maxDateValue={formattedToday} minDateValue='' />
+
+              <CustomButton navigateProps={handleGenerate} textProps={t("button.Generate")}>
+                <AntDesign name="plussquare" size={24} color="#ffffff" />
+              </CustomButton>
+            </ModalComponent>
+
           </View>
         );
   

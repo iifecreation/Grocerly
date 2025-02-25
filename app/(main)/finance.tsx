@@ -8,6 +8,7 @@ import MainPageHeader from '@/components/MainPageHeader';
 import { useTranslation } from 'react-i18next';
 import ProductDetailsTab from '@/components/common/tabs/ProductDetailsTab';
 import DisplayTabFinance from '@/components/common/tabs/DisplayTabFinance';
+import CartToast from '@/components/common/toasts/CartToast';
 
 const { width } = Dimensions.get('window');
 
@@ -39,6 +40,7 @@ const Finance = () => {
           
         </View>
 
+        <CartToast />
       </View>
     </ScreenWrapper>
   );

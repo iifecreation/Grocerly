@@ -15,7 +15,7 @@ const ModalComponent = (
       setModalVisible(!modalVisible);
       }}
     >
-      <View style={styles.centeredView} className='w-full px-6'>
+      <View style={styles.centeredView} className='w-full px-4'>
         <View style={[{height: height * yourHeight, width:"100%"}, styles.modalView]}>
           {children}
         </View>
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     modalView: {
       backgroundColor: 'white',
       borderRadius: 20,
-      padding: 25,
+      padding: 15,
       shadowColor: '#000',
       shadowOffset: {
         width: 0,

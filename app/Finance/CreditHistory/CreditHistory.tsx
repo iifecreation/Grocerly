@@ -75,7 +75,7 @@ const CreditHistory = () => {
                                         <EarnIcon />
                                     </View>
                                     <View className='flex-1 '>
-                                        <Text className='text-base font-bold capitalize mb-1'>{item?.item?.description}</Text>
+                                        <Text className='text-base font-semibold mb-1'>{t("Finance.Transaction_Details.id")} {item?.item?.transactionId}</Text>
                                         <Text className='text-xs font-medium'>{new Date(item?.item?.createdAt).toLocaleDateString()}</Text>
                                     </View>
                                     <Text className='font-bold text-lg' style={{color: COLORS.light.primary}}>${item?.item?.amount}</Text>

@@ -23,6 +23,14 @@
           "fonts": ["./assets/fonts/Inter_18pt-ThinItalic.ttf"]
 
         }
+      ],
+      [
+        "@stripe/stripe-react-native",
+        {
+          "merchantIdentifier": "merchant.REPLACE_ME",
+          "publishableKey": "pk_live_51P4Z70I7ciauicKkD3AwQlok3gc8XTY5MpmWF2X0AkFn3iOnOiZntoViNzQaeJ2LSa0JAHKyMCZk3xPkpD62FNIA00KtS72uke",
+          "enableGooglePay": true
+        }
       ]
     ],
     "splash": {

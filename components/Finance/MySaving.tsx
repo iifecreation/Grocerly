@@ -1,34 +1,16 @@
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useMemo, useRef } from 'react'
+import React, { useRef } from 'react'
 import { useTranslation } from 'react-i18next';
 import TransactionIcon from '@/components/icons/Transaction'
 import commonStyles from '../styles/common';
 import { COLORS } from '@/theme/colors';
-import { useQuery } from '@tanstack/react-query';
-import { QUERY_ENUM } from '@/contants';
-import axiosInstance from '@/api/config';
-import { API_ROUTES } from '@/contants/api-routes';
 import BarChartComp from '../common/Chart/BarChart';
+import SavingHistory from './SavingHistory';
 
-const MySaving = ({savingData}: {savingData: any}) => {
+const MySaving = ({savingData, showActivityStatus, selectReportDate, savingHistory, isLoadingsaving, isFetchingsaving, errorsaving}: 
+    {savingData: any, showActivityStatus: () => void, selectReportDate: () => void, savingHistory: any, isLoadingsaving: boolean, isFetchingsaving: boolean, errorsaving: boolean}) => {
     const {t} = useTranslation();
     const listRef = useRef(null);
-
-    const {
-        isLoading,
-        isFetching,
-        error,
-        isError,
-        data: saving,
-      } = useQuery({
-        queryKey: [QUERY_ENUM.SAVINGHISTORY],
-        queryFn: async () => {
-          return await axiosInstance.get(API_ROUTES.SAVINGHISTORY);
-        },
-      });
-    
-      const savingHistory = useMemo(() => saving?.data, [saving]);
-      console.log(savingHistory);
 
     const mysavingCardData = [
         {
@@ -46,6 +28,7 @@ const MySaving = ({savingData}: {savingData: any}) => {
             amount: savingData?.balance?.expenseBalance
         },
     ]
+
   return (
     <View>
         <FlatList
@@ -68,17 +51,21 @@ const MySaving = ({savingData}: {savingData: any}) => {
         />
 
         <View className='flex-row justify-end w-full items-center gap-3 mt-5'>
-            <TouchableOpacity className='border border-purple-300 bg-purple-100 px-3 py-2 rounded-md'>
+            <TouchableOpacity className='border border-purple-300 bg-purple-100 px-3 py-2 rounded-md' onPress={showActivityStatus}>
                 <Text className='text-purple-700 text-sm font-bold'>{t("button.Activity_Status")}</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={{backgroundColor: COLORS.light.primary}} className='px-3 py-2 rounded-md'>
+
+            <TouchableOpacity style={{backgroundColor: COLORS.light.primary}} className='px-3 py-2 rounded-md' onPress={selectReportDate}>
                 <Text className='text-white text-sm font-bold'>{t("button.report")}</Text>
             </TouchableOpacity>
         </View>
 
         <View className='mt-10 mb-7'>
-            <BarChartComp />
+            <BarChartComp showData={savingHistory?.data} />
         </View>
+
+        <SavingHistory isLoadingsaving={isLoadingsaving} isFetchingsaving={isFetchingsaving} errorsaving={errorsaving} savingHistory={savingHistory} />
+        
     </View>
   )
 }

@@ -8,7 +8,7 @@ import { BarChart } from 'react-native-gifted-charts';
 import { ActivityIndicator } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 
-const BarChartComp = () => {
+const BarChartComp = ({showData}: {showData: any}) => {
     const {t} = useTranslation();
     const {
         isLoading,
@@ -24,10 +24,9 @@ const BarChartComp = () => {
     });
     
     const displayChart = useMemo(() => Chart?.data, [Chart]);
-    console.log(displayChart);
 
     const formattedData = displayChart?.data?.map((item: any) => ({
-        value: item.totalSavings > 0 ? item.totalSavings : 3,
+        value: item.totalSavings > 0 ? item.totalSavings : 5,
         realValue: item.totalSavings ,
         label: new Date(item.date).toLocaleString('en-US', { weekday: 'short' }),
         date: new Date(item.date).toLocaleDateString()
@@ -51,7 +50,7 @@ const BarChartComp = () => {
                     data={formattedData}
                     width={320} // Adjust width as needed
                     height={250}
-                    frontColor={'#4CAF50'}
+                    frontColor={showData?.length == 0 ? "#D9D9D9" : '#4CAF50'}
                     barWidth={25}
                     spacing={20}
                     initialSpacing={10}
