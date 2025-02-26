@@ -14,8 +14,8 @@
 		96905EF65AED1B983A6B3ABC /* libPods-Grocerly.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58EEBF8E8E6FB1BC6CAF49B5 /* libPods-Grocerly.a */; };
 		B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
-		1DE18DE13E4A40678F3C2022 /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298C017A8BF04B8D87F67939 /* noop-file.swift */; };
-		51BD2C50F1214D9A8DDB90C6 /* Inter_18pt-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 068028AC01D0477FAFF535D2 /* Inter_18pt-ThinItalic.ttf */; };
+		5566B29BFD9D42489E813999 /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9443273E65E466AA6C962C4 /* noop-file.swift */; };
+		FF8D9C11730549EBAF1FB602 /* Inter_18pt-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 294331058619401EB5CEDAD8 /* Inter_18pt-ThinItalic.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,9 +32,9 @@
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-Grocerly/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
-		298C017A8BF04B8D87F67939 /* noop-file.swift */ = {isa = PBXFileReference; name = "noop-file.swift"; path = "Grocerly/noop-file.swift"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.swift; explicitFileType = undefined; includeInIndex = 0; };
-		3E704EE03E28488F93D95D8A /* Grocerly-Bridging-Header.h */ = {isa = PBXFileReference; name = "Grocerly-Bridging-Header.h"; path = "Grocerly/Grocerly-Bridging-Header.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
-		068028AC01D0477FAFF535D2 /* Inter_18pt-ThinItalic.ttf */ = {isa = PBXFileReference; name = "Inter_18pt-ThinItalic.ttf"; path = "../assets/fonts/Inter_18pt-ThinItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A9443273E65E466AA6C962C4 /* noop-file.swift */ = {isa = PBXFileReference; name = "noop-file.swift"; path = "Grocerly/noop-file.swift"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.swift; explicitFileType = undefined; includeInIndex = 0; };
+		E6F9496BC4174437B9F06287 /* Grocerly-Bridging-Header.h */ = {isa = PBXFileReference; name = "Grocerly-Bridging-Header.h"; path = "Grocerly/Grocerly-Bridging-Header.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		294331058619401EB5CEDAD8 /* Inter_18pt-ThinItalic.ttf */ = {isa = PBXFileReference; name = "Inter_18pt-ThinItalic.ttf"; path = "../assets/fonts/Inter_18pt-ThinItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,8 +59,8 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
-				298C017A8BF04B8D87F67939 /* noop-file.swift */,
-				3E704EE03E28488F93D95D8A /* Grocerly-Bridging-Header.h */,
+				A9443273E65E466AA6C962C4 /* noop-file.swift */,
+				E6F9496BC4174437B9F06287 /* Grocerly-Bridging-Header.h */,
 			);
 			name = Grocerly;
 			sourceTree = "<group>";
@@ -90,7 +90,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				D65327D7A22EEC0BE12398D9 /* Pods */,
 				D7E4C46ADA2E9064B798F356 /* ExpoModulesProviders */,
-				EA7B8381BE1B4F95971C1E32 /* Resources */,
+				5A029446392842B48CCC0498 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -139,10 +139,10 @@
 			name = ExpoModulesProviders;
 			sourceTree = "<group>";
 		};
-		EA7B8381BE1B4F95971C1E32 /* Resources */ = {
+		5A029446392842B48CCC0498 /* Resources */ = {
 			isa = "PBXGroup";
 			children = (
-				068028AC01D0477FAFF535D2 /* Inter_18pt-ThinItalic.ttf */,
+				294331058619401EB5CEDAD8 /* Inter_18pt-ThinItalic.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -210,8 +210,8 @@
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
-				27FC7842CA9F4DF9B3574279 /* Grocerly-Bridging-Header.h in Resources */,
-				51BD2C50F1214D9A8DDB90C6 /* Inter_18pt-ThinItalic.ttf in Resources */,
+				28C8D36C82DC43069B875012 /* Grocerly-Bridging-Header.h in Resources */,
+				FF8D9C11730549EBAF1FB602 /* Inter_18pt-ThinItalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,7 +287,7 @@
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */,
-				1DE18DE13E4A40678F3C2022 /* noop-file.swift in Sources */,
+				5566B29BFD9D42489E813999 /* noop-file.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
