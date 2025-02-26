@@ -351,8 +351,7 @@
     "Personal_Details": {
       "title": "Personal Details",
       "edit": "Edit Profile Settings",
-      "First_Name": "First Name",
-      "Last_Name": "Last Name",
+      "Full_Name": "Full Name",
       "Email_Address": "Email Address",
       "Phone_Number": "Phone Number",
       "DOB": "Date of Birth",

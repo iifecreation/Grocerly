@@ -15,20 +15,34 @@ import TextInputComp from '@/components/Input';
 import CustomButton from '@/components/CustomButton';
 import EvilIcons from '@expo/vector-icons/EvilIcons';
 import * as ImagePicker from 'expo-image-picker';
+// import DatePicker from 'react-native-date-picker'
+import Feather from '@expo/vector-icons/Feather';
 
 const EditPersonalDetails = () => {
     const {t} = useTranslation();
     const {userData} = useAuthStore();
     const router = useRouter()
     const {control, handleSubmit, formState: {errors}, reset} = useForm();
-    const [imageUri, setImageUri] = useState(null);
+    const [imageUri, setImageUri] = useState<string | null>(null);
+    const [date, setDate] = useState(new Date())
+    const [open, setOpen] = useState(false)
 
-    // const requestPermissions = async () => {
-    //     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    //     if (status !== 'granted') {
-    //       Alert.alert('Permission denied', 'We need access to your media library to select a picture.');
-    //     }
-    // };
+    const pickImage = async () => {
+        try {
+          const result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ['images'],
+            allowsEditing: true,
+            aspect: [1, 1],
+            quality: 1,
+          });
+    
+          if (!result.canceled) {
+            setImageUri(result.assets[0].uri);
+          }
+        } catch (error) {
+          console.log('Error picking image:', error);
+        }
+    };
 
     const editProfileHandle = () => {
 
@@ -43,9 +57,9 @@ const EditPersonalDetails = () => {
 
             <ScrollView style={styles.headerDesc} showsVerticalScrollIndicator={false}>
               <View className='items-center relative justify-center'>
-                <Image source={{uri: userData?.image?.url}} style={{width: 120, height: 120, borderRadius: 100}} />
+                <Image source={{uri: imageUri ? imageUri : userData?.image?.url}} style={{width: 120, height: 120, borderRadius: 100}} />
 
-                <TouchableOpacity style={{width: 40, height: 40}} className='bg-white rounded-full items-center justify-center absolute'>
+                <TouchableOpacity style={{width: 40, height: 40}} className='bg-white rounded-full items-center justify-center absolute' onPress={pickImage}>
                     <EvilIcons name="camera" size={24} color="black" />
                 </TouchableOpacity>
               </View>
@@ -53,60 +67,71 @@ const EditPersonalDetails = () => {
                 <View className='mt-4 pb-12'>
                     <Controller
                         control={control}
-                        name="First_Name"
+                        name="fullName"
                         rules={{
-                        required: "First Name is required",
+                            required: t('form.Contact.error.name'),
+                            minLength: {
+                              value: 3,
+                              message: t('form.Contact.error.nameMinLength'),
+                            },
                         }}
                         render={({field: {onChange, onBlur, value}}) => (
                         <TextInputComp
-                            placeholder={t("account.Personal_Details.First_Name")}
+                            placeholder={t("account.Personal_Details.Full_Name")}
                             value={value}
                             handleBlur={onBlur}
                             onChangeText={onChange}
-                            errorMessage={errors?.Amount?.message}
-                            id="First_Name"
+                            errorMessage={errors?.fullName?.message}
+                            id="fullName"
                         />
                         )}
                     />
 
                     <Controller
                         control={control}
-                        name="Last_Name"
+                        name="phoneNumber"
                         rules={{
-                        required: "First Name is required",
+                            required: t('form.Contact.error.phone'),
+                            minLength: {
+                                value: 7,
+                                message: t('form.Contact.error.phoneMinLength'),
+                            },
                         }}
                         render={({field: {onChange, onBlur, value}}) => (
                         <TextInputComp
-                            placeholder={t("account.Personal_Details.Last_Name")}
+                            placeholder={t("account.Personal_Details.Phone_Number")}
                             value={value}
                             handleBlur={onBlur}
                             onChangeText={onChange}
-                            errorMessage={errors?.Amount?.message}
-                            id="Last_Name"
+                            errorMessage={errors?.phoneNumber?.message}
+                            id="phoneNumber"
                         />
                         )}
                     />
 
-                        <Controller
-                        control={control}
-                        name="Phone_Number"
-                        rules={{
-                        required: "First Name is required",
-                        }}
-                        render={({field: {onChange, onBlur, value}}) => (
-                        <TextInputComp
-                            placeholder={t("account.Personal_Details.First_Name")}
-                            value={value}
-                            handleBlur={onBlur}
-                            onChangeText={onChange}
-                            errorMessage={errors?.Amount?.message}
-                            id="Phone_Number"
-                        />
-                        )}
-                    />
+                    <View className="border rounded-[4px] h-12 w-full px-4 placeholder:text-base font-normal flex-row items-center justify-between border-gray-300">
+                        <Text className='text-gray-500 text-base'>{t("account.Personal_Details.DOB")}</Text>
+                        <TouchableOpacity onPress={() => setOpen(true)}>
+                            <Feather name="calendar" size={24} color="#5E6368" />
+                        </TouchableOpacity>
+                    </View>
+
                     <CustomButton navigateProps={editProfileHandle} textProps={t("button.Submit")} />
                 </View>
             </ScrollView>
+
+            {/* <DatePicker
+                modal
+                open={open}
+                date={date}
+                onConfirm={(date) => {
+                    setOpen(false)
+                    setDate(date)
+                }}
+                onCancel={() => {
+                    setOpen(false)
+                }}
+            /> */}
         </View>
         </ScreenWrapper>
     )

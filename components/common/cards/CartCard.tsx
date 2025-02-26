@@ -30,7 +30,7 @@ const CartCard = ({item}: {item: any}) => {
       </View>
       <View className='flex-row mt-4 items-center justify-between'>
         <TouchableOpacity onPress={() => deleteSingleProduct(item?.item)}>
-         <Delete />
+         <Delete color="#000" fillOpacity={0.4} />
         </TouchableOpacity>
 
         <View className='flex-row gap-5 items-center '>

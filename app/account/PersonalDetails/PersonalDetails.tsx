@@ -37,13 +37,8 @@ const PersonalDetails = () => {
 
               <View className='mt-4 pb-12'>
                 <View className='border-b border-b-gray-200 py-2 mb-3'>
-                    <Text className='text-gray-500 mb-2 font-medium'>{t("account.Personal_Details.First_Name")}</Text>
-                    <Text className='text-base font-medium capitalize text-black'>{userData?.fullName.split(" ")[0]}</Text>
-                </View>
-
-                <View className='border-b border-b-gray-200 py-2 mb-3'>
-                    <Text className='text-gray-500 mb-2 font-medium'>{t("account.Personal_Details.Last_Name")}</Text>
-                    <Text className='text-base font-medium capitalize text-black'>{userData?.fullName.split(" ")[1]}</Text>
+                    <Text className='text-gray-500 mb-2 font-medium'>{t("account.Personal_Details.Full_Name")}</Text>
+                    <Text className='text-base font-medium capitalize text-black'>{userData?.fullName}</Text>
                 </View>
 
                 <View className='border-b border-b-gray-200 py-2 mb-3'>

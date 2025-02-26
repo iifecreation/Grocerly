@@ -127,7 +127,7 @@ const Contact = () => {
                                 value: 7,
                                 message: t('form.Contact.error.phoneMinLength'),
                             },
-                            }}
+                        }}
                         render={({field: {onChange, onBlur, value}}) => (
                             <View className='mb-5'>
                                 <View className='flex-row items-center border rounded-[4px] w-full border-gray-300 px-3'>
