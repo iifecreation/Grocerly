@@ -1,7 +1,6 @@
 
-import { Dimensions, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View, ScrollView } from 'react-native'
-import React, { useMemo, useState } from 'react'
-import { COLORS } from '@/theme/colors';
+import { Dimensions, StyleSheet } from 'react-native'
+import React from 'react'
 import { useTranslation } from 'react-i18next';
 import { useRouter } from 'expo-router';
 import Contact from '@/components/Support/Contact';

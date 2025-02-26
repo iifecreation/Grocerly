@@ -30,5 +30,8 @@ export enum API_ROUTES {
   POST_CONFIRM_TOP_UP = "/payment/topup-confirm",
 
   //contact us
-  CONTACT_US = "/user/contact-us"
+  CONTACT_US = "/user/contact-us",
+
+  // notification  
+  FETCHNOTIFICATION = "/notification"
 }
