@@ -29,6 +29,10 @@
       "title": "Unable to send request",
       "desc": "Invalid data"
     },
+    "review": {
+      "title": "Product review added",
+      "desc": "You have successful have a review"
+    },
     "Contact": {
       "error": {
         "name": "Full name is required",
@@ -183,7 +187,15 @@
       "save-title-desc": "Compare to market price",
       "tag-Description": "Description",
       "tag-Nutritional": "Nutritional Information",
-      "tag-Reviews": "Reviews"
+      "tag-Reviews": "Reviews",
+      "Reviews": {
+        "rate": "Rate this item:",
+        "Name": "Name",
+        "write": "Write your review",
+        "date": "Reviewed on",
+        "title": "Customer Reviews",
+        "total": "nationwide reviews"
+      }
     },
     "cart": {
       "title": "My Cart",

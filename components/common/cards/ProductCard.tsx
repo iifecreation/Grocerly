@@ -29,7 +29,7 @@ const ProductCard = ({item}: {item: any}) => {
             // If not in cart, add it
             const updatedCart = [...cart, { ...item, count: 1, totalPrice: item.price }];
 
-            // Save the updated cart to AsyncStorage
+            // Save the updated cart to Storage
             await saveCart(updatedCart);
             Toast.show({
                 type: 'success',

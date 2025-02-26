@@ -9,9 +9,11 @@ export enum API_ROUTES {
   FETCH_ORDER = '/order/user',
   ORDER = '/order',
 
+  // product
   FETCH_CATEGORY= "/product/categories",
   FETCH_PRODUCT = "/product/admin",
   FETCH_PRODUCT_BY_CATEGORY = "/product/product-by-category",
+  SENDREVIEWS = "/product/review",
 
   // address
   FETCH_ADDRESS= "/address",

@@ -1,4 +1,4 @@
-import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { ActivityIndicator, Alert, FlatList, Image, KeyboardAvoidingView, Platform, Share, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useMemo, useRef, useState } from 'react'
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import ScreenWrapper from '@/components/ScreenWrapper';
@@ -27,6 +27,8 @@ import AddtoCart from '@/components/product-details/AddtoCart';
 import CartPopup from '@/components/product-details/CartPopup';
 import { getCart, saveCart } from '@/lib/cart';
 import { useTranslation } from 'react-i18next';
+import CartToast from '@/components/common/toasts/CartToast';
+import { APP_ROUTES } from '@/contants/app-routes';
 
 const ProductDetail = () => {
   const {t} = useTranslation();
@@ -36,6 +38,7 @@ const ProductDetail = () => {
   const [isVisible, setIsVisible] = useState(false);
   const bottomSheetRef = useRef<BottomSheet>(null);
   const [modalVisible, setModalVisible] = useState<boolean>(false);
+  const router = useRouter()
 
   const {
     isLoading,
@@ -53,9 +56,7 @@ const ProductDetail = () => {
   // Function to handle button click and show bottom sheet
   const showBottomSheet = () => setIsVisible(true);
   const response = useMemo(() => data?.data, [data]);
-
   const product = response?.product
-  
 
   const addToCart = async () => {
     const cart = await getCart();
@@ -69,108 +70,143 @@ const ProductDetail = () => {
       // If not in cart, add it
       const updatedCart = [...cart, { ...product, count: 1, totalPrice: product.price }];
 
-      // Save the updated cart to AsyncStorage
-      await saveCart(updatedCart);  
+      // Save the updated cart to Storage
+      saveCart(updatedCart);  
     }
     showBottomSheet()
     bottomSheetRef.current?.expand();  
   }
 
+  const onShare = async () => {
+    try {
+      const result = await Share.share({
+        message: `${product?.name} \n \n 
+Buy item now at Grocerly app \n \n
+${product?.description} \n \n 
+          ${product?.image?.url}
+        `,
+        title : product?.name,
+        url: product?.image?.url
+      });
+
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error: any) {
+      Alert.alert(error.message);
+    }
+  };
+
   return (
     <ScreenWrapper background={COLORS.light.primary}>
-      {isLoading || isFetching ? <FullPageLoader /> :(
-        <View className='flex-1'>
+      <View className='flex-1'>
         <View className="flex-1 bg-white">
           <ArchBorder>
             <MainPageHeader name={t('product.product-details.title')} />
           </ArchBorder>
 
-          <ScrollView style={styles.headerDesc} className='pb-8'>
-            <View className='mb-10'>
-              <Image source={{uri: product?.image?.url}} className='w-full h-[250] rounded-lg object-cover' /> 
-            </View>
-
-            <View className='flex flex-row items-center mb-2'>
-              <Text className='font-bold text-base'>{t('product.product-details.category')}: </Text>
-              <Text className='capitalize text-base'>{product?.productLabel}</Text>
-            </View>
-
-            <Text className='font-bold text-3xl capitalize mb-3'>{product?.name}</Text>
-            <Text style={commonStyles.color} className='font-bold text-2xl uppercase mb-4'>$ {product?.price}.00</Text>
-            
-            <View className='flex flex-row items-center mb-6'>
-              <View style={[styles.circle, {backgroundColor: "#EDFEDC"}]} className='mr-3'>
-                <Ionicons name="checkmark-done-circle-outline" size={24} color="#2F5B03" />
+          {isLoading || isFetching ? <ActivityIndicator size={'large'} /> :(
+            <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            style={{flex: 1}}
+          >
+            <ScrollView style={styles.headerDesc} className='pb-8' contentContainerStyle={{flexGrow: 1}}
+              showsVerticalScrollIndicator={false}
+              keyboardShouldPersistTaps="handled"
+            >
+              <View className='mb-10'>
+                <Image source={{uri: product?.image?.url}} className='w-full h-[250] rounded-lg object-cover' /> 
               </View>
-              <View className='flex flex-row items-center'>
-                <Text className='text-lg font-medium'>{t('product.product-details.Availability')}: </Text>
-                <Text style={styles.color} className='font-bold capitalize mt-1'>{product?.inventory?.available >= 1 ? "Instore" : "Out of stock" }</Text>
-              </View>
-            </View>
 
-            <View className='mb-6'>
-              <View className='flex flex-row items-center gap-3'>
-                <View style={[styles.circle, {backgroundColor: "#FFEFDD"}]}>
-                  <Fontisto name="flash" size={24} color="#FA8707" />
+              <View className='flex flex-row items-center mb-2'>
+                <Text className='font-bold text-base'>{t('product.product-details.category')}: </Text>
+                <Text className='capitalize text-base'>{product?.productLabel}</Text>
+              </View>
+
+              <Text className='font-bold text-3xl capitalize mb-3'>{product?.name}</Text>
+              <Text style={commonStyles.color} className='font-bold text-2xl uppercase mb-4'>$ {product?.price}.00</Text>
+              
+              <View className='flex flex-row items-center mb-6'>
+                <View style={[styles.circle, {backgroundColor: "#EDFEDC"}]} className='mr-3'>
+                  <Ionicons name="checkmark-done-circle-outline" size={24} color="#2F5B03" />
                 </View>
-
-                <Text className='text-lg font-medium'>{t('product.product-details.Delivery')}</Text>
-              </View>
-              <Text className='ms-12 font-bold text-base' style={commonStyles.color}>{product?.deliveryTimeFrame?.minDays} - {product?.deliveryTimeFrame?.maxDays} {t('product.product-details.time')}</Text>
-            </View>
-
-            <View className='flex flex-row items-center gap-3 mb-6'>
-              <View style={[styles.circle, {backgroundColor: "#FFEDEF"}]}>
-                <EvilIcons name="location" size={24} color="#EE3248" />
-              </View>
-              <Text className='text-lg font-medium'>{t('product.product-details.Provinces')}</Text>
-            </View>
-
-            <View className='flex flex-row justify-between items-center py-6 px-6 mb-4 w-full' style={{backgroundColor: "#F15A2233"}}>
-              <View className='bg-white p-3'>
-                <Setting color={COLORS.light.primary} />
-              </View>
-
-              <View className='w-3/5'>
-                <Text className='font-bold mb-1 text-lg'>{t('product.product-details.Save')}</Text>
-                <Text className='text-gray-600'>{t('product.product-details.save-desc')}</Text>
-                <View className='flex flex-row gap-2 mt-3 items-center' >
-                  <Tags />
-                  <Text style={commonStyles.color} className='font-medium'>{t('product.product-details.save-title-desc')}</Text>
+                <View className='flex flex-row items-center'>
+                  <Text className='text-lg font-medium'>{t('product.product-details.Availability')}: </Text>
+                  <Text style={styles.color} className='font-bold capitalize mt-1'>{product?.inventory?.available >= 1 ? "Instore" : "Out of stock" }</Text>
                 </View>
               </View>
 
-              <View>
-                <GreaterThan />
+              <View className='mb-6'>
+                <View className='flex flex-row items-center gap-3'>
+                  <View style={[styles.circle, {backgroundColor: "#FFEFDD"}]}>
+                    <Fontisto name="flash" size={24} color="#FA8707" />
+                  </View>
+
+                  <Text className='text-lg font-medium'>{t('product.product-details.Delivery')}</Text>
+                </View>
+                <Text className='ms-12 font-bold text-base' style={commonStyles.color}>{product?.deliveryTimeFrame?.minDays} - {product?.deliveryTimeFrame?.maxDays} {t('product.product-details.time')}</Text>
               </View>
-            </View>
 
-            <View className='mb-8'>
-              <ProductDetailsTab
-                tabs={tabs}
-                activeTab={activeTab}
-                setActiveTab={setActiveTab}
-              />
-              <DisplayTabContent activeTab={activeTab} item={product} />
-            </View> 
+              <View className='flex flex-row items-center gap-3 mb-6'>
+                <View style={[styles.circle, {backgroundColor: "#FFEDEF"}]}>
+                  <EvilIcons name="location" size={24} color="#EE3248" />
+                </View>
+                <Text className='text-lg font-medium'>{t('product.product-details.Provinces')}</Text>
+              </View>
 
-            <View className='mb-20 flex flex-row justify-between items-center'>
-              <TouchableOpacity className='flex flex-row items-center gap-3 rounded-full justify-center py-3' style={{backgroundColor: COLORS.light.primary, width: "45%"}} onPress={addToCart}>
-                <Ionicons
-                  name="cart-outline"
-                  size={24}
-                  color="#fff"
+              <View className='flex flex-row justify-between items-center py-6 px-6 mb-4 w-full' style={{backgroundColor: "#F15A221A"}}>
+                <View className='bg-white p-3'>
+                  <Setting color={COLORS.light.primary} />
+                </View>
+
+                <View className='w-3/5'>
+                  <Text className='font-bold mb-1 text-lg'>{t('product.product-details.Save')}</Text>
+                  <Text className='text-gray-600'>{t('product.product-details.save-desc')}</Text>
+                  <View className='flex flex-row gap-2 mt-3 items-center' >
+                    <Tags />
+                    <Text style={commonStyles.color} className='font-medium'>{t('product.product-details.save-title-desc')}</Text>
+                  </View>
+                </View>
+
+                <TouchableOpacity onPress={() => router.push(APP_ROUTES.FINANCE)}>
+                  <GreaterThan />
+                </TouchableOpacity>
+              </View>
+
+              <View className='mb-8'>
+                <ProductDetailsTab
+                  tabs={tabs}
+                  activeTab={activeTab}
+                  setActiveTab={setActiveTab}
                 />
-                <Text className='text-white font-bold'>{t('button.cart')}</Text>
-              </TouchableOpacity>
+                <DisplayTabContent activeTab={activeTab} item={product} />
+              </View> 
 
-              <TouchableOpacity className='flex flex-row items-center gap-3 rounded-full justify-center py-3 border border-gray-500' style={{width: "45%"}}>
-                <Text className='text-gray-500 font-bold'>{t('button.share')}</Text>
-                <Entypo name="share" size={24} color="#222222" />
-              </TouchableOpacity>
+              <View className='mb-20 flex flex-row justify-between items-center'>
+                <TouchableOpacity className='flex flex-row items-center gap-3 rounded-full justify-center py-3' style={{backgroundColor: COLORS.light.primary, width: "45%"}} onPress={addToCart}>
+                  <Ionicons
+                    name="cart-outline"
+                    size={24}
+                    color="#fff"
+                  />
+                  <Text className='text-white font-bold'>{t('button.cart')}</Text>
+                </TouchableOpacity>
 
-            </View>
-          </ScrollView>
+                <TouchableOpacity className='flex flex-row items-center gap-3 rounded-full justify-center py-3 border border-gray-500' style={{width: "45%"}} onPress={onShare}>
+                  <Text className='text-gray-500 font-bold'>{t('button.share')}</Text>
+                  <Entypo name="share" size={24} color="#222222" />
+                </TouchableOpacity>
+
+              </View>
+            </ScrollView>
+          </KeyboardAvoidingView>
+          )}
         </View>
 
         {isVisible &&
@@ -185,9 +221,9 @@ const ProductDetail = () => {
         <View>
           <CartPopup modalVisible={modalVisible} setModalVisible={setModalVisible} />
         </View>
-      </View>
 
-      )}
+        <CartToast />
+      </View>
     </ScreenWrapper>
   )
 }
