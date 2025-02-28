@@ -92,7 +92,12 @@ const Account = () => {
             )}
           />
 
-          <TouchableOpacity className='flex-row items-center gap-3' onPress={() => logOut()}>
+          <TouchableOpacity className='flex-row items-center gap-3' 
+            onPress={() => {
+              logOut()
+              router.push(APP_ROUTES.LOGIN)
+            }}
+          >
             <View className='rounded-full items-center justify-center w-[40] h-[40]' style={{backgroundColor: "#E00000"}}>
               <MaterialIcons name="logout" size={20} color="#ffffff" />
             </View>

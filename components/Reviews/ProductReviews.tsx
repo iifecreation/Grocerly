@@ -33,9 +33,7 @@ const ProductReviews = ({item}: {item: any}) => {
     });
 
     const reviewsData = useMemo(() => response?.data, [response]);
-    console.log(reviewsData);
-    
-    
+
     const reviewsHandler = async (data: any) => {
     try {
         const payload = {

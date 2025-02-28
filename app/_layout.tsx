@@ -25,7 +25,8 @@ import {
   Montserrat_800ExtraBold,
   Montserrat_900Black,
 } from "@expo-google-fonts/montserrat";
-
+import { StripeProvider } from "@stripe/stripe-react-native";
+import Constants from "expo-constants";
 
 LogBox.ignoreAllLogs(true);
 const queryClient = new QueryClient();
@@ -54,24 +55,33 @@ const Layout = () => {
     }
   }, [fontsLoaded]);
 
+  const merchantId = Constants.expoConfig?.plugins?.find(
+    (p) => p[0] === "@stripe/stripe-react-native"
+  )?.[1].merchantIdentifier;
+
   return (
     <>
-      <GestureHandlerRootView>
-        <I18nextProvider i18n={i18n}>
-          <NavThemeProvider value={NAV_THEME[colorScheme]}>
-            <FlashMessage position="top" duration={5000} hideStatusBar />
-            <SafeAreaProvider style={{}}>
-              <QueryClientProvider client={queryClient}>
-                <Stack
-                  screenOptions={{
-                    headerShown: false,
-                  }}
-                />
-              </QueryClientProvider>
-            </SafeAreaProvider>
-          </NavThemeProvider>
-        </I18nextProvider>
-      </GestureHandlerRootView>
+      <StripeProvider 
+        publishableKey={process.env.EXPO_PUBLIC_STRIPE_PUBLISHABLE_KEY!}
+        merchantIdentifier={merchantId}
+      >
+        <GestureHandlerRootView>
+          <I18nextProvider i18n={i18n}>
+            <NavThemeProvider value={NAV_THEME[colorScheme]}>
+              <FlashMessage position="top" duration={5000} hideStatusBar />
+              <SafeAreaProvider style={{}}>
+                <QueryClientProvider client={queryClient}>
+                  <Stack
+                    screenOptions={{
+                      headerShown: false,
+                    }}
+                  />
+                </QueryClientProvider>
+              </SafeAreaProvider>
+            </NavThemeProvider>
+          </I18nextProvider>
+        </GestureHandlerRootView>
+      </StripeProvider>
     </>
   );
 };

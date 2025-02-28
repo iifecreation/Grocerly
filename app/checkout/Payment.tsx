@@ -7,10 +7,13 @@ import MainPageHeader from '@/components/MainPageHeader';
 import { useTranslation } from 'react-i18next';
 import { SAFE_AREA_PADDING } from '@/utils/utils';
 import GreaterThan from "@/components/icons/greaterThan";
+import { useStripe } from '@stripe/stripe-react-native';
+
 
 const Payment = () => {
     const {t} = useTranslation();
     const listRef = useRef(null);
+    const { initPaymentSheet, presentPaymentSheet } = useStripe();
     
     const paymentDetails= [
         {
@@ -64,7 +67,7 @@ const Payment = () => {
                     contentContainerStyle={{rowGap: 20}}
                     style={{marginBottom: 50}}
                     renderItem={(item: any) => (
-                        <TouchableOpacity className='flex-row items-center justify-between rounded-xl bg-gray-200 py-4 px-3'>
+                        <TouchableOpacity className='flex-row items-center justify-between rounded-xl bg-gray-200 py-4 px-3' >
                             <View className='flex-row items-center gap-3'>
                                 <Image source={item?.item?.image} style={{width: 50, height: 50, objectFit: "contain"}} />
 

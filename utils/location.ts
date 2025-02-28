@@ -17,6 +17,7 @@ export const getUserLocation = async () => {
       latitude: coords.latitude,
       longitude: coords.longitude,
     });
+    
 
     if (geoInfo.length > 0) {
       const { region, country } = geoInfo[0]; // region is typically the state

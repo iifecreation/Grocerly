@@ -59,6 +59,8 @@ const index = () => {
     queryFn: async () => {
       return await axiosInstance.get(API_ROUTES.FETCH_PRODUCT);
     },
+    refetchOnMount: true,
+    refetchOnWindowFocus: "always"
   });
   
   const orderList = useMemo(() => data?.data, [data]);
@@ -87,7 +89,7 @@ const index = () => {
             isLoading || isFetching ? 
             (<ActivityIndicator size={'large'} />)
             :
-            error 
+            error || isError
             ?
             (
               <Text className='mt-5 mb-8 text-center'>{t("form.network.title")}</Text>

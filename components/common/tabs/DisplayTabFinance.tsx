@@ -135,7 +135,7 @@ const DisplayTabFinance = ({activeTab, }: {activeTab: string,}) => {
               </TouchableOpacity>
 
               <Text className='text-center font-bold text-base'>{t("Finance.mySaving.selectReportDate")}</Text>
-              <CalendarComp setSelectedDate={setSelectedDate} maxDateValue={formattedToday} minDateValue='' />
+              <CalendarComp setSelectedDate={setSelectedDate} selectedDate={selectedDate} maxDateValue={formattedToday} minDateValue='' />
 
               <CustomButton navigateProps={handleGenerate} textProps={t("button.Generate")}>
                 <AntDesign name="plussquare" size={24} color="#ffffff" />

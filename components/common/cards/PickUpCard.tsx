@@ -7,6 +7,7 @@ import EvilIcons from '@expo/vector-icons/EvilIcons';
 import RoundedIcon from '../Button-icon/Rounded-Icon';
 
 interface PickAddress {
+    id:  string
     available: string
     stores: string
     address: string
@@ -19,12 +20,16 @@ interface PickAddress {
 
 interface PickUpCardProps {
     data: PickAddress;
+    selectedOrderAddress: {
+        id: string;
+        data: never[];
+    }
 }
 
-const PickUpCard: React.FC<PickUpCardProps> = ({data}) => {
+const PickUpCard: React.FC<PickUpCardProps> = ({data, selectedOrderAddress}) => {
     
     return (
-    <View style={{backgroundColor: data.background}} className='py-5 px-4 rounded-xl mb-4'>
+    <View style={{backgroundColor: selectedOrderAddress.id == data.id ? "#0000004D" : data.background}} className='py-5 px-4 rounded-xl mb-4'>
         <View className='flex-row items-center justify-between mb-2'>
             <RoundedIcon color={data.iconBackground}>
                 <PickUpIcon />

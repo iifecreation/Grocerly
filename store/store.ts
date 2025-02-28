@@ -34,7 +34,7 @@ type Action = {
           if (!activeToken) {
             // sign out
             removeToken();
-            get().logOut();
+            get().handleSkipOnboarding();
           } else {
             // update login
             get().setToken(activeToken);

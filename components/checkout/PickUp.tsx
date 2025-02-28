@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { Dispatch, SetStateAction, useState } from 'react'
 import { useTranslation } from 'react-i18next';
 import CheckoutDate from '../common/Calendar/CheckoutDate';
@@ -8,24 +8,38 @@ import CustomButton from '../CustomButton';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { useRouter } from 'expo-router';
 import { APP_ROUTES } from '@/contants/app-routes';
+import { interpolate } from 'react-native-reanimated';
+import { saveOrderDetails } from '@/lib/orderDetails';
+import Toast from 'react-native-toast-message';
 
 interface PickTimeType {
-    
+    ampm: string
+    hour: string
+    minute: string
+    setAmpm: Dispatch<SetStateAction<string>>
+    setHour: Dispatch<SetStateAction<string>>
+    setMinute: Dispatch<SetStateAction<string>>
+    setSelectedDate: Dispatch<SetStateAction<string>>
+    selectedDate: string
+    SetSelectedOrderAddress: Dispatch<React.SetStateAction<{
+        id: string;
+        data: never[];
+    }>>,
+    selectedOrderAddress: {
+        id: string;
+        data: never[];
+    },
+    handleCheckout: (type: string) => void
 }
 
 
-const PickUp: React.FC<PickTimeType> = () => {
+const PickUp: React.FC<PickTimeType> = ({ampm, hour, minute, setHour, setMinute, setSelectedDate, selectedDate, setAmpm, SetSelectedOrderAddress, selectedOrderAddress, handleCheckout}) => {
     const {t} = useTranslation();
-    const [selectedDate, setSelectedDate] = useState<string | null>(null);
-    const [hour, setHour] = useState('12');
-    const [minute, setMinute] = useState('00');
-    const [ampm, setAmpm] = useState('AM');
     const router = useRouter()
-    
 
     const PickupOutlet = [
         {
-            id: 1,
+            id: 8978477363,
             available: t("Checkout.Pick_up.card.available"),
             stores: t("Checkout.Pick_up.card.stores"),
             address: t("Checkout.Pick_up.card.address"),
@@ -36,7 +50,7 @@ const PickUp: React.FC<PickTimeType> = () => {
             iconBackground: "#FFEDEF"
         },
         {
-            id: 2,
+            id: 283763627,
             available: t("Checkout.Pick_up.card.available"),
             stores: t("Checkout.Pick_up.card.stores"),
             address: t("Checkout.Pick_up.card.address"),
@@ -48,10 +62,6 @@ const PickUp: React.FC<PickTimeType> = () => {
         },
     ]
 
-    const goToSummary = () => {
-        router.push(APP_ROUTES.CHECKOUTSUMMARY)
-    }
-
   return (
     <View>
         <Text className='text-black font-black text-base mb-1'>{t("Checkout.Pick_up.outlets")}</Text>
@@ -61,9 +71,14 @@ const PickUp: React.FC<PickTimeType> = () => {
             {
                 PickupOutlet.map((item: any) =>{
                     return (
-                       <View className='mt-4'>
-                         <PickUpCard key={item.id} data={item} />
-                        </View>
+                       <TouchableOpacity className='mt-4' onPress={() => {
+                            SetSelectedOrderAddress((prev) => ({
+                                id: item.id,
+                                data: item
+                            }))
+                       }}>
+                         <PickUpCard key={item.id} data={item} selectedOrderAddress={selectedOrderAddress} />
+                        </TouchableOpacity>
                     )
                 })
             }
@@ -73,7 +88,7 @@ const PickUp: React.FC<PickTimeType> = () => {
 
         <CheckoutTime ampm={ampm} hour={hour} minute={minute} setAmpm={setAmpm} setHour={setHour} setMinute={setMinute}  />
 
-        <CustomButton navigateProps={goToSummary} textProps={t("button.Payment")}>
+        <CustomButton navigateProps={() => handleCheckout("Pickup Address")} textProps={t("button.Payment")}>
             <MaterialIcons name="shopping-cart-checkout" size={24} color="#ffffff" />
         </CustomButton>
 

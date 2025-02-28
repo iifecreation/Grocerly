@@ -69,7 +69,7 @@ const Order = () => {
                             uri: item?.items[0]?.product?.image?.url,
                           }}
                         />
-                        <View className="gap-y-2 ">
+                        <View className="gap-y-2 flex-1">
                           <View className="flex flex-row jitems-center gap-x-2">
                             <Ionicons
                               name="location-outline"

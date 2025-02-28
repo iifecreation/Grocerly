@@ -47,6 +47,17 @@
         "title": "Success! Your form has been submitted.",
         "desc": "Thank you for getting in touch! We appreciate you contacting us."
       }
+    },
+    "product": {
+      "error": {
+        "title": "Select order detail",
+        "pickup": "Select pickup address",
+        "delivery": "Select delivery address",
+        "date": "Select pickup date",
+        "time": "Select pickup time",
+        "time2": "Hours must not be greater than 12",
+        "time3": "Minutes must not be greater than 60"
+      }
     }
   },
   "buttons": {
@@ -141,7 +152,8 @@
     "headerTitle": "You've got a new notification waiting for you, never miss important updates."
   },
   "search": {
-    "placeholder" : "Search for Products"
+    "placeholder" : "Search for Products",
+    "title": "Search"
   },
   "Tab": {
     "Home": "Home",
@@ -300,11 +312,7 @@
       "Delivery_Time": "Delivery Time Slot",
       "Delivery_Time_desc": "Due to high demand, you can choose the pick-up time to 9 AM to 7 PM: ",
       "Time": "Time",
-      "card": {
-        "available": "Available in 25 Minutes",
-        "stores": "Iphoh District",
-        "address": "Delivery address address, street, district, town"
-      },
+      "available": "Available in 25 Minutes",
       "Setup_Delivery": {
         "title": "No Delivery Address",
         "desc": "Please setup your delivery address to help us serve you better."

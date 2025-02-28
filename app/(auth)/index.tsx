@@ -35,7 +35,7 @@ import ForgotPassword from '@/components/section/ForgotPassword';
 import OTPVerification from '@/components/section/OTPVerification';
 import ProceedToLogin from '@/components/section/ProceedToLogin';
 import SetPassword from '@/components/section/SetPassword';
-import {Link} from 'expo-router';
+import {Link, router} from 'expo-router';
 import {APP_ROUTES} from '@/contants/app-routes';
 import AuthWrapper from '@/components/AuthWrapper';
 
@@ -99,6 +99,7 @@ const Login = () => {
         const token = response?.data?.token;
         updateUserData(response?.data?.user)
         updateToken(token);
+        router.push(APP_ROUTES.HOME2)
       } catch (error: any) {
         console.log('🚀 ~ mutationFn: ~ error:', error);
         showMessage({

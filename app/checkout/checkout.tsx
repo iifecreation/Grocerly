@@ -1,4 +1,4 @@
-import { Animated, Dimensions, Image, LayoutChangeEvent, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Animated, Dimensions, LayoutChangeEvent, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React, { useRef, useState } from 'react'
 import ScreenWrapper from '@/components/ScreenWrapper';
 import ArchBorder from '@/components/ArchBorder';
@@ -9,11 +9,13 @@ import { SAFE_AREA_PADDING } from '@/utils/utils';
 import CheckoutTab from '@/components/common/tabs/CheckoutTab';
 import PickUp from '@/components/checkout/PickUp';
 import Delivery from '@/components/checkout/Delivery';
-import { useRouter } from 'expo-router';
+import CartToast from '@/components/common/toasts/CartToast';
+import Toast from 'react-native-toast-message';
+import { saveOrderDetails } from '@/lib/orderDetails';
 import { APP_ROUTES } from '@/contants/app-routes';
-import NoAddressIcon from "@/components/icons/no_address"
-import CustomButton from '@/components/CustomButton';
-import Ionicons from '@expo/vector-icons/Ionicons';
+import { useRouter } from 'expo-router';
+import { KeyboardAvoidingView } from 'react-native';
+import { Platform } from 'react-native';
 
 const { width } = Dimensions.get("window");
 
@@ -23,19 +25,25 @@ const CheckOut = () => {
   const [xTabOne, setXTabOne] = useState(0);
   const [xTabTwo, setXTabTwo] = useState(0);
   const [translateY, setTranslateY] = useState(0);
-  const [getAddress, setGetAddress] = useState([])
+  const [selectedOrderAddress, SetSelectedOrderAddress] = useState({
+    id: "",
+    data: []
+  });
   const router = useRouter()
+  const [selectedDate, setSelectedDate] = useState<string>("");
+  const [hour, setHour] = useState('00');
+  const [minute, setMinute] = useState('00');
+  const [ampm, setAmpm] = useState('AM');
 
   // Animated values using useRef to persist values across renders
   const translateX = useRef<Animated.Value>(new Animated.Value(0)).current;
-  const translateXTabOne = useRef<Animated.Value>(new Animated.Value(0)).current;
-  const translateXTabTwo = useRef<Animated.Value>(new Animated.Value(width)).current;
+  const translateXTabOne = useRef<Animated.Value>(new Animated.Value(width)).current;
+  const translateXTabTwo = useRef<Animated.Value>(new Animated.Value(0)).current;
 
   // Slide animation handler
   const handleSlide = (type: number) => {
       Animated.spring(translateX, {
         toValue: type,
-        duration: 100,
         useNativeDriver: true,
       }).start();
 
@@ -43,12 +51,10 @@ const CheckOut = () => {
         Animated.parallel([
           Animated.spring(translateXTabOne, {
               toValue: 0,
-              duration: 100,
               useNativeDriver: true,
           }).start(),
           Animated.spring(translateXTabTwo, {
               toValue: width,
-              duration: 100,
               useNativeDriver: true,
           }).start()
         ]);
@@ -56,12 +62,10 @@ const CheckOut = () => {
           Animated.parallel([
               Animated.spring(translateXTabOne, {
                   toValue: -width,
-                  duration: 100,
                   useNativeDriver: true,
               }).start(),
               Animated.spring(translateXTabTwo, {
                   toValue: 0,
-                  duration: 100,
                   useNativeDriver: true,
               }).start()
           ]);
@@ -78,8 +82,58 @@ const CheckOut = () => {
     }
   };
 
-  const setUpAddress = () => {
-    router.push(APP_ROUTES.ADDRESS)
+  const goToSummary = (type: string) => {
+    
+    const CheckOutDetails = {
+      type: type,
+      time: {
+        hour,
+        minute,
+        ampm
+      },
+      date: selectedDate,
+      address: selectedOrderAddress.data
+    }
+
+    if(hour == "00" || !minute){
+      Toast.show({
+        type: 'error',
+        text1: t("form.product.error.title"),
+        text2: t("form.product.error.time")
+      });
+    }
+    else if(Number(hour) > 12){
+      Toast.show({
+        type: 'error',
+        text1: t("form.product.error.title"),
+        text2: t("form.product.error.time2")
+      });
+    }
+    else if(Number(minute) > 60){
+      Toast.show({
+        type: 'error',
+        text1: t("form.product.error.title"),
+        text2: t("form.product.error.time3")
+      });
+    }
+    else if(selectedOrderAddress.data.length == 0){
+      Toast.show({
+        type: 'error',
+        text1: t("form.product.error.title"),
+        text2: t("form.product.error.pickup")
+      });
+    }
+    else if(!selectedDate){
+      Toast.show({
+        type: 'error',
+        text1: t("form.product.error.title"),
+        text2: t("form.product.error.date")
+      });
+    }
+    else{
+      saveOrderDetails(CheckOutDetails)
+      router.push(APP_ROUTES.CHECKOUTSUMMARY)
+    }
   }
 
   return (
@@ -89,29 +143,39 @@ const CheckOut = () => {
           <MainPageHeader name={t('Checkout.title')} />
         </ArchBorder>
 
-        <ScrollView style={styles.headerDesc} showsVerticalScrollIndicator={false}>
-          <View>
-            <Text className='font-black text-base'>{t("Checkout.sub-title")}</Text>
-            <Text className='font-medium text-sm'>{t("Checkout.desc")}</Text>
-          </View>
+        <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{flex: 1}}
+        >
+          <ScrollView style={styles.headerDesc} showsVerticalScrollIndicator={false}>
+            <View>
+              <Text className='font-black text-base'>{t("Checkout.sub-title")}</Text>
+              <Text className='font-medium text-sm'>{t("Checkout.desc")}</Text>
+            </View>
 
-          <View style={{ width: "100%", marginLeft: "auto", marginRight: "auto" }}>
-            
-            <CheckoutTab handleLayout={handleLayout} setActive={setActive} active={active} handleSlide={handleSlide} xTabOne={xTabOne} xTabTwo={xTabTwo} translateX={translateX} />
+            <View style={{ width: "100%", marginLeft: "auto", marginRight: "auto" }}>
+              
+              <CheckoutTab handleLayout={handleLayout} setActive={setActive} active={active} handleSlide={handleSlide} xTabOne={xTabOne} xTabTwo={xTabTwo} translateX={translateX} />
 
-            <View >
-              <Animated.View
+              <View >
+                <Animated.View
                   style={{
                       transform: [{ translateX: translateXTabOne }]
                   }}
                   onLayout={(event) => setTranslateY(event.nativeEvent.layout.height)}
-              >
-                <PickUp />
-              </Animated.View>
-            </View>
+                >
+                {active == 1 ? 
+                  (<PickUp ampm={ampm} hour={hour} minute={minute} setHour={setHour} setMinute={setMinute} setSelectedDate={setSelectedDate} selectedDate={selectedDate} setAmpm={setAmpm} SetSelectedOrderAddress={SetSelectedOrderAddress} selectedOrderAddress={selectedOrderAddress} handleCheckout={goToSummary}/>)
+                : 
+                (
+                  <></>
+                )
+                  }
+                </Animated.View>
+              </View>
 
-            <View>
-              <Animated.View
+              <View>
+                <Animated.View
                 style={{
                   transform: [
                     { translateX: translateXTabTwo },
@@ -119,28 +183,22 @@ const CheckOut = () => {
                   ],
                 }}
                 >
-                
-                {
-                  getAddress?.length === 0 ? (
-                    <View className='flex-1 items-center justify-center mt-7'>
-                      <NoAddressIcon />
-                      <Text className='text-base text-center font-bold mt-5'>{t("Checkout.Delivery.Setup_Delivery.title")}</Text>
-                      <Text className='text-base text-center font-normal mt-2'>{t("Checkout.Delivery.Setup_Delivery.desc")}</Text>
-
-                      <CustomButton navigateProps={setUpAddress} textProps={t("button.Setup_Address")}>
-                        <Ionicons name="location-outline" size={24} color="#ffffff" />
-                      </CustomButton>
-                    </View>
-                  )
-                  : (
-                    <Delivery />
-                  )
-                }
-              </Animated.View>
+                  {active == 0 ? 
+                    (
+                      <Delivery ampm={ampm} hour={hour} minute={minute} setHour={setHour} setMinute={setMinute} setSelectedDate={setSelectedDate} selectedDate={selectedDate} setAmpm={setAmpm} SetSelectedOrderAddress={SetSelectedOrderAddress} selectedOrderAddress={selectedOrderAddress} handleCheckout={goToSummary}/>
+                    )
+                    : 
+                    (
+                      <></>
+                    )
+                  }
+                </Animated.View>
+              </View>
             </View>
-          </View>
 
-        </ScrollView>
+          </ScrollView>
+        </KeyboardAvoidingView>
+        <CartToast />
       </View>
     </ScreenWrapper>
   );

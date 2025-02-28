@@ -3,8 +3,8 @@ import React, { Dispatch } from 'react'
 import { Calendar } from 'react-native-calendars';
 import { COLORS } from '@/theme/colors';
 
-const CalendarComp = ({setSelectedDate, minDateValue, maxDateValue}: 
-  {setSelectedDate: Dispatch<React.SetStateAction<string>>, minDateValue: string,  maxDateValue: string}) => {
+const CalendarComp = ({setSelectedDate, minDateValue, maxDateValue, selectedDate}: 
+  {setSelectedDate: Dispatch<React.SetStateAction<string>>, minDateValue: string,  maxDateValue: string, selectedDate: string}) => {
   return (
     <Calendar
       onDayPress={(day: any) => {
@@ -12,6 +12,9 @@ const CalendarComp = ({setSelectedDate, minDateValue, maxDateValue}:
         console.log(selectedDate);
         
         setSelectedDate(selectedDate);
+      }}
+      markedDates={{
+        [selectedDate]: {selected: true, disableTouchEvent: true, selectedDotColor: 'orange'}
       }}
       theme={{
         backgroundColor: '#ffffff',

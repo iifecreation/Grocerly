@@ -7,7 +7,7 @@ import CalendarComp from './CalendarComp';
 interface PickDate {
   title: string
   desc: string
-  selectedDate: string | null
+  selectedDate: string
   setSelectedDate: Dispatch<SetStateAction<string>>
 };
 
@@ -25,7 +25,7 @@ const CheckoutDate: React.FC<PickDate> = ({title, desc, selectedDate, setSelecte
         <Text className='text-gray-500 font-medium text-sm'>{desc}</Text>
       </View>
 
-      <CalendarComp setSelectedDate={setSelectedDate} maxDateValue='' minDateValue={formattedToday} />
+      <CalendarComp setSelectedDate={setSelectedDate} selectedDate={selectedDate} maxDateValue='' minDateValue={formattedToday} />
 
     </View>
   )

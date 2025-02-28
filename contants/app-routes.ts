@@ -1,5 +1,6 @@
 export enum APP_ROUTES {
   HOME = 'index',
+  HOME2 = "/(main)",
   LOGIN = '/(auth)',
   CREATE_ACCOUNT = '/(auth)/signup',
   SET_PASSWORD = '/(auth)/password',

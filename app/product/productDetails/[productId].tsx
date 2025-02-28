@@ -111,101 +111,109 @@ ${product?.description} \n \n
             <MainPageHeader name={t('product.product-details.title')} />
           </ArchBorder>
 
-          {isLoading || isFetching ? <ActivityIndicator size={'large'} /> :(
+          {isLoading || isFetching ? <ActivityIndicator size={'large'} /> 
+          :
+            error || isError
+          ?
+          (
+            <Text className='mt-5 mb-8 text-center'>{t("form.network.title")}</Text>
+          )
+          :
+          (
             <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            style={{flex: 1}}
-          >
-            <ScrollView style={styles.headerDesc} className='pb-8' contentContainerStyle={{flexGrow: 1}}
-              showsVerticalScrollIndicator={false}
-              keyboardShouldPersistTaps="handled"
+              behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+              style={{flex: 1}}
             >
-              <View className='mb-10'>
-                <Image source={{uri: product?.image?.url}} className='w-full h-[250] rounded-lg object-cover' /> 
-              </View>
-
-              <View className='flex flex-row items-center mb-2'>
-                <Text className='font-bold text-base'>{t('product.product-details.category')}: </Text>
-                <Text className='capitalize text-base'>{product?.productLabel}</Text>
-              </View>
-
-              <Text className='font-bold text-3xl capitalize mb-3'>{product?.name}</Text>
-              <Text style={commonStyles.color} className='font-bold text-2xl uppercase mb-4'>$ {product?.price}.00</Text>
-              
-              <View className='flex flex-row items-center mb-6'>
-                <View style={[styles.circle, {backgroundColor: "#EDFEDC"}]} className='mr-3'>
-                  <Ionicons name="checkmark-done-circle-outline" size={24} color="#2F5B03" />
+              <ScrollView style={styles.headerDesc} className='pb-8' contentContainerStyle={{flexGrow: 1}}
+                showsVerticalScrollIndicator={false}
+                keyboardShouldPersistTaps="handled"
+              >
+                <View className='mb-10'>
+                  <Image source={{uri: product?.image?.url}} className='w-full h-[250] rounded-lg object-cover' /> 
                 </View>
-                <View className='flex flex-row items-center'>
-                  <Text className='text-lg font-medium'>{t('product.product-details.Availability')}: </Text>
-                  <Text style={styles.color} className='font-bold capitalize mt-1'>{product?.inventory?.available >= 1 ? "Instore" : "Out of stock" }</Text>
-                </View>
-              </View>
 
-              <View className='mb-6'>
-                <View className='flex flex-row items-center gap-3'>
-                  <View style={[styles.circle, {backgroundColor: "#FFEFDD"}]}>
-                    <Fontisto name="flash" size={24} color="#FA8707" />
+                <View className='flex flex-row items-center mb-2'>
+                  <Text className='font-bold text-base'>{t('product.product-details.category')}: </Text>
+                  <Text className='capitalize text-base'>{product?.productLabel}</Text>
+                </View>
+
+                <Text className='font-bold text-3xl capitalize mb-3'>{product?.name}</Text>
+                <Text style={commonStyles.color} className='font-bold text-2xl uppercase mb-4'>$ {product?.price}.00</Text>
+                
+                <View className='flex flex-row items-center mb-6'>
+                  <View style={[styles.circle, {backgroundColor: "#EDFEDC"}]} className='mr-3'>
+                    <Ionicons name="checkmark-done-circle-outline" size={24} color="#2F5B03" />
                   </View>
-
-                  <Text className='text-lg font-medium'>{t('product.product-details.Delivery')}</Text>
-                </View>
-                <Text className='ms-12 font-bold text-base' style={commonStyles.color}>{product?.deliveryTimeFrame?.minDays} - {product?.deliveryTimeFrame?.maxDays} {t('product.product-details.time')}</Text>
-              </View>
-
-              <View className='flex flex-row items-center gap-3 mb-6'>
-                <View style={[styles.circle, {backgroundColor: "#FFEDEF"}]}>
-                  <EvilIcons name="location" size={24} color="#EE3248" />
-                </View>
-                <Text className='text-lg font-medium'>{t('product.product-details.Provinces')}</Text>
-              </View>
-
-              <View className='flex flex-row justify-between items-center py-6 px-6 mb-4 w-full' style={{backgroundColor: "#F15A221A"}}>
-                <View className='bg-white p-3'>
-                  <Setting color={COLORS.light.primary} />
-                </View>
-
-                <View className='w-3/5'>
-                  <Text className='font-bold mb-1 text-lg'>{t('product.product-details.Save')}</Text>
-                  <Text className='text-gray-600'>{t('product.product-details.save-desc')}</Text>
-                  <View className='flex flex-row gap-2 mt-3 items-center' >
-                    <Tags />
-                    <Text style={commonStyles.color} className='font-medium'>{t('product.product-details.save-title-desc')}</Text>
+                  <View className='flex flex-row items-center'>
+                    <Text className='text-lg font-medium'>{t('product.product-details.Availability')}: </Text>
+                    <Text style={styles.color} className='font-bold capitalize mt-1'>{product?.inventory?.available >= 1 ? "Instore" : "Out of stock" }</Text>
                   </View>
                 </View>
 
-                <TouchableOpacity onPress={() => router.push(APP_ROUTES.FINANCE)}>
-                  <GreaterThan />
-                </TouchableOpacity>
-              </View>
+                <View className='mb-6'>
+                  <View className='flex flex-row items-center gap-3'>
+                    <View style={[styles.circle, {backgroundColor: "#FFEFDD"}]}>
+                      <Fontisto name="flash" size={24} color="#FA8707" />
+                    </View>
 
-              <View className='mb-8'>
-                <ProductDetailsTab
-                  tabs={tabs}
-                  activeTab={activeTab}
-                  setActiveTab={setActiveTab}
-                />
-                <DisplayTabContent activeTab={activeTab} item={product} />
-              </View> 
+                    <Text className='text-lg font-medium'>{t('product.product-details.Delivery')}</Text>
+                  </View>
+                  <Text className='ms-12 font-bold text-base' style={commonStyles.color}>{product?.deliveryTimeFrame?.minDays} - {product?.deliveryTimeFrame?.maxDays} {t('product.product-details.time')}</Text>
+                </View>
 
-              <View className='mb-20 flex flex-row justify-between items-center'>
-                <TouchableOpacity className='flex flex-row items-center gap-3 rounded-full justify-center py-3' style={{backgroundColor: COLORS.light.primary, width: "45%"}} onPress={addToCart}>
-                  <Ionicons
-                    name="cart-outline"
-                    size={24}
-                    color="#fff"
+                <View className='flex flex-row items-center gap-3 mb-6'>
+                  <View style={[styles.circle, {backgroundColor: "#FFF0EB"}]}>
+                    <EvilIcons name="location" size={24} color="#F15A22" />
+                  </View>
+                  <Text className='text-lg font-medium'>{t('product.product-details.Provinces')}</Text>
+                </View>
+
+                <View className='flex flex-row justify-between items-center py-6 px-6 mb-4 w-full' style={{backgroundColor: "#F15A221A"}}>
+                  <View className='bg-white p-3'>
+                    <Setting color={COLORS.light.primary} />
+                  </View>
+
+                  <View className='w-3/5'>
+                    <Text className='font-bold mb-1 text-lg'>{t('product.product-details.Save')}</Text>
+                    <Text className='text-gray-600'>{t('product.product-details.save-desc')}</Text>
+                    <View className='flex flex-row gap-2 mt-3 items-center' >
+                      <Tags />
+                      <Text style={commonStyles.color} className='font-medium'>{t('product.product-details.save-title-desc')}</Text>
+                    </View>
+                  </View>
+
+                  <TouchableOpacity onPress={() => router.push(APP_ROUTES.FINANCE)}>
+                    <GreaterThan />
+                  </TouchableOpacity>
+                </View>
+
+                <View className='mb-8'>
+                  <ProductDetailsTab
+                    tabs={tabs}
+                    activeTab={activeTab}
+                    setActiveTab={setActiveTab}
                   />
-                  <Text className='text-white font-bold'>{t('button.cart')}</Text>
-                </TouchableOpacity>
+                  <DisplayTabContent activeTab={activeTab} item={product} />
+                </View> 
 
-                <TouchableOpacity className='flex flex-row items-center gap-3 rounded-full justify-center py-3 border border-gray-500' style={{width: "45%"}} onPress={onShare}>
-                  <Text className='text-gray-500 font-bold'>{t('button.share')}</Text>
-                  <Entypo name="share" size={24} color="#222222" />
-                </TouchableOpacity>
+                <View className='mb-20 flex flex-row justify-between items-center'>
+                  <TouchableOpacity className='flex flex-row items-center gap-3 rounded-full justify-center py-3' style={{backgroundColor: COLORS.light.primary, width: "45%"}} onPress={addToCart}>
+                    <Ionicons
+                      name="cart-outline"
+                      size={24}
+                      color="#fff"
+                    />
+                    <Text className='text-white font-bold'>{t('button.cart')}</Text>
+                  </TouchableOpacity>
 
-              </View>
-            </ScrollView>
-          </KeyboardAvoidingView>
+                  <TouchableOpacity className='flex flex-row items-center gap-3 rounded-full justify-center py-3 border border-gray-500' style={{width: "45%"}} onPress={onShare}>
+                    <Text className='text-gray-500 font-bold'>{t('button.share')}</Text>
+                    <Entypo name="share" size={24} color="#222222" />
+                  </TouchableOpacity>
+
+                </View>
+              </ScrollView>
+            </KeyboardAvoidingView>
           )}
         </View>
 
